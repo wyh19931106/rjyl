@@ -1,0 +1,234 @@
+<style lang="less">
+    .cash {
+        .name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70rpx;
+            font-size: 24rpx;
+            padding: 0 25rpx;
+            color: #333333;
+            margin-top: 10rpx;
+        }
+        .card {
+            display: flex;
+            align-items: center;
+            padding: 20rpx 25rpx;
+            background: #ffffff;
+            .logo {
+                width: 70rpx;
+                height: 70rpx;
+                image {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .inf {
+                margin-left: 20rpx;
+                flex: 1;
+                .tit {
+                    font-size: 30rpx;
+                    color: #333333;
+                }
+                .no {
+                    font-size: 22rpx;
+                    color: #999999;
+                    margin-top: 10rpx;
+                }
+            }
+            .r {
+                width: 15rpx;
+                height: auto;
+            }
+        }
+        .add_card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100rpx;
+            background: #ffffff;
+            padding: 0 25rpx;
+            margin-top: 10rpx;
+            .txt {
+                color: #999999;
+            }
+            image {
+                width: 16rpx;
+                height: auto;
+            }
+        }
+        .balance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80rpx;
+            font-size: 30rpx;
+            padding: 0 25rpx;
+            background: #ffffff;
+            margin-top: 20rpx;
+            .txt {
+                color: #333333;
+            }
+            .val {
+                color: #e70014;
+            }
+        }
+        .num {
+            display: flex;
+            align-items: center;
+            height: 80rpx;
+            font-size: 30rpx;
+            padding: 0 25rpx;
+            background: #ffffff;
+            margin-top: 20rpx;
+            .txt {
+                color: #333333;
+            }
+            .val {
+                flex: 1;
+                input {
+                    width: 100%;
+                    text-align: right;
+                }
+            }
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80rpx;
+            border-radius: 8rpx;
+            background: #03447c;
+            margin: 20% 25rpx 0;
+            font-size: 32rpx;
+            color: #ffffff;
+            letter-spacing: 40rpx;
+        }
+    }
+</style>
+<template>
+    <div class="cash">
+        <div class="bank" v-if="card.id">
+            <div class="name">开户名: {{card.name_hide}}</div>
+            <div class="card" @tap="openWin('/pages/cardList?from=cash')">
+                <div class="logo">
+                    <img :src="host + card.bank_logo" alt="" mode="widthFix" />
+                </div>
+                <div class="inf">
+                    <div class="tit">{{card.bank_name}}</div>
+                    <div class="no">尾号{{card.bank_no}}</div>
+                </div>
+                <img class="r" src="@/images/icon_arrow_r.png" alt="" mode="widthFix" />
+            </div>
+        </div>
+        <div class="add_card" v-if @tap="openWin('/pages/addCard')">
+            <div class="txt">添加银行卡</div>
+            <img src="@/images/icon_arrow_r.png" alt="" mode="widthFix" />
+        </div>
+        <div class="balance">
+            <div class="txt">可提现余额</div>
+            <div class="val">{{money}}元</div>
+        </div>
+        <div class="num">
+            <div class="txt">提现余额</div>
+            <div class="val"><input type="number" v-model="cash_money" placeholder="请输入提现金额，最少10元" placeholder-style="color: #999999;font-size: 32rpx;"></div>
+        </div>
+        <div class="btn" @tap="bindCash">提现</div>
+        <inputPwd show="{{show}}" money="{{cash_money}}" cardId="{{card.id?card.id: 0}}" type="{{'cash'}}" bind:inputHide="inputHide"></inputPwd>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            money: '',
+            card: {},
+            cash_money: '',
+            pay_pwd: false,
+            show: false   //支付密码框
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取默认银行卡
+            getCard() {
+                let that = this;
+                if( that.getStore('card') ){
+                    that.card = JSON.parse(that.getStore('card'));
+                    that.card.name_hide = that.card.name.substr(0,1) + '**';
+                    that.card.bank_no = that.card.number.substr(-4);
+                    return false;
+                }
+                that.request({
+                    url: '/api/package/user/card/default',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    that.card = ret.data;
+                    that.card.name_hide = that.card.name.substr(0,1) + '**';
+                    that.card.bank_no = that.card.number.substr(-4);
+                    that.setStore('card', JSON.stringify(that.card));
+                })
+            },
+            // 提现
+            bindCash() {
+                let that = this;
+                if(!that.cash_money) {
+                    that.toast('提现金额不能为空');
+                    return false;
+                }
+                if(Number(that.cash_money) < 10) {
+                    that.toast('提现金额最少10元');
+                    return false;
+                }
+                if (Number(that.cash_money) > Number(that.money)) {
+                    that.toast('提现金额不能大于可提现金额');
+                    return false;
+                }
+                if (!that.getStore('pay_pwd')) {
+                    that.toast('请先设置支付密码!');
+                    that.openWin('/pages/setPayPwd');
+                    return false;
+                }
+                that.cash_money = Number(that.cash_money);
+                that.show = true;
+            },
+            inputHide() {
+                this.show = false;
+            }
+        },
+
+        created () {
+
+        },
+        onShow() {
+            this.getCard();
+        },
+        onHide() {
+            this.removeStore('card');
+        },
+        onUnload() {
+            this.removeStore('card');
+        },
+        onLoad(options) {
+            console.log(this);
+            this.money = options.money || 1000;
+            this.pay_pwd = options.pay_pwd;
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+            inputPwd: '~@/components/input_pwd'
+        }
+    }
+</config>

@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "瑞脊医疗",
+    "component": true,
+    "usingComponents": {
+        "slide-view": "../$vendor/miniprogram-slide-view/miniprogram_dist/index"
+    }
+}

@@ -1,0 +1,30 @@
+
+<view class="forget">
+    <view class="form">
+        <view class="item">
+            <label for="mobile">手机号</label>
+            <input type="number" maxlength="11" placeholder="请输入手机号" value="{{ form.mobile }}" bindinput="_proxy" data-model-id="21" placeholder-style="color: #999999;font-size: 28rpx;" id="mobile" data-wpy-evt="20-0"></input>
+        </view>
+        <view class="item">
+            <label for="imgCode">图形码</label>
+            <input type="text" id="imgCode" value="{{ form.imgCode }}" bindinput="_proxy" data-model-id="22" placeholder="请输入图形验证码" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+            <view data-wpy-evt="20-1" bindtap="_proxy" class="img_code">
+                <image src="{{imgCodeUrl}}" alt="" mode="widthFix"></image>
+            </view>
+        </view>
+        <view class="item">
+            <label for="msgCode">验证码</label>
+            <input type="text" id="msgCode" value="{{ form.phoneCode }}" bindinput="_proxy" data-model-id="23" placeholder="请输入短信验证码" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+            <label data-wpy-evt="20-2" bindtap="_proxy" class="get_code">{{code_txt}}</label>
+        </view>
+        <view class="item">
+            <label for="setPwd">新密码</label>
+            <input type="password" id="setPwd" value="{{ form.pwd1 }}" bindinput="_proxy" data-model-id="24" placeholder="请输入密码" placeholder-style="color: #999999;font-size: 28rpx;" data-wpy-evt="20-3"></input>
+        </view>
+        <view class="item">
+            <label for="conPwd">确认密码</label>
+            <input type="password" id="conPwd" value="{{ form.pwd2 }}" bindinput="_proxy" data-model-id="25" placeholder="请再次确认密码" placeholder-style="color: #999999;font-size: 28rpx;" data-wpy-evt="20-4"></input>
+        </view>
+    </view>
+    <view data-wpy-evt="20-5" bindtap="_proxy" class="btn">确认重置</view>
+</view>

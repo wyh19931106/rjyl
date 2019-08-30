@@ -1,0 +1,190 @@
+.cart {
+  padding-bottom: 150rpx;
+}
+.cart .product_list .product_item {
+  background: #ffffff;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+}
+.cart .product_list .product_item .slide {
+  width: 100%;
+  height: 220rpx;
+  display: flex;
+}
+.cart .product_list .product_item .slide .left {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 30rpx 0;
+  overflow: hidden;
+}
+.cart .product_list .product_item .slide .left .tick {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 25rpx;
+  color: #666666;
+  font-size: 32rpx;
+}
+.cart .product_list .product_item .slide .left .tick image {
+  width: 45rpx;
+  height: 45rpx;
+}
+.cart .product_list .product_item .slide .left .img {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 20rpx;
+}
+.cart .product_list .product_item .slide .left .img image {
+  width: 100%;
+  height: 100%;
+}
+.cart .product_list .product_item .slide .left .infor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
+  padding-right: 30rpx;
+  width: 485rpx;
+}
+.cart .product_list .product_item .slide .left .infor .tit {
+  width: 100%;
+  color: #333333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-box-orient: vertical;
+  font-size: 26rpx;
+}
+.cart .product_list .product_item .slide .left .infor .mark {
+  font-size: 24rpx;
+  color: #1a2fb0;
+  border: 1rpx solid #1a2fb0;
+  border-radius: 5rpx;
+  padding: 2rpx 5rpx;
+}
+.cart .product_list .product_item .slide .left .infor .inf {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.cart .product_list .product_item .slide .left .infor .inf .price .sale_price {
+  color: #fc6f48;
+}
+.cart .product_list .product_item .slide .left .infor .inf .price .market_price {
+  color: #999999;
+  margin-left: 10rpx;
+  text-decoration: line-through;
+}
+.cart .product_list .product_item .slide .left .infor .inf .qty {
+  display: flex;
+  width: 200rpx;
+  height: 50rpx;
+  border: 1rpx solid #999999;
+}
+.cart .product_list .product_item .slide .left .infor .inf .qty .sub,
+.cart .product_list .product_item .slide .left .infor .inf .qty .add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rpx;
+  height: 100%;
+}
+.cart .product_list .product_item .slide .left .infor .inf .qty .sub {
+  border-right: 1rpx solid #999999;
+}
+.cart .product_list .product_item .slide .left .infor .inf .qty .add {
+  border-left: 1rpx solid #999999;
+}
+.cart .product_list .product_item .slide .left .infor .inf .qty input {
+  flex: 1;
+  text-align: center;
+}
+.cart .product_list .product_item .slide .right {
+  width: 100rpx;
+  height: 100%;
+  display: flex;
+  color: #ffffff;
+  background: #03447c;
+}
+.cart .product_list .product_item .slide .right .right-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cart .bottom_fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  background: #ffffff;
+  display: flex;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.cart .bottom_fixed .tick {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 25rpx;
+  color: #666666;
+  font-size: 32rpx;
+}
+.cart .bottom_fixed .tick image {
+  width: 45rpx;
+  height: 45rpx;
+  margin-right: 20rpx;
+}
+.cart .bottom_fixed .count {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10rpx 20rpx;
+}
+.cart .bottom_fixed .count .money {
+  font-size: 32rpx;
+  color: #333333;
+}
+.cart .bottom_fixed .count .money .num {
+  color: #fc6f48;
+}
+.cart .bottom_fixed .count .hint {
+  font-size: 24rpx;
+  color: #999999;
+}
+.cart .bottom_fixed .to_pay {
+  width: 220rpx;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 34rpx;
+  background: #03447c;
+  color: #ffffff;
+}
+.cart .cart_empty {
+  text-align: center;
+  margin-top: 260rpx;
+}
+.cart .cart_empty image {
+  display: flex;
+  width: 200rpx;
+  height: auto;
+  margin: 0 auto;
+}
+.cart .cart_empty .txt {
+  color: #999999;
+  margin-top: 60rpx;
+  font-size: 28rpx;
+}
+

@@ -1,0 +1,44 @@
+.newsCate .list {
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding: 0 30rpx;
+}
+.newsCate .list .item {
+  display: flex;
+  align-items: center;
+  height: 130rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.newsCate .list .item .img {
+  width: 80rpx;
+  height: 80rpx;
+}
+.newsCate .list .item .img image {
+  width: 100%;
+  height: auto;
+}
+.newsCate .list .item .center {
+  flex: 1;
+  overflow: hidden;
+  margin: 0 30rpx;
+}
+.newsCate .list .item .center .tit {
+  font-size: 32rpx;
+  color: #212121;
+}
+.newsCate .list .item .center .hint {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.newsCate .list .item .time {
+  font-size: 24rpx;
+  color: #999999;
+}
+.newsCate .list .item:nth-last-child(1) {
+  border: none;
+}
+

@@ -1,0 +1,18 @@
+
+<view class="login">
+    <view class="form">
+        <view class="item">
+            <label for="mobile">手机号</label>
+            <input type="number" placeholder="请输入手机号" value="{{ mobile }}" bindinput="_proxy" data-model-id="27" placeholder-style="color: #999999;font-size: 28rpx;" id="mobile" data-wpy-evt="23-0"></input>
+        </view>
+        <view class="item">
+            <label for="pwd">确认密码</label>
+            <input type="password" id="pwd" value="{{ pwd }}" bindinput="_proxy" data-model-id="28" placeholder="请再次确认密码" placeholder-style="color: #999999;font-size: 28rpx;" data-wpy-evt="23-1"></input>
+        </view>
+    </view>
+    <view data-wpy-evt="23-2" bindtap="_proxy" class="btn">登 录</view>
+    <view class="handle">
+        <view data-wpy-evt="23-3" bindtap="_proxy" class="to_forget">忘记密码？</view>
+        <view data-wpy-evt="23-4" bindtap="_proxy" class="to_register">手机注册</view>
+    </view>
+</view>

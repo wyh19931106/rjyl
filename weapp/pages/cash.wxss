@@ -1,0 +1,105 @@
+.cash .name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70rpx;
+  font-size: 24rpx;
+  padding: 0 25rpx;
+  color: #333333;
+  margin-top: 10rpx;
+}
+.cash .card {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 25rpx;
+  background: #ffffff;
+}
+.cash .card .logo {
+  width: 70rpx;
+  height: 70rpx;
+}
+.cash .card .logo image {
+  width: 100%;
+  height: auto;
+}
+.cash .card .inf {
+  margin-left: 20rpx;
+  flex: 1;
+}
+.cash .card .inf .tit {
+  font-size: 30rpx;
+  color: #333333;
+}
+.cash .card .inf .no {
+  font-size: 22rpx;
+  color: #999999;
+  margin-top: 10rpx;
+}
+.cash .card .r {
+  width: 15rpx;
+  height: auto;
+}
+.cash .add_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;
+  background: #ffffff;
+  padding: 0 25rpx;
+  margin-top: 10rpx;
+}
+.cash .add_card .txt {
+  color: #999999;
+}
+.cash .add_card image {
+  width: 16rpx;
+  height: auto;
+}
+.cash .balance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80rpx;
+  font-size: 30rpx;
+  padding: 0 25rpx;
+  background: #ffffff;
+  margin-top: 20rpx;
+}
+.cash .balance .txt {
+  color: #333333;
+}
+.cash .balance .val {
+  color: #e70014;
+}
+.cash .num {
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+  font-size: 30rpx;
+  padding: 0 25rpx;
+  background: #ffffff;
+  margin-top: 20rpx;
+}
+.cash .num .txt {
+  color: #333333;
+}
+.cash .num .val {
+  flex: 1;
+}
+.cash .num .val input {
+  width: 100%;
+  text-align: right;
+}
+.cash .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  border-radius: 8rpx;
+  background: #03447c;
+  margin: 20% 25rpx 0;
+  font-size: 32rpx;
+  color: #ffffff;
+  letter-spacing: 40rpx;
+}
+

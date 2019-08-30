@@ -1,0 +1,18 @@
+
+<view class="newsList">
+    <view class="list">
+        <view class="item">
+            <view class="time">6-12 10:31</view>
+            <view class="infor">
+                <view class="title">
+                    微信账号绑定成功通知
+                </view>
+                <view class="inf">
+                    <view class="tit">尊敬的用户：</view>
+                    <view class="txt">您的系统平台账号已经成功绑定微信账号，现在可使用微信账号授权登录福城APP享受相关权益，如有疑问，请致电平台客服。谢谢你的合作。</view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+</view>

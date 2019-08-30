@@ -1,0 +1,23 @@
+
+<view class="uploadSelf">
+    <view class="title">自拍上传资料</view>
+    <view class="upload_con">
+        <view data-wpy-evt="45-0" bindtap="_proxy" class="upload_box">
+            <image src="{{ img1 }}" alt="" mode="widthFix" wx:if="{{ img1 }}" class="img"></image>
+            <image src="../images/img_upload1.png" alt="" mode="widthFix" wx:else class="bg"></image>
+        </view>
+        <view data-wpy-evt="45-1" bindtap="_proxy" class="upload_box">
+            <image src="{{ img2 }}" alt="" mode="widthFix" wx:if="{{ img2 }}" class="img"></image>
+            <image src="../images/img_upload2.png" alt="" mode="widthFix" wx:else class="bg"></image>
+        </view>
+        <view data-wpy-evt="45-2" bindtap="_proxy" class="upload_box">
+            <image src="{{ img3 }}" alt="" mode="widthFix" wx:if="{{ img3 }}" class="img"></image>
+            <image src="../images/img_upload3.png" alt="" mode="widthFix" wx:else class="bg"></image>
+        </view>
+        <view data-wpy-evt="45-3" bindtap="_proxy" class="upload_box">
+            <image src="{{ img4 }}" alt="" mode="widthFix" wx:if="{{ img4 }}" class="img"></image>
+            <image src="../images/img_upload4.png" alt="" mode="widthFix" wx:else class="bg"></image>
+        </view>
+    </view>
+    <view data-wpy-evt="45-4" bindtap="_proxy" class="upload">全部上传</view>
+</view>

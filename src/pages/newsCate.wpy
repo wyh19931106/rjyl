@@ -1,0 +1,122 @@
+<style lang="less">
+    .newsCate {
+        .list {
+            margin-top: 20rpx;
+            background: #ffffff;
+            padding: 0 30rpx;
+            .item {
+                display: flex;
+                align-items: center;
+                height: 130rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                .img {
+                    width: 80rpx;
+                    height: 80rpx;
+                    image {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                .center {
+                    flex: 1;
+                    overflow: hidden;
+                    margin: 0 30rpx;
+                    .tit {
+                        font-size: 32rpx;
+                        color: #212121;
+                    }
+                    .hint {
+                        font-size: 24rpx;
+                        color: #999999;
+                        margin-top: 8rpx;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+                .time {
+                    font-size: 24rpx;
+                    color: #999999;
+                }
+            }
+            .item:nth-last-child(1) {
+                border: none;
+            }
+        }
+    }
+</style>
+<template>
+    <div class="newsCate">
+        <div class="list">
+            <div class="item" @tap="openWin('/pages/newsList')">
+                <div class="img">
+                    <img src="@/images/icon_news.png" alt="" mode="widthFix" />
+                </div>
+                <div class="center">
+                    <div class="tit">系统消息</div>
+                    <div class="hint">消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容</div>
+                </div>
+                <div class="time">
+                    6-12 10:31
+                </div>
+            </div>
+            <div class="item" @tap="openWin('/pages/newsList')">
+                <div class="img">
+                    <img src="@/images/icon_order.png" alt="" mode="widthFix" />
+                </div>
+                <div class="center">
+                    <div class="tit">订单通知</div>
+                    <div class="hint">订单内容订单内容订单内容</div>
+                </div>
+                <div class="time">
+                    6-12 10:31
+                </div>
+            </div>
+            <div class="item" @tap="openWin('/pages/newsList')">
+                <div class="img">
+                    <img src="@/images/icon_point.png" alt="" mode="widthFix" />
+                </div>
+                <div class="center">
+                    <div class="tit">余额变动提醒 </div>
+                    <div class="hint">个人余额，随时掌控</div>
+                </div>
+                <div class="time">
+                    6-12 10:31
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '消息中心',
+        usingComponents: {
+
+        }
+    }
+</config>

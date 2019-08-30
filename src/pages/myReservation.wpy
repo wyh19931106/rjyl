@@ -1,0 +1,133 @@
+<style lang="less">
+    .myReservation {
+        .list {
+            padding: 0 25rpx 20rpx;
+            .item {
+                margin-top: 20rpx;
+                background: #ffffff;
+                border: 1rpx solid #b5b5b5;
+                .title {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 70rpx;
+                    font-size: 24rpx;
+                    padding: 0 20rpx;
+                    border-bottom: 1rpx solid #b5b5b5;
+                    .no {
+                        color: #333333;
+                    }
+                    .time {
+                        color: #999999;
+                    }
+                }
+                .infor {
+                    padding: 12rpx 20rpx 18rpx;
+                    .p {
+                        display: flex;
+                        font-size: 24rpx;
+                        color: #03447c;
+                        .val {
+                            flex: 1;
+                            overflow: hidden;
+                        }
+                    }
+                    .obj {
+                        height: 50rpx;
+                        justify-content: space-between;
+                        align-items: center;
+                        .tit {
+                            display: flex;
+                        }
+                        .btn {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 120rpx;
+                            height: 44rpx;
+                            color: #ffffff;
+                            border-radius: 22rpx;
+                            background: #dddddd;
+                        }
+                        .active {
+                            background: #ff592c;
+                        }
+                    }
+                    .time {
+                        align-items: center;
+                        height: 50rpx;
+                    }
+                    .addr {
+                        min-height: 50rpx;
+                        margin-top: 10rpx;
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="myReservation">
+        <div class="list">
+            <div class="item" v-for="(item, key) in list">
+                <div class="title">
+                    <div class="no">预约编号：RJYL00001</div>
+                    <div class="time">2019/8/1  14:28:35</div>
+                </div>
+                <div class="infor">
+                    <div class="p obj">
+                        <div class="tit">
+                            <div class="txt">预约事项：</div>
+                            <div class="val">发烧，感冒</div>
+                        </div>
+                        <div class="btn active">已完成</div>
+                    </div>
+                    <div class="p time">
+                        <div class="txt">预约时间：</div>
+                        <div class="val">2019/8/6   上午10:00</div>
+                    </div>
+                    <div class="p addr">
+                        <div class="txt">预约地址：</div>
+                        <div class="val">南山区南山第二人民医院急诊服南山区南山第二人民医院急诊服务大厅1楼105室务大厅1楼105室</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="empty">上拉加载更多~</div>
+        <div class="empty_con">
+            <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+            <div class="empty">暂无数据~</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub';
+    import { mapState } from '@wepy/x';
+    wepy.page({
+        data: {
+            list: [1,2,3,4,5,6,7,8,9,10]
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '我的预约',
+        usingComponents: {
+
+        }
+    }
+</config>

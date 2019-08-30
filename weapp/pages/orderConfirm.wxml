@@ -1,0 +1,76 @@
+
+<view class="orderConfirm">
+    <view wx:if="{{ addrInf.id }}" data-wpy-evt="33-0" bindtap="_proxy" class="user_infor">
+        <view class="left">
+            <view class="title">
+                <view class="name">收货人：{{addrInf.name}}</view>
+                <view class="tel">{{addrInf.phone}}</view>
+            </view>
+            <view class="addr">收货地址：{{addrInf.area + addrInf.detail}}</view>
+        </view>
+        <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="right"></image>
+    </view>
+    <view wx:else data-wpy-evt="33-1" bindtap="_proxy" class="addr_empty">
+        <label class="txt">添加收货地址</label>
+        <image src="../images/icon_arrow_r.png" alt="" mode="widthFix"></image>
+    </view>
+    <image src="../images/icon_br.png" alt="" mode="widthFix" class="br"></image>
+
+    <view wx:if="{{ details.total }}" class="order_good">
+        <view class="shop"><image src="../images/icon_shop.png" alt="" mode="widthFix"></image> 瑞脊医疗商城</view>
+        <view class="good_con">
+            <view class="good_box">
+                <view wx:for="{{ details.products }}" wx:for-index="key" wx:for-item="item" wx:key="key" class="good_item">
+                    <view class="img">
+                        <image src="{{ imgPath + item.cover }}" alt="" mode="widthFix"></image>
+                    </view>
+                    <view class="good_inf">
+                        <view class="title">
+                            <label class="mark">包邮包税</label>
+                            {{item.name}}
+                        </view>
+                        <view class="hint">{{item.attr_str}}</view>
+                    </view>
+                    <view class="right">
+                        <view class="price">¥{{item.price}}</view>
+                        <view class="qty">x{{item.qty}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="delivery">
+                <label class="txt">配送信息：</label>
+                <label class="val">包邮</label>
+            </view>
+            <view class="words">
+                <label class="txt">留言备注：</label>
+                <input type="text" value="{{ msg }}" bindinput="_proxy" data-model-id="29" placeholder="这里可以留言给商家..." placeholder-style="font-size: 14px; color: #b3b3b3;"></input>
+            </view>
+        </view>
+    </view>
+
+    <view wx:if="{{ details.total }}" class="order_count">
+        <view class="good_num">
+            <label class="txt">商品总件数：</label>
+            <label class="val">{{details.products.length}}件</label>
+        </view>
+        <view class="money_count">
+            <view class="item">
+                <label class="txt">商品总额：</label>
+                <label class="val">¥{{details.total}}</label>
+            </view>
+            <view class="item">
+                <label class="txt">运费:</label>
+                <label class="val">+¥{{details.freight.freight}}</label>
+            </view>
+        </view>
+        <view class="total_money">
+            <label class="txt">应付合计</label>
+            <label class="val">¥{{details.total}}</label>
+        </view>
+    </view>
+
+    <view wx:if="{{ details.total }}" class="bottom_fixed">
+        <view class="total_money">应付金额: <label class="money">¥{{details.total}}</label></view>
+        <view data-wpy-evt="33-2" bindtap="_proxy" class="confirm">确认订单</view>
+    </view>
+</view>

@@ -1,0 +1,22 @@
+
+<view class="changePhone">
+    <view class="form">
+        <view class="item">
+            <label for="mobile">新手机号</label>
+            <input type="number" maxlength="11" placeholder="请输入手机号" value="{{ form.mobile }}" bindinput="_proxy" data-model-id="18" placeholder-style="color: #999999;font-size: 28rpx;" id="mobile" data-wpy-evt="19-0"></input>
+        </view>
+        <view class="item">
+            <label for="imgCode">图形码</label>
+            <input type="text" id="imgCode" value="{{ form.imgCode }}" bindinput="_proxy" data-model-id="19" placeholder="请输入图形验证码" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+            <view data-wpy-evt="19-1" bindtap="_proxy" class="img_code">
+                <image src="{{imgCodeUrl}}" alt="" mode="widthFix"></image>
+            </view>
+        </view>
+        <view class="item">
+            <label for="msgCode">验证码</label>
+            <input type="text" id="msgCode" value="{{ form.phoneCode }}" bindinput="_proxy" data-model-id="20" placeholder="请输入短信验证码" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+            <label data-wpy-evt="19-2" bindtap="_proxy" class="get_code">{{code_txt}}</label>
+        </view>
+    </view>
+    <view data-wpy-evt="19-3" bindtap="_proxy" class="btn">确认修改</view>
+</view>

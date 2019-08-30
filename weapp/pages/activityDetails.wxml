@@ -1,0 +1,10 @@
+
+<view class="activityDetails">
+   <view class="con">
+       <view class="title">{{details.title}}</view>
+       <view class="time">报名时间： {{details.apply_start_date}}  —  {{details.apply_end_date}}</view>
+       <view class="time">活动开始： {{details.pa_date}}</view>
+       <rich-text nodes="{{details.content}}" class="article"></rich-text>
+   </view>
+   <view data-wpy-evt="15-0" bindtap="_proxy" class="bottom_fixed">我要报名</view>
+</view>

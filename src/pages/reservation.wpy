@@ -1,0 +1,167 @@
+<style lang="less">
+    .reservation {
+        // .swiper {
+        //     image {
+        //         display: block;
+        //         width: 100%;
+        //         height: auto;
+        //     }
+        // }
+        // .nav {
+        //     background: #ffffff;
+        //     margin: 20rpx 0;
+        //     display: flex;
+        //     flex-wrap: wrap;
+        //     .nav_item {
+        //         width: 25%;
+        //         text-align: center;
+        //         padding: 15rpx 0;
+        //         image {
+        //             width: 90rpx;
+        //             height: 90rpx;
+        //         }
+        //         .txt {
+        //             font-size: 26rpx;
+        //             color: #333333;
+        //         }
+        //     }
+        // }
+    }
+</style>
+
+<template>
+    <div class="reservation">
+        <rich-text nodes="{{html}}"></rich-text>
+        <!-- <swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" bindchange="swiperChange" style="height:{{imgBoxSize}}rpx;">
+            <swiper-item v-for="(item, key) in swiper_img">
+                <image :src="item" class="slide-image" mode="widthFix" bindload="imageLoad" />
+            </swiper-item>
+        </swiper>
+        <div class="form">
+            <div class="form_item">
+                <div class="txt">姓名</div>
+                <div class="val">
+                    <input type="text" placeholder="请输入真实姓名">
+                </div>
+            </div>
+            <div class="form_item">
+                <div class="txt">联系电话</div>
+                <div class="val">
+                    <input type="text" placeholder="请输入真实姓名">
+                </div>
+            </div>
+            <div class="form_item">
+                <div class="txt">预约时间</div>
+                <div class="val">
+                    <input type="text" placeholder="请输入真实姓名">
+                </div>
+            </div>
+        </div> -->
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            indicatorDots: false,
+            autoplay: false,
+            interval: 2500,
+            duration: 500,
+            swiper_img: ['../images/img_banner_default.png', '../images/img_banner_default.png'],
+            swiperCurrent: 0, // 所有图片的高度
+            imgheights: [], // 图片宽度
+            imgwidth: 750, // 默认
+            current: 0,
+            imgBoxSize: 0,
+            html: '<div style="text-align:center;">《静夜思》· 李白<br />床前明月光，<br />疑是地上霜。 <br />举头望明月， <br />低头思故乡。<br /><img src="http://www.xiexingcun.com/Poetry/6/images/53e.jpg" alt="" /><br /><img src="http://www.xiexingcun.com/Poetry/6/images/53.jpg" alt="" /><br /><br /><img src="http://www.xiexingcun.com/Poetry/6/images/53b.jpg" alt="" /><br /></div>'
+        },
+        computed: {
+
+        },
+
+        methods: {
+            swiperChange(e) {
+                this.swiperCurrent = e.$wx.detail.current;
+                this.current = e.$wx.detail.current;
+            },
+            imageLoad(e) {
+                console.log(e);
+                this.imgheights = [];
+                // 获取图片真实宽度
+                var imgwidth = e.$wx.detail.width;
+                var imgheight = e.$wx.detail.height;
+                // 宽高比
+                var ratio = imgwidth / imgheight;
+                // 计算的高度值
+                var viewHeight = 750 / ratio;
+                imgheight = viewHeight;
+                // 把每一张图片的高度记录到数组里
+                this.imgheights.push(imgheight);
+                // 取出图片数组中最高的一个值
+                this.imgBoxSize = Math.max.apply(null, this.imgheights);
+            },
+            getToken() {
+                let that = this;
+                wx.request({
+                    url: 'http://47.101.39.91:8000/api-token-auth/',
+                    method: 'POST',
+                    data: {
+                        username: 'APPUSER',
+                        password: 'qezc1234'
+                    },
+                    header: {
+                        'content-type': 'application/json'
+                    },
+                    success: function (res) {
+                        that.getView(res.data.token);
+                    },
+                    fail: function (res) {
+                        console.log('请求失败：'+res);
+                    },
+                    complete: function (res) {
+                        console.log('请求完成：'+res);
+                    },
+                })
+            },
+            getView(token) {
+                let that = this;
+                wx.request({
+                    url: 'http://47.101.39.91:8000/api/register/register/',
+                    method: 'GET',
+                    header: {
+                        'Authorization': 'Bearer'+token
+                    },
+                    success: function (res) {
+                        console.log(res.data);
+                        // that.html = res.data;
+                    },
+                    fail: function (res) {
+                        console.log('请求失败：'+res);
+                    },
+                    complete: function (res) {
+                        console.log('请求完成：'+res);
+                    },
+                })
+            }
+        },
+
+        created () {
+            this.getToken();
+        }
+    });
+</script>
+
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>
+

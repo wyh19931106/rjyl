@@ -1,0 +1,203 @@
+<style lang="less">
+    .addrList {
+        padding-bottom: 150rpx;
+        .list {
+            .item {
+                background: #ffffff;
+                margin-bottom: 20rpx;
+                .title {
+                    display: flex;
+                    align-items: center;
+                    padding: 15rpx 25rpx;
+                    .mark {
+                        color: #f22525;
+                        border: 1rpx solid #f22525;
+                        font-size: 22rpx;
+                        padding: 3rpx 10rpx;
+                        border-radius: 4rpx;
+                        margin-right: 10rpx;
+                    }
+                    .name, .tel {
+                        font-size: 30rpx;
+                        color: #333333;
+                    }
+                    .name {
+                        margin-right: 30rpx;
+                    }
+                }
+                .addr {
+                    display: flex;
+                    align-items: center;
+                    padding: 10rpx 10rpx 10rpx 25rpx;
+                    border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                    .val {
+                        flex: 1;
+                        font-size: 26rpx;
+                        color: #333333;
+                        overflow: hidden;
+                    }
+                    .handle {
+                        display: flex;
+                        align-items: center;
+                        margin-left: 30rpx;
+                        .edit, .del {
+                            padding: 10rpx;
+                        }
+                        image {
+                            width: 34rpx;
+                            height: auto;
+                        }
+                    }
+                }
+                .default {
+                    display: flex;
+                    align-items: center;
+                    height: 76rpx;
+                    padding: 0 25rpx;
+                    font-size: 26rpx;
+                    color: #808080;
+                    image {
+                        width: 24rpx;
+                        height: auto;
+                        margin-right: 8rpx;
+                    }
+                }
+            }
+        }
+        .bottom_fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100rpx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30rpx;
+            color: #ffffff;
+            background: #03447c;
+        }
+    }
+</style>
+<template>
+    <div class="addrList">
+        <div class="list" v-if="list.length">
+            <div class="item" v-for="(item, key) in list" @tap="bindSelect(key)">
+                <div class="title">
+                    <span class="mark" v-if="item.is_default">默认</span>
+                    <span class="name">{{item.name}}</span>
+                    <span class="tel">{{item.mobile}}</span>
+                </div>
+                <div class="addr">
+                    <div class="val">{{item.area + item.detail}}</div>
+                    <div class="handle">
+                        <div class="edit" @tap.stop="openWin('/pages/addrEdit?id=' + item.id)"><img src="@/images/icon_edit.png" alt="" mode="widthFix" /></div>
+                        <div class="del" @tap.stop="bindDel(key)"><img src="@/images/icon_del.png" alt="" mode="widthFix" /></div>
+                    </div>
+                </div>
+                <div class="default" @tap.stop="setDefault(key)">
+                    <img src="@/images/icon_tick_red.png" v-if="item.is_default" alt="" mode="widthFix" />
+                    <img src="@/images/icon_tick.png" v-else alt="" mode="widthFix" />
+                    <span class="txt">设为默认地址</span>
+                </div>
+            </div>
+        </div>
+        <div class="empty_con" v-else>
+            <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+            <div class="empty">暂无数据~</div>
+        </div>
+        <div class="bottom_fixed" @tap="openWin('/pages/addAddr')">新增地址</div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            from: '', //来源， order
+            list: []
+        },
+
+        computed: {
+
+        },
+        methods: {
+            // 获取列表
+            getList() {
+                let that = this;
+                that.request({
+                    url: '/api/package/user/addresses',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    that.list = ret.data;
+                })
+            },
+            // 设置默认
+            setDefault(ind) {
+                let that = this;
+                for(let i = 0; i < that.list.length; i++) {
+                    if (ind == i) {
+                        that.list[i].is_default = true;
+                    } else {
+                        that.list[i].is_default = false;
+                    }
+                }
+                that.request({
+                    url: '/api/package/user/addresses/'+that.list[ind].id,
+                    type: 'PUT'
+                }, {
+                    is_default: true
+                }, function (ret) {
+
+                })
+            },
+            // 删除
+            bindDel(ind) {
+                let that = this;
+                let id = that.list[ind].id;
+                that.showModal('删除地址','您确认删除该地址吗？',function () {
+                    that.request({
+                        url: '/api/package/user/addresses/'+id,
+                        type: 'DELETE'
+                    }, {}, function (ret) {
+                        that.getList();
+                    })
+                });
+            },
+            // 下单选择收货地址
+            bindSelect(ind) {
+                if(this.from == 'order') {
+                    let addr = this.list[ind];
+                    addr.phone = addr.mobile.substr(0,3) + '****' + addr.mobile.substr(-4);
+                    this.setStore('addr', JSON.stringify(addr));
+                    this.goBack();
+                } else {
+                    return false;
+                }
+            }
+        },
+        onLoad(options) {
+            if (options.from) {
+                this.from = options.from;
+            }
+        },
+        created () {
+
+        },
+        onShow() {
+            this.getList();
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

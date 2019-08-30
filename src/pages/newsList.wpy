@@ -1,0 +1,90 @@
+<style lang="less">
+    .newsList {
+        .list {
+            .item {
+                .time {
+                    display: flex;
+                    align-items: center;
+                    height: 54rpx;
+                    font-size: 26rpx;
+                    color: #999999;
+                    height: 54rpx;
+                    padding: 0 25rpx;
+                    margin-bottom: 20rpx;
+                }
+                .infor {
+                    background: #ffffff;
+                    padding: 0 25rpx;
+                    .title {
+                        display: flex;
+                        align-items: center;
+                        height: 88rpx;
+                        font-size: 32rpx;
+                        color: #333333;
+                        border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                    }
+                    .inf {
+                        padding: 40rpx 0;
+                        font-size: 24rpx;
+                        color: #999999;
+                        .txt {
+                            margin-top: 25rpx;
+                            text-indent: 40rpx;
+                            line-height: 36rpx;
+                        }
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="newsList">
+        <div class="list">
+            <div class="item">
+                <div class="time">6-12 10:31</div>
+                <div class="infor">
+                    <div class="title">
+                        微信账号绑定成功通知
+                    </div>
+                    <div class="inf">
+                        <div class="tit">尊敬的用户：</div>
+                        <div class="txt">您的系统平台账号已经成功绑定微信账号，现在可使用微信账号授权登录福城APP享受相关权益，如有疑问，请致电平台客服。谢谢你的合作。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub';
+    import { mapState } from '@wepy/x';
+    wepy.page({
+        data: {
+
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '消息中心',
+        usingComponents: {
+
+        }
+    }
+</config>

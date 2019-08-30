@@ -1,0 +1,57 @@
+
+<view class="addAddr">
+    <view class="form">
+        <view class="item">
+            <view class="txt">收货人</view>
+            <input type="text" placeholder="请输入收货人的姓名" value="{{ name }}" bindinput="_proxy" data-model-id="0" placeholder-style="color: #999999; font-size: 28rpx;" class="val"></input>
+        </view>
+        <view class="item">
+            <view class="txt">手机号码</view>
+            <input type="number" placeholder="请输入收货人的手机号" value="{{ mobile }}" bindinput="_proxy" data-model-id="1" placeholder-style="color: #999999; font-size: 28rpx;" data-wpy-evt="10-0" class="val"></input>
+        </view>
+        <view data-wpy-evt="10-1" bindtap="_proxy" class="item">
+            <view class="txt">所在地区</view>
+            <input type="text" disabled="true" value="{{ city }}" bindinput="_proxy" data-model-id="2" class="val"></input>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+        <view class="item">
+            <view class="txt">详细地址</view>
+            <input type="number" value="{{ addr }}" bindinput="_proxy" data-model-id="3" placeholder="请输入收货人的详细地址" placeholder-style="color: #999999; font-size: 28rpx;" class="val"></input>
+        </view>
+    </view>
+    <view data-wpy-evt="10-2" bindtap="_proxy" class="default">
+        <view class="txt">设置为默认收货地址</view>
+        <image src="../images/icon_button_green.png" alt="" mode="widthFix" wx:if="{{ isDefault }}"></image>
+        <image src="../images/icon_button.png" alt="" mode="widthFix" wx:else></image>
+    </view>
+    <view data-wpy-evt="10-3" bindtap="_proxy" class="save">保存</view>
+
+    <view wx:if="{{ show }}" class="animation-element-wrapper">
+        <view class="animation-element">
+            <text data-wpy-evt="10-4" catchtap="_proxy" class="left-bt">取消</text>
+            <text data-wpy-evt="10-5" catchtap="_proxy" class="right-bt">确定</text>
+            <view class="line"></view>
+            <picker-view indicator-style="height: 50rpx;" value="{{value}}" id="{{sheng.id}}" data-wpy-evt="10-6" bindchange="_proxy">
+            
+                <picker-view-column>
+                   <view wx:for="{{ provinces }}" wx:for-index="key" wx:for-item="sheng" wx:key="key">
+                     {{sheng.name}}
+                  </view>
+                </picker-view-column>
+                
+                <picker-view-column>
+                  <view wx:for="{{ citys }}" wx:for-index="key" wx:for-item="item" wx:key="key">
+                    {{item.name}}
+                  </view>
+                </picker-view-column>
+                
+                <picker-view-column>
+                  <view wx:for="{{ countys }}" wx:for-index="key" wx:for-item="item" wx:key="key">
+                    {{item.name}}
+                  </view>
+                </picker-view-column>
+            </picker-view>
+        </view>
+    </view>
+
+</view>

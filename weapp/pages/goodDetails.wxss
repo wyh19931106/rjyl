@@ -1,0 +1,266 @@
+.goodDetails {
+  padding-bottom: 150rpx;
+}
+.goodDetails .swiper image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.goodDetails .good_infor {
+  background: #ffffff;
+  padding: 20rpx 25rpx;
+}
+.goodDetails .good_infor .good_price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.goodDetails .good_infor .good_price .pri {
+  display: flex;
+  align-items: flex-end;
+}
+.goodDetails .good_infor .good_price .pri .sale_pri {
+  font-size: 54rpx;
+  color: #fc6f48;
+  margin-right: 5rpx;
+}
+.goodDetails .good_infor .good_price .pri .sale_pri .mark {
+  font-size: 28rpx;
+}
+.goodDetails .good_infor .good_price .pri .market_pri {
+  font-size: 30rpx;
+  color: #999999;
+  text-decoration: line-through;
+}
+.goodDetails .good_infor .good_price .sale_num {
+  font-size: 30rpx;
+  color: #999999;
+}
+.goodDetails .good_infor .good_title {
+  font-size: 34rpx;
+  margin-top: 30rpx;
+  color: #333333;
+}
+.goodDetails .good_details {
+  margin-top: 20rpx;
+  background: #ffffff;
+}
+.goodDetails .good_details image,
+.goodDetails .good_details img {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+.goodDetails .bottom_fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  z-index: 9;
+  background: #ffffff;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.goodDetails .bottom_fixed .left {
+  display: flex;
+  width: 312rpx;
+  height: 100%;
+}
+.goodDetails .bottom_fixed .left .item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.goodDetails .bottom_fixed .left .item .icon {
+  position: relative;
+  width: 60rpx;
+  height: 45rpx;
+}
+.goodDetails .bottom_fixed .left .item .icon image {
+  width: 40rpx;
+  height: auto;
+}
+.goodDetails .bottom_fixed .left .item .icon .mark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30rpx;
+  height: 30rpx;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22rpx;
+  border-radius: 15rpx;
+  background: rgba(234, 32, 0, 0.8);
+}
+.goodDetails .bottom_fixed .left .item .txt {
+  font-size: 24rpx;
+  color: #797979;
+}
+.goodDetails .bottom_fixed .add_cart,
+.goodDetails .bottom_fixed .to_buy {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #404040;
+  color: #ffffff;
+  font-size: 32rpx;
+}
+.goodDetails .bottom_fixed .to_buy {
+  background: #1a2fb0;
+}
+.goodDetails .model_window .model_box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  border-radius: 24rpx 24rpx 0 0;
+}
+.goodDetails .model_window .model_box .infor {
+  height: 200rpx;
+  position: relative;
+  padding: 60rpx 100rpx 0 310rpx;
+}
+.goodDetails .model_window .model_box .infor .img {
+  position: absolute;
+  top: -65rpx;
+  left: 30rpx;
+  width: 265rpx;
+  height: 265rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
+}
+.goodDetails .model_window .model_box .infor .img image {
+  width: 100%;
+  height: 100%;
+}
+.goodDetails .model_window .model_box .infor .inf {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.goodDetails .model_window .model_box .infor .inf .price {
+  display: flex;
+  align-items: flex-end;
+}
+.goodDetails .model_window .model_box .infor .inf .price .sale_price {
+  font-size: 42rpx;
+  color: #fc6f48;
+}
+.goodDetails .model_window .model_box .infor .inf .price .sale_price .mark {
+  font-size: 28rpx;
+}
+.goodDetails .model_window .model_box .infor .inf .price .market_price {
+  font-size: 28rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+.goodDetails .model_window .model_box .infor .inf .model_select {
+  font-size: 28rpx;
+  color: #666666;
+}
+.goodDetails .model_window .model_box .infor .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100rpx;
+  height: 90rpx;
+}
+.goodDetails .model_window .model_box .infor .close image {
+  width: 33rpx;
+  height: auto;
+}
+.goodDetails .model_window .model_box .model_con {
+  margin-top: 70rpx;
+  padding: 0 30rpx;
+}
+.goodDetails .model_window .model_box .model_con .tit {
+  font-size: 26rpx;
+  color: #999999;
+}
+.goodDetails .model_window .model_box .model_con .model_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+  max-height: 300rpx;
+  overflow-y: auto;
+}
+.goodDetails .model_window .model_box .model_con .model_list .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 50rpx;
+  border: 1rpx solid #d6d6d6;
+  border-radius: 25rpx;
+  font-size: 26rpx;
+  color: #333333;
+  margin: 0 20rpx 20rpx 0;
+}
+.goodDetails .model_window .model_box .model_con .model_list .active {
+  color: #1a2fb0;
+  border: 1rpx solid #1a2fb0;
+}
+.goodDetails .model_window .model_box .model_con .model_list .disabled {
+  color: #aaaaaa;
+  background: #f1f1f1;
+}
+.goodDetails .model_window .model_box .num_con {
+  margin-top: 60rpx;
+  padding: 0 30rpx;
+}
+.goodDetails .model_window .model_box .num_con .tit {
+  font-size: 26rpx;
+  color: #999999;
+}
+.goodDetails .model_window .model_box .num_con .num_box {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: auto;
+}
+.goodDetails .model_window .model_box .num_con .num_box .stepper {
+  width: 240rpx;
+  height: 50rpx;
+  display: flex;
+}
+.goodDetails .model_window .model_box .num_con .num_box .stepper .sub,
+.goodDetails .model_window .model_box .num_con .num_box .stepper .add {
+  width: 80rpx;
+  height: 100%;
+}
+.goodDetails .model_window .model_box .num_con .num_box .stepper .sub image,
+.goodDetails .model_window .model_box .num_con .num_box .stepper .add image {
+  width: 100%;
+  height: auto;
+}
+.goodDetails .model_window .model_box .num_con .num_box .stepper .qty {
+  width: 80rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #333333;
+}
+.goodDetails .model_window .model_box .confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60rpx;
+  width: 100%;
+  height: 100rpx;
+  font-size: 32rpx;
+  color: #ffffff;
+  background: #1a2fb0;
+}
+

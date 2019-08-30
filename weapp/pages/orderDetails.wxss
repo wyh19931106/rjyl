@@ -1,0 +1,168 @@
+.orderDetails {
+  padding-bottom: 120rpx;
+}
+.orderDetails .top_show {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 215rpx;
+  background: #03447c;
+  color: #ffffff;
+  padding: 0 60rpx;
+}
+.orderDetails .top_show .status .txt {
+  font-size: 32rpx;
+}
+.orderDetails .top_show .status .hint {
+  font-size: 26rpx;
+  margin-top: 20rpx;
+}
+.orderDetails .top_show .img {
+  width: 180rpx;
+  height: auto;
+}
+.orderDetails .top_show .img image {
+  width: 100%;
+  height: auto;
+}
+.orderDetails .user_infor {
+  width: 100%;
+  padding: 20rpx 25rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.orderDetails .user_infor .left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.orderDetails .user_infor .left .title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333;
+}
+.orderDetails .user_infor .left .addr {
+  font-size: 28rpx;
+  color: #333333;
+  margin-top: 15rpx;
+}
+.orderDetails .good_list {
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding-left: 25rpx;
+}
+.orderDetails .good_list .good_item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 25rpx 20rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.orderDetails .good_list .good_item .img {
+  width: 160rpx;
+  height: 160rpx;
+}
+.orderDetails .good_list .good_item .img image {
+  width: 100%;
+  height: auto;
+}
+.orderDetails .good_list .good_item .infor {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160rpx;
+  margin-left: 25rpx;
+}
+.orderDetails .good_list .good_item .infor .title {
+  font-size: 28rpx;
+  color: #333333;
+}
+.orderDetails .good_list .good_item .infor .inf {
+  display: flex;
+  justify-content: space-between;
+  color: #999999;
+  align-items: flex-end;
+}
+.orderDetails .good_list .good_item .infor .inf .qty {
+  font-size: 26rpx;
+}
+.orderDetails .good_list .good_item .infor .inf .price {
+  font-size: 34rpx;
+}
+.orderDetails .good_count {
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding: 20rpx 25rpx 0;
+}
+.orderDetails .good_count .p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26rpx;
+  line-height: 50rpx;
+}
+.orderDetails .good_count .p .txt,
+.orderDetails .good_count .p .val {
+  color: #999999;
+}
+.orderDetails .good_count .money {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100rpx;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.08);
+  font-size: 28rpx;
+  margin-top: 10rpx;
+  color: #333333;
+}
+.orderDetails .good_count .money .total {
+  color: #fc6f48;
+}
+.orderDetails .order_no {
+  margin-top: 20rpx;
+  background: #ffffff;
+  font-size: 26rpx;
+  color: #999999;
+  padding: 10rpx 25rpx;
+}
+.orderDetails .order_no .item {
+  line-height: 50rpx;
+}
+.orderDetails .bottom_fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  padding: 0 25rpx;
+  z-index: 9;
+  background: #ffffff;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.orderDetails .bottom_fixed .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 170rpx;
+  height: 58rpx;
+  padding: 0 30rpx;
+  font-size: 26rpx;
+  color: #333333;
+  border-radius: 29rpx;
+  border: 1rpx solid #9d9d9d;
+  margin-left: 20rpx;
+}
+.orderDetails .bottom_fixed .active {
+  color: #ffffff;
+  background: #03447c;
+  border: none;
+}
+

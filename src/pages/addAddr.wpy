@@ -1,0 +1,355 @@
+<style lang="less">
+    .addAddr {
+        .form {
+            margin-top: 20rpx;
+            background: #ffffff;
+            padding: 0 25rpx;
+            .item {
+                display: flex;
+                align-items: center;
+                height: 90rpx;
+                font-size: 30rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                .txt {
+                    width: 175rpx;
+                    color: #333333;
+                }
+                .val {
+                    flex: 1;
+                    overflow: hidden;
+                }
+                .arrow {
+                    width: 15rpx;
+                    height: auto;
+                }
+            }
+            .item:nth-last-child(1) {
+                border: none;
+            }
+        }
+        .default {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80rpx;
+            padding: 0 25rpx;
+            margin-top: 20rpx;
+            font-size: 30rpx;
+            background: #ffffff;
+            image {
+                width: 106rpx;
+                height: auto;
+            }
+        }
+        .save {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80rpx;
+            border-radius: 10rpx;
+            font-size: 32rpx;
+            color: #ffffff;
+            background: #03447c;
+            margin: 400rpx 25rpx 0;
+            letter-spacing: 20rpx;
+        }
+        /* 城市选择 */
+        .infoText{
+            margin-top: 20rpx;
+            text-align: center;
+            width: 100%;
+            justify-content: center;
+        }
+
+        picker-view{
+            background-color: white;
+            padding: 0;
+            width: 100%;
+            height: 380rpx;
+            bottom: 0;
+            position: fixed;
+        }
+
+        picker-view-column view{
+            vertical-align:middle;
+            font-size: 28rpx;
+            line-height: 28rpx;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ----------------------------------------- */
+
+        .animation-element-wrapper {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            position: fixed;
+            left: 0;
+            top:0;
+            z-index: 999;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .animation-element {
+            display: flex;
+            position: fixed;
+            width: 100%;
+            height: 470rpx;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .animation-button {
+            margin-top: 20rpx;
+            top:20rpx;
+            width: 400rpx;
+            height: 100rpx;
+            line-height: 100rpx;
+            align-items:center;
+        }
+
+
+        .left-bt,.right-bt{
+            color: #999999;
+            display: inline-flex;
+            position: fixed;
+            margin-top: 20rpx;
+            height: 50rpx;
+            text-align: center;
+            line-height: 50rpx;
+            font-size: 34rpx;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .left-bt{
+            left: 30rpx;
+        }
+        .right-bt {
+            right: 30rpx;
+        }
+
+        .line{
+            display: block;
+            position: fixed;
+            height: 1rpx;
+            width: 100%;
+            margin-top: 89rpx;
+            background-color: #eeeeee;
+        }
+    }
+</style>
+<template>
+    <div class="addAddr">
+        <div class="form">
+            <div class="item">
+                <div class="txt">收货人</div>
+                <input type="text" class="val" v-model="name" placeholder="请输入收货人的姓名" placeholder-style="color: #999999; font-size: 28rpx;" />
+            </div>
+            <div class="item">
+                <div class="txt">手机号码</div>
+                <input type="number" maxlength="11" class="val" v-model="mobile" placeholder="请输入收货人的手机号" placeholder-style="color: #999999; font-size: 28rpx;" @input="inputPhoneCom('mobile')"/>
+            </div>
+            <div class="item" @tap="bindShow">
+                <div class="txt">所在地区</div>
+                <input class="val" type="text" disabled="true" v-model="city" />
+                <img src="@/images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow" />
+            </div>
+
+            <div class="item">
+                <div class="txt">详细地址</div>
+                <input type="text" class="val" v-model="addr" placeholder="请输入收货人的详细地址" placeholder-style="color: #999999; font-size: 28rpx;" />
+            </div>
+        </div>
+        <div class="default">
+            <div class="txt">设置为默认收货地址</div>
+            <switch checked="{{isDefault}}" bindchange="setDefault"/>
+        </div>
+        <div class="save" @tap="bindSubmit">保存</div>
+
+        <view class="animation-element-wrapper" v-if="show">
+            <view class="animation-element">
+                <text class="left-bt" @tap.stop="bindHide">取消</text>
+                <text class="right-bt" @tap.stop="bindConfirm">确定</text>
+                <view class="line"></view>
+                <picker-view indicator-style = "height: 50rpx;" value="{{value}}" id="{{sheng.id}}" bindchange="bindScoller">
+                <!--省-->
+                    <picker-view-column>
+                       <view v-for="(sheng, key) in provinces">
+                         {{sheng.name}}
+                      </view>
+                    </picker-view-column>
+                    <!--地级市-->
+                    <picker-view-column>
+                      <view v-for="(item, key) in citys">
+                        {{item.name}}
+                      </view>
+                    </picker-view-column>
+                    <!--区县-->
+                    <picker-view-column>
+                      <view v-for="(item, key) in countys">
+                        {{item.name}}
+                      </view>
+                    </picker-view-column>
+                </picker-view>
+            </view>
+        </view>
+
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            provinces: [],
+            citys: [],
+            countys: [],
+            value: [0, 0, 0],
+            name: '',
+            mobile: '',
+            city: '请选择',
+            addr: '',
+            area_id: 0,
+            isDefault: true,
+            show: false
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取省数据
+            getProvinces() {
+                let that = this;
+                that.request({
+                    url: '/api/package/areas',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    that.provinces = ret.data;
+                    that.getCitys(ret.data[0].id);
+                })
+            },
+            // 获取市数据
+            getCitys(id) {
+                let that = this;
+                that.request({
+                    url: '/api/package/areas',
+                    type: 'GET'
+                }, {
+                    parent_id:  id
+                }, function (ret) {
+                    that.citys = ret.data;
+                    that.getCountys(ret.data[0].id);
+                })
+            },
+            // 获取县数据
+            getCountys(id) {
+                let that = this;
+                that.request({
+                    url: '/api/package/areas',
+                    type: 'GET'
+                }, {
+                    parent_id:  id
+                }, function (ret) {
+                    that.countys = ret.data;
+                })
+            },
+            bindScoller(e) {
+                let that = this;
+                let val = e.$wx.detail.value;
+                //判断滑动的是第几个column
+                if (that.value[0] != val[0]) {
+                    val[1] = 0;
+                    val[2] = 0;
+                    that.getCitys(that.provinces[val[0]].id)
+                } else {
+                    if (that.value[1] != val[1]) {
+                        val[2] = 0;
+                        that.getCountys(that.citys[val[1]].id)
+                    }
+                }
+                that.value = val;
+            },
+            // 城市选择
+            bindShow() {
+                this.show = true;
+            },
+            bindHide() {
+                this.show = false;
+            },
+            bindConfirm() {
+                let that = this;
+                that.city = that.provinces[that.value[0]].name + that.citys[that.value[1]].name + that.countys[that.value[2]].name;
+                that.area_id = that.countys[that.value[2]].id;
+                that.bindHide();
+            },
+            // 设置默认
+            setDefault() {
+                this.isDefault = !this.isDefault;
+                if(this.isDefault) {
+                    this.isDefault = 1;
+                } else {
+                    this.isDefault = 0;
+                }
+            },
+            // 提交
+            bindSubmit() {
+                let that = this;
+                if(!that.name.trim()) {
+                    that.toast('收货人不能为空');
+                    return false;
+                }
+                if(!that.mobile) {
+                    that.toast('手机号不能为空');
+                    return false;
+                }
+                if(!that.isPhone(that.mobile)) {
+                    that.toast('手机号格式错误');
+                    return false;
+                }
+                if(!that.area_id) {
+                    that.toast('收货地址不能为空');
+                    return false;
+                }
+                if(!that.addr.trim()) {
+                    that.toast('详细地址不能为空');
+                    return false;
+                }
+                that.request({
+                    url: '/api/package/user/addresses',
+                    type: 'POST'
+                },{
+                    name: that.name,
+                    mobile: that.mobile,
+                    area_id: that.area_id,
+                    detail: that.addr,
+                    is_default: that.isDefault
+                }, function (ret) {
+                    that.toast('地址添加成功');
+                    setTimeout(function () {
+                        that.goBack();
+                    }, 1500)
+                })
+            }
+        },
+
+        created () {
+            this.getProvinces();
+        },
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

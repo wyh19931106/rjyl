@@ -1,0 +1,38 @@
+
+<view class="addCard">
+    <view class="form">
+        <view class="item">
+            <label for="">持卡人</label>
+            <input type="text" placeholder="请输入持卡人姓名" value="{{ form.name }}" bindinput="_proxy" data-model-id="8" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+        </view>
+        <view class="item">
+            <label for="">卡号</label>
+            <input type="number" placeholder="请输入卡号" value="{{ form.bank_no }}" bindinput="_proxy" data-model-id="9" placeholder-style="color: #999999;font-size: 28rpx;" data-wpy-evt="13-0"></input>
+        </view>
+        <view class="item">
+            <label for="">支行</label>
+            <input type="text" placeholder="请输入支行信息" value="{{ form.bank_name }}" bindinput="_proxy" data-model-id="10" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+        </view>
+        <view class="item">
+            <label for="">手机号</label>
+            <input type="number" maxlength="11" value="{{ form.mobile }}" bindinput="_proxy" data-model-id="11" placeholder="请输入持卡人手机号" placeholder-style="color: #999999;font-size: 28rpx;" data-wpy-evt="13-1"></input>
+        </view>
+        <view class="item">
+            <label for="imgCode">图形码</label>
+            <input type="text" id="imgCode" value="{{ form.imgCode }}" bindinput="_proxy" data-model-id="12" placeholder="请输入图形验证码" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+            <view data-wpy-evt="13-2" bindtap="_proxy" class="img_code">
+                <image src="{{imgCodeUrl}}" alt="" mode="widthFix"></image>
+            </view>
+        </view>
+        <view class="item">
+            <label for="">验证码</label>
+            <input type="text" value="{{ form.phoneCode }}" bindinput="_proxy" data-model-id="13" placeholder="请输入短信验证码" placeholder-style="color: #999999;font-size: 28rpx;"></input>
+            <label data-wpy-evt="13-3" bindtap="_proxy" class="btn">{{code_txt}}</label>
+        </view>
+    </view>
+    <view class="default">
+        <view class="txt">设置为默认收货地址</view>
+        <switch checked="{{form.isDefault}}" data-wpy-evt="13-4" bindchange="_proxy"></switch>
+    </view>
+    <view data-wpy-evt="13-5" bindtap="_proxy" class="confirm">确定</view>
+</view>

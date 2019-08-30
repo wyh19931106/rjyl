@@ -1,0 +1,234 @@
+<style lang="less">
+    .cardList {
+        padding-bottom: 120rpx;
+        .list {
+            padding: 30rpx 25rpx;
+            .item {
+                width: 100%;
+                height: 180rpx;
+                background-image: linear-gradient(90deg, #53a0ff 0%, #8f8fff 100%),
+                linear-gradient( #000000, #000000);
+                background-blend-mode: normal, normal;
+                border-radius: 10rpx;
+                padding: 0 25rpx;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                color: #ffffff;
+                margin-bottom: 25rpx;
+                .top {
+                    display: flex;
+                    align-items: center;
+                    .logo {
+                        width: 50rpx;
+                        height: 50rpx;
+                        image {
+                            width: 100%;
+                            height: auto;
+                        }
+                    }
+                    .bank_name {
+                        margin-left: 15rpx;
+                        font-size: 32rpx;
+                        .mark {
+                            margin-left: 10rpx;
+                            font-size: 28rpx;
+                            color: rgba(255,0,0,0.5);
+                        }
+                    }
+                }
+                .bank_no {
+                    padding-left: 65rpx;
+                    margin-top: 20rpx;
+                    font-size: 32rpx;
+                }
+            }
+        }
+        .bottom_fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100rpx;
+            background: #ffffff;
+            z-index: 9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 480rpx;
+                height: 70rpx;
+                font-size: 30rpx;
+                color: #e70113;
+                border-radius: 35rpx;
+                border: 1rpx solid #e70113;
+            }
+        }
+    }
+</style>
+<wxs module="m1" lang="babel">
+    const init_bank_no = () => {
+        var no = 'abcdef';
+        return no.substr(-4);
+    }
+    module.exports.init_bank_no = init_bank_no;
+</wxs>
+<template>
+    <div class="cardList">
+        <div class="list" v-if="list.length">
+            <div class="item" v-for="(item,key) in list" @tap="bindEdit(key)">
+                <div class="top">
+                    <div class="logo"><img :src="host + item.bank_logo" alt="" mode="widthFix" /></div>
+                    <div class="bank_name">{{item.org}}{{item.type == 'DC'?'储蓄卡':'信用卡'}}<span class="mark">{{item.is_default?'(默认)':''}}</span></div>
+                </div>
+                <div class="bank_no">{{item.number}}</div>
+            </div>
+        </div>
+        <div class="empty" v-if="list.length">{{finished?'没有更多了~':'上拉加载更多~'}}</div>
+        <div class="empty_con" v-else>
+            <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+            <div class="empty">暂无数据~</div>
+        </div>
+        <div class="bottom_fixed"><div class="btn" @tap="openWin('/pages/addCard')">+ 添加银行卡</div></div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            list: [],
+            page: 1,
+            load: false,
+            finished: false,
+            from: ''
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取银行卡数据
+            getList() {
+                let that = this;
+                that.request({
+                    url: '/api/package/user/card',
+                    type: 'GET'
+                }, {
+                    page: that.page
+                }, function (ret) {
+                    if (that.page < ret.meta.pagination.total_pages) {
+                        that.finished = false;
+                        that.page++;
+                    } else {
+                        that.finished = true;
+                    }
+                    that.load = true;
+                    that.list = that.list.concat(ret.data);
+                })
+            },
+            // 编辑
+            bindEdit (ind) {
+                let that = this;
+                if (that.from) {
+                    that.setStore('card', JSON.stringify(that.list[ind]));
+                    that.goBack();
+                    return false;
+                }
+                wx.showActionSheet({
+                    itemList: ['删除', '设为默认'],
+                    success (res) {
+                        if (res.tapIndex == 0) {
+                            // 删除
+                            that.bindDel(ind);
+                            // that.list.splice(ind,1);
+                        }
+                        if(res.tapIndex == 1) {
+                            // 设为默认
+                            that.setDefault(ind);
+                        }
+                    },
+                    fail (res) {
+                        console.log(res.errMsg)
+                    }
+                })
+            },
+            // 设为默认
+            setDefault(ind) {
+                let that = this;
+                for(let i = 0; i < that.list.length; i++) {
+                    if (ind == i) {
+                        that.list[i].is_default = 1;
+                    } else {
+                        that.list[i].is_default = 0;
+                    }
+                }
+                that.request({
+                    url: '/api/package/user/card/'+ that.list[ind].id,
+                    type: 'PUT'
+                }, {
+                    is_default: 1
+                }, function (ret) {
+                    console.log(ret);
+                })
+            },
+            // 删除
+            bindDel(ind) {
+                let that = this;
+                that.request({
+                    url: '/api/package/user/card/'+ that.list[ind].id,
+                    type: 'DELETE'
+                }, {}, function (ret) {
+                    that.list = [];
+                    that.page = 1;
+                    that.load = false;
+                    that.finished = false;
+                    that.getList();
+                })
+            }
+        },
+
+        created () {
+
+        },
+        onShow() {
+            this.list = [];
+            this.page = 1;
+            this.load = false;
+            this.finished = false;
+            this.getList();
+        },
+        onLoad(options) {
+            if (options.from) {
+                this.from = options.from;
+            }
+        },
+        // 上拉加载
+        onReachBottom(event) {
+            let that = this;
+            if (that.finished) {
+                return false;
+            }
+            if (that.load) {
+                that.load = false;
+                that.getList()
+            }
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

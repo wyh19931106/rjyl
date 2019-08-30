@@ -1,0 +1,43 @@
+.otherCase {
+  padding: 0 25rpx;
+}
+.otherCase .title {
+  font-size: 32rpx;
+  color: #333333;
+  padding: 20rpx 0;
+}
+.otherCase .upload_con {
+  width: 600rpx;
+  height: auto;
+  margin: 20rpx auto;
+}
+.otherCase .upload_con .upload_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 338rpx;
+  margin-bottom: 100rpx;
+  border: 1rpx dashed rgba(0, 0, 0, 0.08);
+}
+.otherCase .upload_con .upload_box .bg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.otherCase .upload_con .upload_box .img {
+  display: block;
+  width: 95%;
+  height: auto;
+}
+.otherCase .upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60rpx 0 30rpx;
+  height: 78rpx;
+  font-size: 32rpx;
+  color: #ffffff;
+  background: #03447c;
+}
+

@@ -1,0 +1,30 @@
+
+<view class="cash">
+    <view wx:if="{{ card.id }}" class="bank">
+        <view class="name">开户名: {{card.name_hide}}</view>
+        <view data-wpy-evt="18-0" bindtap="_proxy" class="card">
+            <view class="logo">
+                <image src="{{ host + card.bank_logo }}" alt="" mode="widthFix"></image>
+            </view>
+            <view class="inf">
+                <view class="tit">{{card.bank_name}}</view>
+                <view class="no">尾号{{card.bank_no}}</view>
+            </view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="r"></image>
+        </view>
+    </view>
+    <view wx:if="{{  }}" data-wpy-evt="18-1" bindtap="_proxy" class="add_card">
+        <view class="txt">添加银行卡</view>
+        <image src="../images/icon_arrow_r.png" alt="" mode="widthFix"></image>
+    </view>
+    <view class="balance">
+        <view class="txt">可提现余额</view>
+        <view class="val">{{money}}元</view>
+    </view>
+    <view class="num">
+        <view class="txt">提现余额</view>
+        <view class="val"><input type="number" value="{{ cash_money }}" bindinput="_proxy" data-model-id="41" placeholder="请输入提现金额，最少10元" placeholder-style="color: #999999;font-size: 32rpx;"></input></view>
+    </view>
+    <view data-wpy-evt="18-2" bindtap="_proxy" class="btn">提现</view>
+    <inputPwd bind_init="_initComponent" show="{{show}}" money="{{cash_money}}" cardId="{{card.id?card.id: 0}}" type="{{'cash'}}" data-wpy-evt="18-3" bindinputHide="_proxy"></inputPwd>
+</view>

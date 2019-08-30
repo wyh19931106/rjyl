@@ -1,0 +1,93 @@
+
+<view wx:if="{{ details.id }}" class="goodDetails">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" data-wpy-evt="22-0" bindchange="_proxy" style="height:{{imgBoxSize}}rpx;" class="swiper">
+        <swiper-item wx:for="{{ details.imgs }}" wx:for-index="key" wx:for-item="item" wx:key="key">
+            <image src="{{ imgPath + item }}" mode="widthFix" data-wpy-evt="22-1" bindload="_proxy" class="slide-image"></image>
+        </swiper-item>
+    </swiper>
+    <view class="good_infor">
+        <view class="good_price">
+            <view class="pri">
+                <view class="sale_pri">
+                    <label class="mark">¥</label>{{details.price}}
+                </view>
+                <view class="market_pri">¥{{details.market_price}}</view>
+            </view>
+            <view class="sale_num">已售{{details.sales_count}}件</view>
+        </view>
+        <view class="good_title">{{details.title}}/</view>
+    </view>
+    <view class="good_details">
+        <rich-text nodes="{{details.content}}"></rich-text>
+    </view>
+    <view class="bottom_fixed">
+        <view class="left">
+            <view class="item">
+                <view data-wpy-evt="22-2" bindtap="_proxy" class="icon">
+                    <image src="../images/icon_fav_y.png" wx:if="{{ details.favoriters }}" alt="" mode="widthFix"></image>
+                    <image src="../images/icon_fav.png" wx:else alt="" mode="widthFix"></image>
+                </view>
+                <view class="txt">收藏</view>
+            </view>
+            <view data-wpy-evt="22-3" bindtap="_proxy" class="item">
+                <view class="icon">
+                    <image src="../images/icon_cart_black.png" alt="" mode="widthFix"></image>
+                    
+                </view>
+                <view class="txt">购物车</view>
+            </view>
+            <button open-type="contact" hover-class="none" data-wpy-evt="22-4" bindcontact="_proxy" class="item kf">
+                <view class="icon">
+                    <image src="../images/icon_service.png" alt="" mode="widthFix"></image>
+                </view>
+                <view class="txt">客服</view>
+            </button>
+        </view>
+        <view wx:if="{{ from_type=='default' }}" data-wpy-evt="22-5" bindtap="_proxy" class="add_cart">
+            加入购物车
+        </view>
+        <view data-wpy-evt="22-6" bindtap="_proxy" class="to_buy">
+            立即购买
+        </view>
+    </view>
+
+    <view wx:if="{{ show }}" data-wpy-evt="22-7" bindtap="_proxy" class="window model_window">
+        <view data-wpy-evt="22-8" catchtap="_proxy" class="window_box model_box">
+            <view class="infor">
+                <view class="img">
+                    <image src="{{ imgPath + details.cover }}" alt="" mode="widthFix"></image>
+                </view>
+                <view class="inf">
+                    <view class="price">
+                        <view class="sale_price">
+                            <label class="mark">¥</label>{{select_form.price}}
+                        </view>
+                        <label class="market_price">¥{{select_form.market_price}}</label>
+                    </view>
+                    <view wx:if="{{ details.attrs.data.length }}" class="model_select">{{select_form.attr_str}}</view>
+                </view>
+                <view data-wpy-evt="22-9" bindtap="_proxy" class="close">
+                    <image src="../images/icon_close.png" alt="" mode="widthFix"></image>
+                </view>
+            </view>
+            <view wx:if="{{ details.attrs.data.length }}" class="model_con">
+                <view class="tit">规格</view>
+                <view class="model_list">
+                    <view wx:for="{{ details.attrs.data }}" wx:for-index="key" wx:for-item="item" wx:key="key" wx:if="{{ item.stock }}" data-wpy-evt="22-10" bindtap="_proxy" data-wpytap-a="{{ key }}" class="{{item.id==select_form.id?'item active':'item'}}">{{item.attr_str}}</view>
+                    <view wx:if="{{ item.stock<1 }}" class="item disabled">{{item.attr_str}}</view>
+                </view>
+            </view>
+            <view class="num_con">
+                <view class="tit">数量</view>
+                <view class="num_box">
+                    <view class="stepper">
+                        <view data-wpy-evt="22-11" bindtap="_proxy" class="sub"><image src="../images/icon_btn_sub.png" alt="" mode="widthFix"></image></view>
+                        <input type="number" value="{{ qty }}" bindinput="_proxy" data-model-id="26" readonly="" class="qty"></input>
+                        <view data-wpy-evt="22-12" bindtap="_proxy" class="add"><image src="../images/icon_btn_add.png" alt="" mode="widthFix"></image></view>
+                    </view>
+                </view>
+            </view>
+            <view data-wpy-evt="22-13" bindtap="_proxy" class="confirm">确定</view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,18 @@
+
+<view class="myCode">
+    <view class="user_infor">
+        <view class="avatar"><image src="../images/img_avatar.png" alt="" mode="widthFix"></image></view>
+        <view class="inf">
+            <view class="nick_name">夏天的尾巴</view>
+            <view class="no">我的推广码：SD1234566789012</view>
+        </view>
+    </view>
+    <view class="code_con">
+        <image src="../images/img_code.png" alt="" mode="widthFix"></image>
+    </view>
+    <view class="hint">扫一扫，一起享实惠</view>
+    <view class="handle">
+        <view class="btn"><image src="../images/icon_download_white.png" alt="" mode="widthFix"></image>保存二维码</view>
+        <view class="btn"><image src="../images/icon_share_white.png" alt="" mode="widthFix"></image>分享给好友</view>
+    </view>
+</view>

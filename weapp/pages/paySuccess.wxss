@@ -1,0 +1,54 @@
+.paySuccess {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.paySuccess .con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.paySuccess .con image {
+  width: 260rpx;
+  height: auto;
+}
+.paySuccess .con .title {
+  font-size: 38rpx;
+  color: #333333;
+  margin-top: 20rpx;
+}
+.paySuccess .con .hint {
+  font-size: 28rpx;
+  color: #999999;
+  margin-top: 15rpx;
+}
+.paySuccess .con .handle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 100rpx;
+}
+.paySuccess .con .handle .look,
+.paySuccess .con .handle .to_home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 226rpx;
+  height: 66rpx;
+  font-size: 30rpx;
+  border-radius: 33rpx;
+}
+.paySuccess .con .handle .look {
+  border: 1rpx solid #bfbfbf;
+}
+.paySuccess .con .handle .to_home {
+  color: #ffffff;
+  background: #1a2fb0;
+  margin-left: 120rpx;
+}
+

@@ -1,0 +1,21 @@
+
+<view class="product_list">
+    <view wx:if="{{ list.length }}" class="list">
+        <view wx:for="{{ list }}" wx:for-index="key" wx:for-item="item" wx:key="key" data-wpy-evt="123-0" bindtap="_proxy" data-wpytap-a="{{ item }}" class="item">
+            <view class="img">
+                <image src="{{ imgPath + item.cover }}" alt="" mode="widthFix"></image>
+            </view>
+            <view class="title">{{item.title}}</view>
+            <view class="price">
+                <view class="new">¥{{item.price}}</view>
+                <view class="old">{{item.market_price}}</view>
+            </view>
+            <view class="count">已售{{item.sales_count}}件</view>
+        </view>
+    </view>
+    <view wx:if="{{ list.length }}" class="empty">{{finished?'没有更多了~':'上拉加载更多~'}}</view>
+    <view wx:else class="empty_con">
+        <image src="../images/img_empty.png" alt="" mode="widthFix"></image>
+        <view class="empty">暂无数据~</view>
+    </view>
+</view>

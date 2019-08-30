@@ -1,0 +1,136 @@
+
+<view class="user">
+    <view class="top_show">
+        <view data-wpy-evt="5-0" bindtap="_proxy" class="user_inf">
+            <view class="avatar">
+                <image src="{{ imgPath + user.avatar }}" alt="" wx:if="{{ user.avatar }}"></image>
+                <image src="../images/img_avatar.png" alt="" wx:else></image>
+            </view>
+            <view wx:if="{{ user.id }}" class="inf">
+                <view class="name">{{user.name?user.name:user.phone}}</view>
+                
+            </view>
+            <view wx:else class="inf">
+                <view class="name">请登录</view>
+                
+            </view>
+        </view>
+        <view data-wpy-evt="5-1" bindtap="_proxy" class="news_btn">
+            <image src="../images/icon_msg.png" alt="" mode="widthFix"></image>
+            <label class="mark"></label>
+        </view>
+    </view>
+
+    <view class="good_order order_con">
+        <view data-wpy-evt="5-2" bindtap="_proxy" class="title">
+            <view class="tit">商品订单</view>
+            <view class="more">
+                <label class="txt">全部订单</label>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix"></image>
+            </view>
+        </view>
+        <view class="order_nav">
+            <view data-wpy-evt="5-3" bindtap="_proxy" class="nav_item nav_item1">
+                <view class="img">
+                    <image src="../images/icon_order_flow1.png" alt="" mode="widthFix"></image>
+                    <label class="mark">2</label>
+                </view>
+                <view class="txt">待付款</view>
+            </view>
+            <view data-wpy-evt="5-4" bindtap="_proxy" class="nav_item nav_item2">
+                <view class="img">
+                    <image src="../images/icon_order_flow2.png" alt="" mode="widthFix"></image>
+                    <label class="mark">2</label>
+                </view>
+                <view class="txt">待发货</view>
+            </view>
+            <view data-wpy-evt="5-5" bindtap="_proxy" class="nav_item nav_item3">
+                <view class="img">
+                    <image src="../images/icon_order_flow3.png" alt="" mode="widthFix"></image>
+                    <label class="mark">2</label>
+                </view>
+                <view class="txt">待收货</view>
+            </view>
+            <view data-wpy-evt="5-6" bindtap="_proxy" class="nav_item nav_item4">
+                <view class="img">
+                    <image src="../images/icon_order_flow4.png" alt="" mode="widthFix"></image>
+                    <label class="mark">2</label>
+                </view>
+                <view class="txt">已完成</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="project_order order_con">
+        <view data-wpy-evt="5-7" bindtap="_proxy" class="title">
+            <view class="tit">服务项目订单</view>
+            <view class="more">
+                <label class="txt">全部订单</label>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix"></image>
+            </view>
+        </view>
+        <view class="order_nav">
+            <view data-wpy-evt="5-8" bindtap="_proxy" class="nav_item nav_item1">
+                <view class="img">
+                    <image src="../images/icon_serve_order1.png" alt="" mode="widthFix"></image>
+                </view>
+                <view class="txt">全部</view>
+            </view>
+            <view data-wpy-evt="5-9" bindtap="_proxy" class="nav_item nav_item2">
+                <view class="img">
+                    <image src="../images/icon_serve_order2.png" alt="" mode="widthFix"></image>
+                    <label class="mark">2</label>
+                </view>
+                <view class="txt">待付款</view>
+            </view>
+            <view data-wpy-evt="5-10" bindtap="_proxy" class="nav_item nav_item3">
+                <view class="img">
+                    <image src="../images/icon_serve_order3.png" alt="" mode="widthFix"></image>
+                    <label class="mark">2</label>
+                </view>
+                <view class="txt">待使用</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="nav_con">
+        <view data-wpy-evt="5-11" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_user_wallet.png" alt="" mode="widthFix" class="mark"></image>
+            <view class="txt">我的钱包</view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+    </view>
+
+    <view class="nav_con">
+        <view data-wpy-evt="5-12" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_user_activity.png" alt="" mode="widthFix" class="mark"></image>
+            <view class="txt">活动报名</view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+        <view data-wpy-evt="5-13" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_user_reservation.png" alt="" mode="widthFix" class="mark"></image>
+            <view class="txt">我的预约</view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+        <view data-wpy-evt="5-14" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_user_result.png" alt="" mode="widthFix" class="mark"></image>
+            <view class="txt">检测结果</view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+        <view data-wpy-evt="5-15" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_user_sales.png" alt="" mode="widthFix" class="mark"></image>
+            <view class="txt">分销中心</view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+        <view data-wpy-evt="5-16" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_user_code.png" alt="" mode="widthFix" class="mark"></image>
+            <view class="txt">我的二维码</view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+        <view data-wpy-evt="5-17" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_user_fav.png" alt="" mode="widthFix" class="mark"></image>
+            <view class="txt">我的收藏</view>
+            <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+        </view>
+    </view>
+</view>

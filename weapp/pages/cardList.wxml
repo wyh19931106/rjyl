@@ -1,0 +1,30 @@
+<!----------   wxs start ----------->
+<wxs module="m1">
+"use strict";
+
+var init_bank_no = function init_bank_no() {
+  var no = 'abcdef';
+  return no.substr(-4);
+};
+
+module.exports.init_bank_no = init_bank_no;
+</wxs>
+<!----------   wxs end   ----------->
+
+<view class="cardList">
+    <view wx:if="{{ list.length }}" class="list">
+        <view wx:for="{{ list }}" wx:for-index="key" wx:for-item="item" wx:key="key" data-wpy-evt="17-0" bindtap="_proxy" data-wpytap-a="{{ key }}" class="item">
+            <view class="top">
+                <view class="logo"><image src="{{ host + item.bank_logo }}" alt="" mode="widthFix"></image></view>
+                <view class="bank_name">{{item.org}}{{item.type == 'DC'?'储蓄卡':'信用卡'}}<label class="mark">{{item.is_default?'(默认)':''}}</label></view>
+            </view>
+            <view class="bank_no">{{item.number}}</view>
+        </view>
+    </view>
+    <view wx:if="{{ list.length }}" class="empty">{{finished?'没有更多了~':'上拉加载更多~'}}</view>
+    <view wx:else class="empty_con">
+        <image src="../images/img_empty.png" alt="" mode="widthFix"></image>
+        <view class="empty">暂无数据~</view>
+    </view>
+    <view class="bottom_fixed"><view data-wpy-evt="17-1" bindtap="_proxy" class="btn">+ 添加银行卡</view></view>
+</view>

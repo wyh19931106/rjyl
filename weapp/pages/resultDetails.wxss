@@ -1,0 +1,152 @@
+.resultDetails .top_show {
+  width: 100%;
+  position: relative;
+}
+.resultDetails .top_show image {
+  width: 100%;
+  height: auto;
+}
+.resultDetails .con {
+  position: relative;
+  margin: -84rpx 25rpx 30rpx;
+  padding: 0 20rpx;
+  background: #ffffff;
+  border-radius: 10rpx;
+}
+.resultDetails .con .top {
+  padding-bottom: 10rpx;
+  border-bottom: 1rpx solid #dddddd;
+}
+.resultDetails .con .top .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84rpx;
+}
+.resultDetails .con .top .title .txt {
+  font-size: 30rpx;
+  color: #333333;
+}
+.resultDetails .con .top .title .time {
+  font-size: 24rpx;
+  color: #999999;
+}
+.resultDetails .con .top .looks {
+  text-align: right;
+  font-size: 24rpx;
+  color: #999999;
+}
+.resultDetails .con .top .result_case {
+  font-size: 36rpx;
+  color: #fb5a5a;
+  font-weight: bold;
+}
+.resultDetails .con .top .hint {
+  font-size: 30rpx;
+  color: #999999;
+  line-height: 46rpx;
+  margin-top: 15rpx;
+}
+.resultDetails .con .result_details {
+  padding: 0 0 30rpx;
+  margin-top: 10rpx;
+}
+.resultDetails .con .result_details .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84rpx;
+  font-size: 30rpx;
+  color: #333333;
+}
+.resultDetails .con .result_details .time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+  color: #999999;
+}
+.resultDetails .con .result_details .table {
+  margin-top: 30rpx;
+}
+.resultDetails .con .result_details .table .th,
+.resultDetails .con .result_details .table .tr {
+  display: flex;
+  height: 60rpx;
+  font-size: 24rpx;
+}
+.resultDetails .con .result_details .table .th .td,
+.resultDetails .con .result_details .table .tr .td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.resultDetails .con .result_details .table .th .td1,
+.resultDetails .con .result_details .table .tr .td1 {
+  flex: 1;
+  overflow: hidden;
+}
+.resultDetails .con .result_details .table .th .td2,
+.resultDetails .con .result_details .table .tr .td2,
+.resultDetails .con .result_details .table .th .td3,
+.resultDetails .con .result_details .table .tr .td3 {
+  width: 180rpx;
+}
+.resultDetails .con .result_details .table .tr {
+  color: #03447c;
+  margin-bottom: 2rpx;
+}
+.resultDetails .con .result_details .table .tr .td2 {
+  background: #f1f1f1;
+}
+.resultDetails .con .result_details .table .tr .td1,
+.resultDetails .con .result_details .table .tr .td3 {
+  background: #c9dff7;
+}
+.resultDetails .con .result_details .result_write {
+  margin-top: 30rpx;
+  padding: 0 20rpx 100rpx;
+  border-radius: 10rpx;
+  border: 1rpx solid #dddddd;
+}
+.resultDetails .con .result_details .result_write .tit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70rpx;
+  font-size: 24rpx;
+}
+.resultDetails .con .result_details .result_write .tit .docter {
+  color: #333333;
+}
+.resultDetails .con .result_details .result_write .tit .no {
+  color: #fb5a5a;
+}
+.resultDetails .con .result_details .result_write .article {
+  margin-top: 20rpx;
+}
+.resultDetails .con .result_details .result_write .article image {
+  width: 100%;
+  height: auto;
+}
+.resultDetails .con .log {
+  margin-top: 15rpx;
+}
+.resultDetails .con .log .tit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84rpx;
+  font-size: 30rpx;
+  color: #333333;
+}
+.resultDetails .con .log .img_box {
+  width: 100%;
+  height: auto;
+}
+.resultDetails .con .log .img_box .img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15rpx;
+}
+

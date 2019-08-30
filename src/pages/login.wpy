@@ -1,0 +1,130 @@
+<style lang="less">
+    .login {
+        .form {
+            margin-top: 25rpx;
+            background: #ffffff;
+            .item {
+                display: flex;
+                align-items: center;
+                font-size: 32rpx;
+                height: 100rpx;
+                padding: 0 25rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                label {
+                    width: 160rpx;
+                }
+                input {
+                    flex: 1;
+                    overflow: hidden;
+                }
+            }
+            .item:nth-last-child(1) {
+                border: none;
+            }
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32rpx;
+            color: #ffffff;
+            margin: 100rpx 25rpx 0;
+            height: 80rpx;
+            background: #03447c;
+            border-radius: 8rpx;
+        }
+        .handle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 24rpx;
+            color: #333333;
+            padding: 25rpx;
+        }
+    }
+</style>
+<template>
+    <div class="login">
+        <div class="form">
+            <div class="item">
+                <label for="mobile">手机号</label>
+                <input type="number" placeholder="请输入手机号" v-model="mobile" placeholder-style="color: #999999;font-size: 28rpx;" id="mobile" @input="inputPhoneCom('mobile')"/>
+            </div>
+            <div class="item">
+                <label for="pwd">确认密码</label>
+                <input type="password" id="pwd" v-model="pwd" placeholder="请再次确认密码" placeholder-style="color: #999999;font-size: 28rpx;" @input="inputPwdCom('pwd')"/>
+            </div>
+        </div>
+        <div class="btn" @tap="bindLogin">登 录</div>
+        <div class="handle">
+            <div class="to_forget" @tap="openWin('/pages/forget')">忘记密码？</div>
+            <div class="to_register" @tap="openWin('/pages/register')">手机注册</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            mobile: '',
+            pwd: ''
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            bindLogin() {
+                let that = this;
+                if(!that.mobile) {
+                    that.toast('手机号不能为空');
+                    return false;
+                }
+                if(!that.isPhone(that.mobile)) {
+                    that.toast('手机号格式错误');
+                    return false;
+                }
+                if(!that.pwd) {
+                    that.toast('密码不能为空');
+                    return false;
+                }
+                if(that.pwd.length < 6) {
+                    that.toast('密码不能小于6位');
+                    return false;
+                }
+                that.request({
+                    url: '/api/base/authorizations',
+                    type: 'POST'
+                },{
+                    phone: that.mobile,
+                    password: that.pwd
+                },function (ret) {
+                    that.toast('登陆成功');
+                    console.log(ret);
+                    that.setStore('token', ret.data.access_token);
+                    setTimeout(function() {
+                        that.openTab('/pages/index');
+                    },1500);
+                })
+            }
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '登录',
+        usingComponents: {
+
+        }
+    }
+</config>

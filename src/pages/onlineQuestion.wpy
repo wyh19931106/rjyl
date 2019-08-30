@@ -1,0 +1,190 @@
+<style lang="less">
+    .onlineQuestion {
+        padding-top: 70rpx;
+        .title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 70rpx;
+            padding: 0 25rpx;
+            font-size: 38rpx;
+            color: #ffffff;
+            background: #1b629f;
+            .tit {
+                font-size: 28rpx;
+                margin-left: 15rpx;
+            }
+        }
+        .list {
+            width: 100%;
+            height: auto;
+            padding: 0 25rpx;
+            .list_item {
+                font-size: 24rpx;
+                color: #333333;
+                padding: 0 30rpx;
+                border-radius: 5rpx;
+                background: #ffffff;
+                margin-top: 20rpx;
+                padding: 10rpx 30rpx;
+                .question {
+                    padding: 15rpx 0;
+                    border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                }
+                .answer {
+                    padding: 10rpx 0 20rpx;
+                    .item {
+                        display: flex;
+                        min-height: 36rpx;
+                        line-height: 36rpx;
+                        padding: 10rpx 0;
+                        image {
+                            width: 30rpx;
+                            height: auto;
+                            margin-right: 20rpx;
+                        }
+                        .txt {
+                            flex: 1;
+                            overflow: hidden;
+                        }
+                    }
+                }
+            }
+        }
+        .submit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 32rpx;
+            background: #03447c;
+            height: 78rpx;
+            margin: 60rpx 25rpx;
+        }
+    }
+</style>
+<template>
+    <div class="onlineQuestion">
+        <div class="title">在线问卷<span class="tit"> ( {{details.questionnaires[0].qn_title}} )</span></div>
+        <div class="list">
+            <div class="list_item" v-for="(item, key) in details.question">
+                <div class="question">{{key+1}}，{{item.q_title}}({{item.q_type == 1?'单选':'不定项'}})</div>
+                <div class="answer">
+                    <div class="item" v-for="(op, ind) in item.question_options" @tap="bindSelect(key,ind)">
+                        <img src="@/images/icon_tick_blue.png" alt="" mode="widthFix" v-if="op.select" />
+                        <img src="@/images/icon_tick.png" v-else alt="" mode="widthFix" />
+                        <div class="txt">
+                            {{op.qo_title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit" @tap="bindSubmit">问卷提交</div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            details: {},
+            result: [],
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取数据
+            getDetails() {
+                let that = this;
+                that.request({
+                    url: '/api/get_questionnaires',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    for( let i = 0; i < ret.data.question.length; i++) {
+                        that.result[i] = [];
+                        for(let j = 0; j < ret.data.question[i].question_options.length; j++) {
+                            ret.data.question[i].question_options[j].select = false;
+                        }
+                    }
+                    that.details = ret.data;
+                })
+            },
+            // 选择答案
+            bindSelect(key,ind) {
+                this.result[key] = [];
+                if (this.details.question[key].q_type == 1) {
+                    // 单选
+                    for (var i = 0; i < this.details.question[key].question_options.length; i++) {
+                        if(ind == i) {
+                            this.details.question[key].question_options[i].select = true;
+                            this.result[key][0] = this.details.question[key].question_options[i].id;
+                        } else {
+                            this.details.question[key].question_options[i].select = false;
+                        }
+                    }
+                }
+                if (this.details.question[key].q_type == 2) {
+                    // 多选
+                    this.details.question[key].question_options[ind].select = !this.details.question[key].question_options[ind].select;
+                    for(var i = 0; i < this.details.question[key].question_options.length; i++) {
+                        if(this.details.question[key].question_options[i].select) {
+                            this.result[key].push(this.details.question[key].question_options[i].id);
+                        }
+                    }
+                }
+            },
+            // 提交
+            bindSubmit() {
+                let that = this;
+                for (let i = 0; i < that.result.length; i++) {
+                    if(that.result[i].length < 1) {
+                        that.toast('第'+ (i+1) + '题未完成答题');
+                        return false;
+                    }
+                }
+                let ret = [];
+                for(let i = 0; i < that.result.length; i++) {
+                    for(let j = 0; j < that.result[i].length; j++) {
+                        ret.push(that.result[i][j]);
+                    }
+                }
+                ret = JSON.stringify(ret)
+                that.request({
+                    url: '/api/submit_questionnaires',
+                    type: 'POST'
+                },{
+                    qn_id: that.details.questionnaires[0].id,
+                    qo: ret
+                },function (ret) {
+                    that.toast('提交成功');
+                    setTimeout(function () {
+                        that.goBack();
+                    },2000);
+                })
+            }
+        },
+
+        created () {
+            this.getDetails();
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

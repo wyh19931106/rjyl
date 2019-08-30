@@ -1,0 +1,309 @@
+<style lang="less">
+    .index {
+        .index_swiper {
+            image {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        }
+        .nav {
+            background: #ffffff;
+            margin: 20rpx 0;
+            display: flex;
+            flex-wrap: wrap;
+            .nav_item {
+                width: 25%;
+                text-align: center;
+                padding: 15rpx 0;
+                image {
+                    width: 90rpx;
+                    height: 90rpx;
+                }
+                .txt {
+                    font-size: 26rpx;
+                    color: #333333;
+                }
+            }
+        }
+        .reservation {
+            background: #ffffff;
+            padding: 0 20rpx;
+            .title {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 85rpx;
+                position: relative;
+                padding-left: 20rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                .tit {
+                    font-size: 32rpx;
+                    color: #03447c;
+                }
+                .more {
+                    display: flex;
+                    align-items: center;
+                    .txt {
+                        font-size: 24rpx;
+                        color: #999999;
+                        margin-right: 5rpx;
+                    }
+                    image {
+                        width: 15rpx;
+                        height: auto;
+                    }
+                }
+            }
+            .title:before {
+                content: '';
+                position: absolute;
+                top: 22rpx;
+                left: 0;
+                width: 12rpx;
+                height: 41rpx;
+                background: #03447c;
+            }
+            .swiper_box {
+                height: 270rpx;
+                padding: 20rpx 0;
+                overflow: hidden;
+                .swiper {
+                    width: 100%;
+                    height: 230rpx;
+                    overflow: hidden;
+                    .slide_item {
+                        width: 250rpx !important;
+                        height: 230rpx;
+                        image {
+                            display: block;
+                            width: 230rpx;
+                            height: auto;
+                        }
+                    }
+                }
+            }
+        }
+        .product_box {
+            margin-top: 20rpx;
+            padding: 0 20rpx;
+            background: #ffffff;
+            .title {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 85rpx;
+                position: relative;
+                margin-bottom: 20rpx;
+                padding-left: 20rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                .tit {
+                    font-size: 32rpx;
+                    color: #03447c;
+                }
+                .more {
+                    display: flex;
+                    align-items: center;
+                    .txt {
+                        font-size: 24rpx;
+                        color: #999999;
+                        margin-right: 5rpx;
+                    }
+                    image {
+                        width: 15rpx;
+                        height: auto;
+                    }
+                }
+            }
+            .title:before {
+                content: '';
+                position: absolute;
+                top: 22rpx;
+                left: 0;
+                width: 12rpx;
+                height: 41rpx;
+                background: #03447c;
+            }
+        }
+    }
+</style>
+<template>
+    <div class="index">
+        <swiper class="index_swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" bindchange="swiperChange" style="height:{{imgBoxSize}}rpx;">
+            <swiper-item v-for="(item, key) in swiper_img">
+                <image :src="imgPath + item.path" class="slide-image" mode="widthFix" bindload="imageLoad" />
+            </swiper-item>
+        </swiper>
+
+        <div class="nav">
+            <div class="nav_item" v-for="(item,key) in category" @tap="openWin('/pages/goodList?default_category_id=' + item.default_category_id + '&service_category_id=' + item.service_category_id)">
+                <img :src="imgPath + item.icon" alt="" mode="widthFix"/>
+                <div class="txt">{{item.title}}</div>
+            </div>
+            <div class="nav_item" @tap="openWin('/pages/goodList')">
+                <img src="@/images/icon_index_cate8.png" alt="" mode="widthFix"/>
+                <div class="txt">全部</div>
+            </div>
+        </div>
+
+        <!-- 预约 -->
+        <div class="reservation">
+            <div class="title" @tap="openWin('/pages/activityList')">
+                <div class="tit">活动预约</div>
+                <div class="more">
+                    <div class="txt">查看更多</div>
+                    <img src="@/images/icon_arrow_r.png" alt="" mode="widthFix"/>
+                </div>
+            </div>
+             <div class="swiper_box">
+                <swiper class="swiper">
+                    <swiper-item class="slide_item" v-for="(item,key) in activity_list" @tap="openWin('/pages/activityDetails?id='+item.id)">
+                        <img :src="imgPath + item.cover" alt="" mode="widthFix" />
+                    </swiper-item>
+                </swiper>
+            </div>
+        </div>
+
+        <div class="product_box">
+            <div class="title">
+                <div class="tit">热门推荐</div>
+            </div>
+            <porductBox list="{{listDate.list}}" finished="{{listDate.finished}}"></porductBox>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import commonMixin from '../mixins/common'
+    import { mapState } from '@wepy/x'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            indicatorDots: false,
+            autoplay: true,
+            interval: 2500,
+            duration: 500,
+            swiperCurrent: 0, // 所有图片的高度
+            imgheights: [], // 图片宽度
+            imgwidth: 750, // 默认
+            current: 0,
+            imgBoxSize: 0,
+            swiper_img: [],
+            activity_list: [],
+            category: [],
+            listDate: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取广告图
+            getBanner() {
+                let that = this;
+                that.request({
+                    url: '/api/package/sliders/list',
+                    type: 'GET'
+                },{
+                    position_code: 'index_top'
+                },function (ret) {
+                    that.swiper_img = ret.data.index_top;
+                })
+            },
+            // 获取分类
+            getCategory() {
+                let that = this;
+                that.request({
+                    url: '/api/appmenu',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    that.category = ret.app_menuses;
+                })
+            },
+            // 获取活动
+            getActivity() {
+                let that = this;
+                that.request({
+                    url: '/api/activity_list',
+                    type: 'GET'
+                },{},function(ret) {
+                    that.activity_list = ret.data;
+                })
+            },
+            // 获取热门推荐
+            getHotList() {
+                let that = this;
+                that.request({
+                    url: '/api/package/mall/default/products?filter[is_recommend]=1',
+                    type: 'GET'
+                }, {
+                    page: that.listDate.page
+                }, function (ret) {
+                    if (that.listDate.page < ret.meta.pagination.total_pages) {
+                        that.listDate.finished = false;
+                        that.listDate.page++;
+                    } else {
+                        that.listDate.finished = true;
+                    }
+                    that.listDate.load = true;
+                    that.listDate.list = that.listDate.list.concat(ret.data);
+                })
+            },
+            // swiper
+            swiperChange(e) {
+                this.swiperCurrent = e.$wx.detail.current;
+                this.current = e.$wx.detail.current;
+            },
+            imageLoad(e) {
+                this.imgheights = [];
+                // 获取图片真实宽度
+                var imgwidth = e.$wx.detail.width;
+                var imgheight = e.$wx.detail.height;
+                // 宽高比
+                var ratio = imgwidth / imgheight;
+                // 计算的高度值
+                var viewHeight = 750 / ratio;
+                imgheight = viewHeight;
+                // 把每一张图片的高度记录到数组里
+                this.imgheights.push(imgheight);
+                // 取出图片数组中最高的一个值
+                this.imgBoxSize = Math.max.apply(null, this.imgheights);
+            }
+        },
+
+        created () {
+            this.getBanner();
+            this.getCategory();
+            this.getActivity();
+            this.getHotList();
+        },
+        // 上拉加载
+        onReachBottom(event) {
+            let that = this;
+            if (that.listDate.finished) {
+                return false;
+            }
+            if (that.listDate.load) {
+                that.listDate.load = false;
+                that.getHotList()
+            }
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+            porductBox: '~@/components/product_list'
+        }
+    }
+</config>

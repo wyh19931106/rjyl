@@ -1,0 +1,149 @@
+<style lang="less">
+    .activityList {
+        .list {
+            margin-top: 20rpx;
+            height: auto;
+            .item {
+                display: flex;
+                align-items: center;
+                height: 270rpx;
+                padding: 0 25rpx;
+                background: #ffffff;
+                margin-bottom: 20rpx;
+                .img {
+                    width: 220rpx;
+                    height: 220rpx;
+                    position: relative;
+                    .bg {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .mark {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 96rpx;
+                    }
+                }
+                .inf {
+                    flex: 1;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    margin-left: 20rpx;
+                    height: 220rpx;
+                    .title {
+                        font-size: 30rpx;
+                        color: #333333;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .time {
+                        font-size: 24rpx;
+                        color: #333333;
+                    }
+                    .intro {
+                        height: 114rpx;
+                        line-height: 38rpx;
+                        font-size: 24rpx;
+                        color: #666666;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="activityList">
+        <div class="list" v-if="list.length">
+            <div class="item" v-for="(item,key) in list" @tap="openWin('/pages/activityDetails?id=' + item.id)">
+                <div class="img">
+                    <img :src="imgPath + item.cover" alt="" class="bg" mode="widthFix" />
+                    <!-- <img src="@/images/icon_doing.png" alt="" class="mark" mode="widthFix" /> -->
+                    <!-- <img src="@/images/icon_done.png" alt="" class="mark" mode="widthFix" /> -->
+                </div>
+                <div class="inf">
+                    <div class="title">{{item.title}}</div>
+                    <div class="time">{{item.pa_date}}</div>
+                    <div class="intro">{{item.subhead}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="empty" v-if="list.length">{{finished?'没有更多了~':'上拉加载更多~'}}</div>
+        <div class="empty_con" v-else>
+            <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+            <div class="empty">暂无数据</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            page: 1,
+            list: [],
+            load: false,
+            finished: false,
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            getList() {
+                let that = this;
+                that.request({
+                    url: '/api/activity_list',
+                    type: 'GET'
+                },{
+                    page: that.page
+                },function(ret) {
+                    if (that.page < ret.meta.pagination.total_pages) {
+                        that.finished = false;
+                        that.page++;
+                    } else {
+                        that.finished = true;
+                    }
+                    that.load = true;
+                    that.list = that.list.concat(ret.data);
+                })
+            }
+        },
+
+        created () {
+            this.getList();
+        },
+        // 上拉加载
+        onReachBottom(event) {
+            let that = this;
+            if (that.finished) {
+                return false;
+            }
+            if (that.load) {
+                that.load = false;
+                that.getList()
+            }
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '活动预约',
+        usingComponents: {
+
+        }
+    }
+</config>

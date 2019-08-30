@@ -1,0 +1,71 @@
+.myCode {
+  padding: 60rpx 90rpx;
+}
+.myCode .user_infor {
+  display: flex;
+  align-items: center;
+}
+.myCode .user_infor .avatar {
+  width: 92rpx;
+  height: 92rpx;
+  overflow: hidden;
+}
+.myCode .user_infor .avatar image {
+  width: 100%;
+  height: auto;
+}
+.myCode .user_infor .inf {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90rpx;
+  margin-left: 30rpx;
+}
+.myCode .user_infor .inf .nick_name {
+  font-size: 32rpx;
+  color: #333333;
+}
+.myCode .user_infor .inf .no {
+  font-size: 28rpx;
+  color: #999999;
+}
+.myCode .code_con {
+  width: 100%;
+  min-height: 570rpx;
+  margin-top: 30rpx;
+}
+.myCode .code_con image {
+  width: 100%;
+  height: auto;
+}
+.myCode .hint {
+  text-align: center;
+  font-size: 32rpx;
+  color: #333333;
+  padding: 15rpx 0;
+}
+.myCode .handle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40rpx;
+}
+.myCode .handle .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 258rpx;
+  height: 78rpx;
+  color: #ffffff;
+  font-size: 28rpx;
+  background: #1a2ab7;
+  border-radius: 39rpx;
+}
+.myCode .handle .btn image {
+  width: 28rpx;
+  height: auto;
+  margin-right: 10rpx;
+}
+

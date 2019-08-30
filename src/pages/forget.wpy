@@ -1,0 +1,192 @@
+<style lang="less">
+    .forget {
+        .form {
+            margin-top: 25rpx;
+            background: #ffffff;
+            .item {
+                display: flex;
+                align-items: center;
+                font-size: 32rpx;
+                height: 100rpx;
+                padding: 0 25rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                label {
+                    width: 160rpx;
+                }
+                input {
+                    flex: 1;
+                    overflow: hidden;
+                }
+                .get_code {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #f60004;
+                    height: 50rpx;
+                    width: 220rpx;
+                    font-size: 30rpx;
+                    border-left: 1rpx solid rgba(0,0,0,0.08);
+                }
+                .img_code {
+                    width: 200rpx;
+                    height: auto;
+                    background: #f1f1f1;
+                    image {
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+            .item:nth-last-child(1) {
+                border: none;
+            }
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32rpx;
+            color: #ffffff;
+            margin: 100rpx 25rpx 0;
+            height: 80rpx;
+            background: #03447c;
+            border-radius: 8rpx;
+        }
+    }
+</style>
+<template>
+    <div class="forget">
+        <div class="form">
+            <div class="item">
+                <label for="mobile">手机号</label>
+                <input type="number" maxlength="11" placeholder="请输入手机号" v-model="form.mobile" placeholder-style="color: #999999;font-size: 28rpx;" id="mobile" @input="inputPhoneCom('mobile')"/>
+            </div>
+            <div class="item">
+                <label for="imgCode">图形码</label>
+                <input type="text" id="imgCode" v-model="form.imgCode" placeholder="请输入图形验证码" placeholder-style="color: #999999;font-size: 28rpx;" />
+                <div class="img_code" @tap="getImgCode">
+                    <img src="{{imgCodeUrl}}" alt="" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item">
+                <label for="msgCode">验证码</label>
+                <input type="text" id="msgCode" v-model="form.phoneCode" placeholder="请输入短信验证码" placeholder-style="color: #999999;font-size: 28rpx;" />
+                <span class="get_code" @tap="getMsgCode">{{code_txt}}</span>
+            </div>
+            <div class="item">
+                <label for="setPwd">新密码</label>
+                <input type="password" id="setPwd" v-model="form.pwd1" placeholder="请输入密码" placeholder-style="color: #999999;font-size: 28rpx;" @input="inputPwdCom('pwd1')"/>
+            </div>
+            <div class="item">
+                <label for="conPwd">确认密码</label>
+                <input type="password" id="conPwd" v-model="form.pwd2" placeholder="请再次确认密码" placeholder-style="color: #999999;font-size: 28rpx;" @input="inputPwdCom('pwd2')"/>
+            </div>
+        </div>
+        <div class="btn" @tap="bindSet">确认重置</div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            imgCodeUrl: '',  //图形验证码
+            captcha_key: '',  //获取手机验证码的key
+            finished: true,  //获取验证码计时结束
+            code_txt: '获取验证码',
+            form: {
+                mobile: '',
+                imgCode: '',
+                phoneCode: '',
+                pwd1: '',
+                pwd2: ''
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取手机验证码
+            getMsgCode() {
+                let that = this;
+                let time = 60;
+                if (!that.finished) {
+                    return false;
+                }
+                if(!that.form.mobile.trim()) {
+                    that.toast('手机号不能为空');
+                    return false;
+                }
+                if (!that.isPhone(that.form.mobile.trim())) {
+                    that.toast('手机号格式错误');
+                    return false;
+                }
+                if(!that.form.imgCode.trim()) {
+                    that.toast('图形码不能为空');
+                    return false;
+                }
+                that.getPhoneCode(that.form.imgCode, that.form.mobile, 2,function () {
+                    var timer = setInterval(function () {
+                    if(time >1) {
+                        time--;
+                        that.code_txt = '重新获取('+time+'s)';
+                        that.finished = false;
+                    } else {
+                        clearInterval(timer);
+                        that.code_txt = '获取验证码';
+                        that.finished = true;
+                    }
+                },1000)
+                });
+            },
+            bindSet() {
+                let that = this;
+                if(!that.form.phoneCode) {
+                    that.toast('手机验证码不能为空');
+                    return false;
+                }
+                if(that.form.pwd1.length < 6 || that.form.pwd2.length < 6) {
+                    that.toast('密码长度不能小于6');
+                    return false;
+                }
+                if(that.form.pwd2 != that.form.pwd1) {
+                    that.toast('两次密码不一样，请重新设置');
+                    return false;
+                }
+                that.request({
+                    url: '/api/base/user/password',
+                    type: 'PUT'
+                },{
+                    phone: that.form.mobile,
+                    code: that.form.phoneCode,
+                    password: that.form.pwd2
+                },function (ret) {
+                    that.toast('密码重置成功，请登录');
+                    that.removeStore('token');
+                    setTimeout(function () {
+                        that.openWinDel('/pages/login');
+                    },1500)
+                })
+            }
+        },
+
+        created () {
+            this.getImgCode();
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '重置密码',
+        usingComponents: {
+
+        }
+    }
+</config>

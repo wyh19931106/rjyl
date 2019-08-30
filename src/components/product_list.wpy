@@ -1,0 +1,128 @@
+<style lang="less">
+    .product_list {
+        .list {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            .item {
+                width: 50%;
+                padding-bottom: 25rpx;
+                height: auto;
+                overflow: hidden;
+                .img {
+                    image {
+                        display: flex;
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                .title {
+                    font-size: 36rpx;
+                    color: #303030;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .price {
+                    margin-top: 5rpx;
+                    display: flex;
+                    align-items: center;
+                    .new {
+                        font-size: 36rpx;
+                        color: #d80202;
+                        margin-right: 10rpx;
+                    }
+                    .old {
+                        font-size: 26rpx;
+                        color: #686868;
+                        text-decoration: line-through;
+                    }
+                }
+                .count {
+                    margin-top: 8rpx;
+                    font-size: 26rpx;
+                    color: #303030;
+                }
+            }
+            .item:nth-child(2n+1) {
+                padding-right: 10rpx;
+            }
+            .item:nth-child(2n) {
+                padding-left: 10rpx;
+            }
+            .empty {
+                width: 100%;
+                text-align: center;
+                color: #aaaaaa;
+                padding: 20rpx;
+                font-size: 26rpx;
+            }
+        }
+        .empty {
+            width: 100%;
+            text-align: center;
+            color: #aaaaaa;
+            padding: 20rpx;
+            font-size: 26rpx;
+        }
+        .empty_con {
+            margin-top: 35%;
+            text-align: center;
+            image {
+                display: block;
+                width: 200rpx;
+                height: auto;
+                margin: 0 auto 20rpx;
+            }
+        }
+    }
+</style>
+<template>
+    <div class="product_list">
+        <div class="list" v-if="list.length">
+            <div class="item" v-for="(item,key) in list" @tap="openWin('/pages/goodDetails?id='+item.id+'&type='+item.type)">
+                <div class="img">
+                    <img :src="imgPath + item.cover" alt="" mode="widthFix"/>
+                </div>
+                <div class="title">{{item.title}}</div>
+                <div class="price">
+                    <div class="new">¥{{item.price}}</div>
+                    <div class="old">{{item.market_price}}</div>
+                </div>
+                <div class="count">已售{{item.sales_count}}件</div>
+            </div>
+        </div>
+        <div class="empty" v-if="list.length">{{finished?'没有更多了~':'上拉加载更多~'}}</div>
+        <div class="empty_con" v-else>
+            <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+            <div class="empty">暂无数据~</div>
+        </div>
+    </div>
+</template>
+<script>
+    import wepy from '@wepy/core'
+    import commonMixin from '../mixins/common'
+    wepy.component({
+        mixins: [commonMixin],
+        props: {
+            list: {
+                type: Object,
+                default: []
+            },
+            finished: {
+                type: Boolean,
+                default: false
+            }
+        },
+
+        methods: {
+
+        }
+    });
+</script>
+<config>
+    {
+        "component": true
+    }
+</config>

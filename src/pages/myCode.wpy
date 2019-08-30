@@ -1,0 +1,122 @@
+<style lang="less">
+    .myCode {
+        padding: 60rpx 90rpx;
+        .user_infor {
+            display: flex;
+            align-items: center;
+            .avatar {
+                width: 92rpx;
+                height: 92rpx;
+                overflow: hidden;
+                image {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .inf {
+                flex: 1;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 90rpx;
+                margin-left: 30rpx;
+                .nick_name {
+                    font-size: 32rpx;
+                    color: #333333;
+                }
+                .no {
+                    font-size: 28rpx;
+                    color: #999999;
+                }
+            }
+        }
+        .code_con {
+            width: 100%;
+            min-height: 570rpx;
+            margin-top: 30rpx;
+            image {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .hint {
+            text-align: center;
+            font-size: 32rpx;
+            color: #333333;
+            padding: 15rpx 0;
+        }
+        .handle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40rpx;
+            .btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 258rpx;
+                height: 78rpx;
+                color: #ffffff;
+                font-size: 28rpx;
+                background: #1a2ab7;
+                border-radius: 39rpx;
+                image {
+                    width: 28rpx;
+                    height: auto;
+                    margin-right: 10rpx;
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="myCode">
+        <div class="user_infor">
+            <div class="avatar"><img src="@/images/img_avatar.png" alt="" mode="widthFix" /></div>
+            <div class="inf">
+                <div class="nick_name">夏天的尾巴</div>
+                <div class="no">我的推广码：SD1234566789012</div>
+            </div>
+        </div>
+        <div class="code_con">
+            <img src="@/images/img_code.png" alt="" mode="widthFix" />
+        </div>
+        <div class="hint">扫一扫，一起享实惠</div>
+        <div class="handle">
+            <div class="btn"><img src="@/images/icon_download_white.png" alt="" mode="widthFix" />保存二维码</div>
+            <div class="btn"><img src="@/images/icon_share_white.png" alt="" mode="widthFix" />分享给好友</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub';
+    import { mapState } from '@wepy/x';
+    wepy.page({
+        data: {
+
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

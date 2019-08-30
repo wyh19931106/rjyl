@@ -1,0 +1,13 @@
+
+<view wx:if="{{ show }}" class="input_pwd">
+    <view class="input_pwd_box">
+        <view class="title">支付密码</view>
+        <view class="input">
+            <input type="password" value="{{ pwd }}" bindinput="_proxy" data-model-id="44" placeholder="请输入支付密码" placeholder-style="color: #aaaaaa;font-size: 30rpx;" data-wpy-evt="125-0" class="pwd"></input>
+        </view>
+        <view class="handle">
+            <view data-wpy-evt="125-1" bindtap="_proxy" class="cancel item">取消</view>
+            <view data-wpy-evt="125-2" bindtap="_proxy" class="confirm item">确认</view>
+        </view>
+    </view>
+</view>

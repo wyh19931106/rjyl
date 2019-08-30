@@ -1,0 +1,184 @@
+<style lang="less">
+    .uploadSelf {
+        padding: 0 25rpx;
+        .title {
+            font-size: 32rpx;
+            color: #333333;
+            padding: 20rpx 0;
+        }
+        .upload_con {
+            width: 600rpx;
+            height: auto;
+            margin: 20rpx auto;
+            .upload_box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: 338rpx;
+                margin-bottom: 100rpx;
+                border: 1rpx dashed rgba(0,0,0,0.08);
+                .bg {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+                .img {
+                    display: block;
+                    width: 95%;
+                    height: auto;
+                }
+            }
+        }
+        .upload {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 60rpx 0 30rpx;
+            height: 78rpx;
+            font-size: 32rpx;
+            color: #ffffff;
+            background: #03447c;
+        }
+    }
+</style>
+<template>
+    <div class="uploadSelf">
+        <div class="title">自拍上传资料</div>
+        <div class="upload_con">
+            <div class="upload_box" @tap="bindImg(1)">
+                <img :src="img1" alt="" mode="widthFix" class="img" v-if="img1"/>
+                <img src="@/images/img_upload1.png" alt="" mode="widthFix" class="bg" v-else/>
+            </div>
+            <div class="upload_box" @tap="bindImg(2)">
+                <img :src="img2" alt="" mode="widthFix" class="img" v-if="img2"/>
+                <img src="@/images/img_upload2.png" alt="" mode="widthFix" class="bg" v-else/>
+            </div>
+            <div class="upload_box" @tap="bindImg(3)">
+                <img :src="img3" alt="" mode="widthFix" class="img" v-if="img3"/>
+                <img src="@/images/img_upload3.png" alt="" mode="widthFix" class="bg" v-else/>
+            </div>
+            <div class="upload_box" @tap="bindImg(4)">
+                <img :src="img4" alt="" mode="widthFix" class="img" v-if="img4"/>
+                <img src="@/images/img_upload4.png" alt="" mode="widthFix" class="bg" v-else/>
+            </div>
+        </div>
+        <div class="upload" @tap="bindUpload">全部上传</div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            img1: '',
+            img2: '',
+            img3: '',
+            img4: '',
+            path_arr: []   //上传后的地址列表
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 选择图片
+            bindImg(ind) {
+                let that = this;
+                wx.chooseImage({
+                    count: 1,
+                    sizeType: ['original', 'compressed'],
+                    sourceType: ['album', 'camera'],
+                    success (ret) {
+                        // tempFilePath可以作为img标签的src属性显示图片
+                        that['img' + ind] = ret.tempFilePaths[0];
+
+                    }
+                })
+            },
+            // 上传文件
+            uploadFile(file_path, ind) {
+                let that = this;
+                let all = true;
+                wx.uploadFile({
+                    url: that.host + '/api/base/files',
+                    header: {
+                        "Authorization": 'Bearer ' + that.getStore('token')
+                    },
+                    filePath: file_path,
+                    name: 'file',
+                    formData: {
+                        'type': 'image'
+                    },
+                    success (ret){
+                        that.path_arr[ind] = JSON.parse(ret.data).data.path;
+                        for (let i = 0; i < 4; i++) {
+                            if(!that.path_arr[i]) {
+                                all = false;
+                                return false;
+                            }
+                        }
+                        if (all) {
+                            that.afterUpload();
+                        }
+                    }
+                })
+            },
+            // 图片上传后设置
+            afterUpload() {
+                let that = this;
+                that.request({
+                    url: '/api/selfhelp_upload',
+                    type: 'POST'
+                }, {
+                    type: 1,
+                    img1: that.path_arr[0],
+                    img2: that.path_arr[1],
+                    img3: that.path_arr[2],
+                    img4: that.path_arr[3]
+                }, function (res) {
+                    that.toast('上传成功');
+                    that.hideLoad(0);
+                    that.goBack(1000);
+                })
+            },
+            // 上传
+            bindUpload() {
+                let that = this;
+                if(!that.img1) {
+                    that.toast('请选择正面全身照');
+                    return false;
+                }
+                if(!that.img2 || !that.img2) {
+                    that.toast('请选择侧面全身照');
+                    return false;
+                }
+                if(!that.img4) {
+                    that.toast('请选择背面全身照');
+                    return false;
+                }
+                that.showLoad('上传中~', true);
+                for(let i = 0; i < 4; i++) {
+                    that.uploadFile(that['img'+(i+1)], i);
+                }
+            }
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

@@ -1,0 +1,410 @@
+<style lang="less">
+    .cart {
+        padding-bottom: 150rpx;
+        .product_list {
+            .product_item {
+                background: #ffffff;
+                margin-top: 20rpx;
+                font-size: 28rpx;
+                .slide {
+                    width: 100%;
+                    height: 220rpx;
+                    display: flex;
+                    .left {
+                        display: flex;
+                        width: 100%;
+                        height: 100%;
+                        padding: 30rpx 0;
+                        overflow: hidden;
+                        .tick {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100%;
+                            padding: 0 25rpx;
+                            color: #666666;
+                            font-size: 32rpx;
+                            image {
+                                width: 45rpx;
+                                height: 45rpx;
+                            }
+                        }
+                        .img {
+                            width: 160rpx;
+                            height: 160rpx;
+                            margin-right: 20rpx;
+                            image {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                        .infor {
+                            flex: 1;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            align-items: flex-start;
+                            overflow: hidden;
+                            padding-right: 30rpx;
+                            width: 485rpx;
+                            .tit {
+                                width: 100%;
+                                color: #333333;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                -webkit-box-orient: vertical;
+                                font-size: 26rpx;
+                            }
+                            .mark {
+                                font-size: 24rpx;
+                                color: #1a2fb0;
+                                border: 1rpx solid #1a2fb0;
+                                border-radius: 5rpx;
+                                padding: 2rpx 5rpx;
+                            }
+                            .inf {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                width: 100%;
+                                .price {
+                                    .sale_price {
+                                        color: #fc6f48;
+                                    }
+                                    .market_price {
+                                        color: #999999;
+                                        margin-left: 10rpx;
+                                        text-decoration: line-through;
+                                    }
+                                }
+                                .qty {
+                                    display: flex;
+                                    width: 200rpx;
+                                    height: 50rpx;
+                                    border: 1rpx solid #999999;
+                                    .sub, .add {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        width: 50rpx;
+                                        height: 100%;
+                                    }
+                                    .sub {
+                                        border-right: 1rpx solid #999999;
+                                    }
+                                    .add {
+                                        border-left: 1rpx solid #999999;
+                                    }
+                                    input {
+                                        flex: 1;
+                                        text-align: center;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .right {
+                        width: 100rpx;
+                        height: 100%;
+                        display: flex;
+                        color: #ffffff;
+                        background: #03447c;
+                        .right-item {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+        .bottom_fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100rpx;
+            background: #ffffff;
+            display: flex;
+            border-top: 1rpx solid rgba(0,0,0,0.08);
+            .tick {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                padding: 0 25rpx;
+                color: #666666;
+                font-size: 32rpx;
+                image {
+                    width: 45rpx;
+                    height: 45rpx;
+                    margin-right: 20rpx;
+                }
+            }
+            .count {
+                display: flex;
+                flex: 1;
+                height: 100%;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-end;
+                padding: 10rpx 20rpx;
+                .money {
+                    font-size: 32rpx;
+                    color: #333333;
+                    .num {
+                        color: #fc6f48;
+                    }
+                }
+                .hint {
+                    font-size: 24rpx;
+                    color: #999999;
+                }
+            }
+            .to_pay {
+                width: 220rpx;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 34rpx;
+                background: #03447c;
+                color: #ffffff;
+            }
+        }
+        .cart_empty {
+            text-align: center;
+            margin-top: 260rpx;
+            image {
+                display: flex;
+                width: 200rpx;
+                height: auto;
+                margin: 0 auto;
+            }
+            .txt {
+                color: #999999;
+                margin-top: 60rpx;
+                font-size: 28rpx;
+            }
+        }
+    }
+</style>
+
+<template>
+    <div class="cart">
+        <div class="product_list" v-if="list.length">
+            <div class="product_item" v-for="(item,key) in list">
+                <slide-view class="slide" width="750" height="220" slideWidth="100" autoReset="{{reset}}" data-index="{{key}}" bindtouchstart="handleTouch">
+                    <view class="left" slot="left">
+                        <div class="tick" @tap.stop="bindSelect(key)">
+                            <img src="@/images/icon_tick_select.png" alt="" mode="widthFix" v-if="item.select"/>
+                            <img src="@/images/icon_tick.png" alt="" mode="widthFix" v-else />
+                        </div>
+                        <div class="img">
+                            <img :src="imgPath + item.cover" alt="" mode="widthFix" />
+                        </div>
+                        <div class="infor">
+                            <div class="tit">{{item.name}}</div>
+                            <div class="mark">包邮包税</div>
+                            <div class="inf">
+                                <div class="price">
+                                    <span class="sale_price">¥{{item.price}}</span>
+                                    <!-- <span class="market_price">¥179.00</span> -->
+                                </div>
+                                <div class="qty">
+                                    <span class="sub" @tap.stop="bindSub(key)">-</span>
+                                    <input type="num" v-model="item.qty" disabled="{{disabled}}" />
+                                    <span class="add" @tap.stop="bindAdd(key)">+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </view>
+                    <view class="right" slot="right" @tap.stop="bindDel(key)">
+                      <view class="right-item">删除</view>
+                    </view>
+                </slide-view>
+            </div>
+        </div>
+
+        <div class="bottom_fixed" v-if="list.length">
+            <div class="tick" @tap="bindSelectAll">
+                <img src="@/images/icon_tick_select.png" alt="" mode="widthFix" v-if="allSelect"/>
+                <img src="@/images/icon_tick.png" alt="" mode="widthFix" v-else/>
+                全选
+            </div>
+            <div class="count">
+                <div class="money">总价：<span class="num">¥{{count_money}}</span></div>
+                <div class="hint">不含运费</div>
+            </div>
+            <div class="to_pay" @tap="toOrder">去结算</div>
+        </div>
+
+        <div class="cart_empty" v-else>
+            <img src="@/images/img_cart_null.png" alt="" mode="widthFix"/>
+            <div class="txt">购物车空空如也</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            from_type: 'default',  //default：商品     service：服务
+            disabled: true,
+            allSelect: false,  //是否全选
+            reset: false,
+            _index: 0,
+            list: [],
+            count_money: 0
+        },
+
+        methods: {
+            // 获取列表
+            getList() {
+                let that = this;
+                that.request({
+                    url: '/api/package/mall/'+that.from_type+'/cart',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    if(!ret.data.shops.length) {
+                        return false;
+                    }
+                    for(let i = 0; i < ret.data.shops[0].products.length; i++) {
+                        ret.data.shops[0].products[i].select = true;
+                    }
+                    that.list = ret.data.shops[0].products;
+                    that.allSelect = true;
+                    that.count_money = ret.data.total;
+                })
+            },
+            // 单选
+            bindSelect(ind) {
+                let count = 0;
+                this.list[ind].select = !this.list[ind].select;
+                for(let i = 0; i < this.list.length; i++) {
+                    if(this.list[i].select) {
+                        count += 1;
+                    }
+                }
+                if (count == this.list.length) {
+                    this.allSelect = true;
+                } else {
+                    this.allSelect = false;
+                }
+                this.countMoney();
+            },
+            // 全选
+            bindSelectAll() {
+                this.allSelect = !this.allSelect;
+                for (let i = 0; i < this.list.length; i++ ) {
+                    this.list[i].select = this.allSelect;
+                }
+                this.countMoney();
+            },
+            // 加
+            bindAdd(ind) {
+                this.list[ind].qty = Number(this.list[ind].qty) + 1;
+                this.countMoney();
+                this.bindChange(ind);
+            },
+            // 减
+            bindSub(ind) {
+                if (this.list[ind].qty > 1) {
+                    this.list[ind].qty -= 1;
+                    this.countMoney();
+                    this.bindChange(ind);
+                } else {
+                    this.toast('最小数量为1');
+                }
+            },
+            handleEnd(e) {
+                this._index = e.currentTarget.dataset.index;
+            },
+            handleTouch(e) {
+                if(e.currentTarget.dataset.index !== this._index) {
+                    this.reset = true;
+                }
+            },
+            // 总价统计
+            countMoney() {
+                let that = this;
+                that.count_money = 0;
+                for (let i = 0; i < that.list.length; i++) {
+                    if (that.list[i].select) {
+                        that.count_money += that.list[i].qty * that.list[i].price
+                    }
+                }
+            },
+            //更新购物车数量
+            bindChange(ind) {
+                let that = this;
+                that.request({
+                    url: '/api/package/mall/'+that.from_type+'/cart/'+ that.list[ind].rowId,
+                    type: 'PUT'
+                }, {
+                    qty: that.list[ind].qty
+                }, function (ret) {
+
+                })
+            },
+            // 删除
+            bindDel(ind) {
+                let that = this;
+                let arr = [];
+                that.showModal('删除', '您确定删除该商品吗？', function () {
+                    let rows = [];
+                    rows[0] = that.list[ind].rowId
+                    that.request({
+                        url: '/api/package/mall/'+that.from_type+'/cart/row',
+                        type: 'DELETE'
+                    }, {
+                        rows: rows
+                    }, function (ret) {
+
+                    });
+                    arr = [...that.list];
+                    arr.splice(ind, 1);
+                    that.list = JSON.parse(JSON.stringify(arr));
+                    that.countMoney();
+                })
+            },
+            //下单
+            toOrder() {
+                let rows = [];
+                for(let i = 0; i < this.list.length; i++) {
+                    if(this.list[i].select) {
+                        rows.push(this.list[i].rowId)
+                    }
+                }
+                if (!rows.length) {
+                    this.toast('请至少选择1件商品');
+                    return false;
+                }
+                this.openWin('/pages/orderConfirm?from=cart&rows=' + JSON.stringify(rows) + '&type=' + this.from_type);
+            }
+        },
+        onShow() {
+            this.getList();
+        },
+        created () {
+
+        }
+    });
+</script>
+
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+            "slide-view": "module:miniprogram-slide-view",
+        }
+    }
+</config>

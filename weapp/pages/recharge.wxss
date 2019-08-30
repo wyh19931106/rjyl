@@ -1,0 +1,45 @@
+.recharge .top_show {
+  display: flex;
+  align-items: center;
+  padding: 0 25rpx;
+  height: 100rpx;
+  background: #ffffff;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+.recharge .top_show .logo {
+  width: 50rpx;
+  margin-right: 20rpx;
+}
+.recharge .num {
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+  font-size: 30rpx;
+  padding: 0 25rpx;
+  background: #ffffff;
+  margin-top: 20rpx;
+}
+.recharge .num .txt {
+  width: 80rpx;
+  color: #333333;
+}
+.recharge .num .val {
+  flex: 1;
+}
+.recharge .num .val input {
+  width: 100%;
+}
+.recharge .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  border-radius: 8rpx;
+  background: #03447c;
+  margin: 30% 25rpx 0;
+  font-size: 32rpx;
+  color: #ffffff;
+  letter-spacing: 40rpx;
+}
+

@@ -1,0 +1,124 @@
+.wallet .top_show {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.wallet .top_show .bg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.wallet .top_show .show_con {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.wallet .top_show .show_con .tit {
+  font-size: 30rpx;
+  text-align: center;
+}
+.wallet .top_show .show_con .money {
+  font-size: 54rpx;
+  text-align: center;
+  margin-top: 10rpx;
+}
+.wallet .top_show .show_con .handle {
+  display: flex;
+  margin-top: 30rpx;
+}
+.wallet .top_show .show_con .handle .btn {
+  flex: 1;
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  position: relative;
+}
+.wallet .top_show .show_con .handle .recharge:before {
+  content: "";
+  position: absolute;
+  top: 25rpx;
+  right: 0;
+  height: 50rpx;
+  border-right: 2rpx solid #ffffff;
+}
+.wallet .nav {
+  position: -webkit-sticky;
+  /* Safari */
+  position: sticky;
+  display: flex;
+  margin-top: 20rpx;
+  height: 78rpx;
+  background: #ffffff;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+.wallet .nav .nav_item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  position: relative;
+}
+.wallet .nav .active {
+  color: #ff0000;
+}
+.wallet .nav .active:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 4rpx solid #ff0000;
+}
+.wallet .con .list {
+  background: #ffffff;
+}
+.wallet .con .list .item {
+  display: flex;
+  align-items: center;
+  height: 150rpx;
+  padding-left: 35rpx;
+}
+.wallet .con .list .item image {
+  width: 45rpx;
+  height: auto;
+}
+.wallet .con .list .item .inf {
+  flex: 1;
+  margin-left: 30rpx;
+  height: 100%;
+  padding-right: 20rpx;
+  border-bottom: 1rpx solid #e8e8e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wallet .con .list .item .inf .l {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.wallet .con .list .item .inf .l .tit {
+  font-size: 32rpx;
+}
+.wallet .con .list .item .inf .l .time {
+  font-size: 26rpx;
+  color: #999999;
+  margin-top: 10rpx;
+}
+.wallet .con .list .item .inf .val {
+  font-size: 36rpx;
+  color: #333333;
+}
+.wallet .con .list .item .inf .red {
+  color: #ff0000;
+}
+

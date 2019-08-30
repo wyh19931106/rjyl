@@ -1,0 +1,52 @@
+.activityDetails {
+  padding-bottom: 120rpx;
+}
+.activityDetails .con {
+  background: #ffffff;
+  padding: 48rpx;
+  margin-top: 20rpx;
+}
+.activityDetails .con .title {
+  font-size: 30rpx;
+  color: #333333;
+}
+.activityDetails .con .time {
+  font-size: 24rpx;
+  color: #333333;
+  margin-top: 15rpx;
+}
+.activityDetails .con .apply_inf {
+  margin: 20rpx 0;
+  box-shadow: 1rpx 1rpx 4rpx 4rpx rgba(0, 0, 0, 0.08);
+  padding: 20rpx;
+  border-radius: 4rpx;
+}
+.activityDetails .con .apply_inf .tit,
+.activityDetails .con .apply_inf .hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+.activityDetails .con .article {
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 42rpx;
+  margin-top: 40rpx;
+}
+.activityDetails .bottom_fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  color: #ffffff;
+  font-size: 36rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff3030;
+}
+

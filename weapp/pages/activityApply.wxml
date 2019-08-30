@@ -1,0 +1,37 @@
+
+<view class="activityApply">
+    <image src="../images/img_activity.png" alt="" mode="widthFix" class="img_top"></image>
+    <view class="form">
+        <view class="title">在线填写</view>
+        <view class="item">
+            <text decode="true" class="txt">姓&emsp;&emsp;名</text>
+            <view class="val"><input type="text" value="{{ form.name }}" bindinput="_proxy" data-model-id="14"></input></view>
+        </view>
+        <view class="item">
+            <view class="txt">手机号码</view>
+            <view class="val"><input type="number" value="{{ form.mobile }}" bindinput="_proxy" data-model-id="15" data-wpy-evt="14-0"></input></view>
+        </view>
+        <view class="item">
+            <text decode="true" class="txt">部&emsp;&emsp;门</text>
+            <view class="val"><input type="text" value="{{ form.department }}" bindinput="_proxy" data-model-id="16"></input></view>
+        </view>
+        
+        <picker mode="multiSelector" value="{{multiIndex}}" range="{{multiArray}}" data-wpy-evt="14-1" bindchange="_proxy" bindcolumnchange="_proxy">
+            <view class="item">
+                <view class="txt">预约时间</view>
+                <view class="val">
+                    <input type="text" value="{{ form.time }}" bindinput="_proxy" data-model-id="17" disabled="{{isDisabled}}"></input>
+                </view>
+            </view>
+        </picker>
+        
+    </view>
+    <view data-wpy-evt="14-3" bindtap="_proxy" class="submit">提交预约</view>
+    <view wx:if="{{ show }}" data-wpy-evt="14-4" bindtap="_proxy" class="window success_window">
+        <view data-wpy-evt="14-5" catchtap="_proxy" class="window_box">
+            <image src="../images/icon_tick_success.png" alt="" mode="widthFix"></image>
+            <view class="hint">报名成功</view>
+        </view>
+    </view>
+
+</view>

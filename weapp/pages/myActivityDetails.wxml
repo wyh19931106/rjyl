@@ -1,0 +1,19 @@
+
+<view class="activityDetails">
+   <view class="con">
+       <view class="title">{{details.promotion_activity.title}}</view>
+       <view class="time">报名时间： {{details.promotion_activity.apply_start_date}}  —  {{details.promotion_activity.apply_end_date}}</view>
+       <view class="time">活动开始： {{details.promotion_activity.pa_date}}</view>
+       <view class="apply_inf">
+           <view class="tit">
+               <view class="name">姓名: {{details.name}}</view>
+               <view class="tel">电话： {{details.phone}}</view>
+           </view>
+           <view class="hint">
+               <view class="l">预约时间: {{details.reg_time}}</view>
+               <view class="r">部门: {{details.department}}</view>
+           </view>
+       </view>
+       <rich-text nodes="{{details.promotion_activity.content}}" class="article"></rich-text>
+   </view>
+</view>

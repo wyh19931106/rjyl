@@ -1,0 +1,32 @@
+
+<view data-wpy-evt="21-0" bindtap="_proxy" class="goodList">
+    <view class="top_con">
+        <view class="search_con">
+            <view class="icon">
+                <image src="../images/icon_search.png" alt="" mode="widthFix"></image>
+            </view>
+            <input type="text" placeholder="请输入关键词" confirm-type="search" value="{{ keyword }}" bindinput="_proxy" data-model-id="42" placeholder-style="color: #999999; font-size: 14px;" data-wpy-evt="21-1" bindconfirm="_proxy"></input>
+        </view>
+        <view class="nav">
+            <view data-wpy-evt="21-2" catchtap="_proxy" class="{{type==1?'active item':'item'}}">{{from_type=='default'?'商品':'服务'}}
+                <image src="../images/icon_arrow_r.png" mode="widthFix" alt="" class="mark"></image>
+                <view wx:if="{{ select_show }}" class="select">
+                    <view data-wpy-evt="21-3" catchtap="_proxy" class="{{from_type=='default'?'options checked':'options'}}">商品</view>
+                    <view data-wpy-evt="21-4" catchtap="_proxy" class="{{from_type=='service'?'options checked':'options'}}">服务</view>
+                </view>
+            </view>
+            <view data-wpy-evt="21-5" bindtap="_proxy" class="{{type==2?'active item':'item'}}">销量</view>
+            <view data-wpy-evt="21-6" bindtap="_proxy" class="{{type==3?'active item':'item'}}">
+                价格
+                <image src="../images/icon_order_btn.png" mode="widthFix" wx:if="{{ sort == 'none' }}" alt=""></image>
+                <image src="../images/icon_order_desc.png" mode="widthFix" wx:if="{{ sort == 'desc' }}" alt=""></image>
+                <image src="../images/icon_order_asc.png" mode="widthFix" wx:if="{{ sort == 'asc' }}" alt=""></image>
+            </view>
+        </view>
+    </view>
+
+    <view class="good_list">
+        <porductBox bind_init="_initComponent" list="{{list}}" finished="{{finished}}"></porductBox>
+    </view>
+
+</view>

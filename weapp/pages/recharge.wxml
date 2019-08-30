@@ -1,0 +1,12 @@
+
+<view class="recharge">
+    <view class="top_show">
+        <image src="../images/icon_pay_wechat.png" alt="" mode="widthFix" class="logo"></image>
+        微信支付充值
+    </view>
+    <view class="num">
+        <view class="txt">金额</view>
+        <view class="val"><input type="number" placeholder="0.00" placeholder-style="color: #999999;font-size: 30rpx;"></input></view>
+    </view>
+    <view class="btn">充值</view>
+</view>

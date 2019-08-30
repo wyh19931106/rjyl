@@ -1,0 +1,146 @@
+<style lang="less">
+    .otherCase {
+        padding: 0 25rpx;
+        .title {
+            font-size: 32rpx;
+            color: #333333;
+            padding: 20rpx 0;
+        }
+        .upload_con {
+            width: 600rpx;
+            height: auto;
+            margin: 20rpx auto;
+            .upload_box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: 338rpx;
+                margin-bottom: 100rpx;
+                border: 1rpx dashed rgba(0,0,0,0.08);
+                .bg {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+                .img {
+                    display: block;
+                    width: 95%;
+                    height: auto;
+                }
+            }
+        }
+        .upload {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 60rpx 0 30rpx;
+            height: 78rpx;
+            font-size: 32rpx;
+            color: #ffffff;
+            background: #03447c;
+        }
+    }
+</style>
+<template>
+    <div class="otherCase">
+        <div class="title">其他病例</div>
+        <div class="upload_con">
+            <div class="upload_box" @tap="bindImg(1)">
+                <img :src="img1" alt="" mode="widthFix" class="img" v-if="img1"/>
+                <img src="@/images/img_upload5.png" alt="" mode="widthFix" class="bg" v-else/>
+            </div>
+        </div>
+        <div class="upload" @tap="bindUpload">病例上传</div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            img1: '',
+            path_arr: [] //上传后的地址
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 选择图片
+            bindImg(ind) {
+                let that = this;
+                wx.chooseImage({
+                    count: 1,
+                    sizeType: ['original', 'compressed'],
+                    sourceType: ['album', 'camera'],
+                    success (ret) {
+                        // tempFilePath可以作为img标签的src属性显示图片
+                        that['img' + ind] = ret.tempFilePaths[0];
+                    }
+                })
+            },
+            // 上传文件
+            uploadFile(file_path) {
+                let that = this;
+                wx.uploadFile({
+                    url: that.host + '/api/base/files',
+                    header: {
+                        "Authorization": 'Bearer ' + that.getStore('token')
+                    },
+                    filePath: file_path,
+                    name: 'file',
+                    formData: {
+                        'type': 'image'
+                    },
+                    success (ret){
+                        that.path_arr[0] = JSON.parse(ret.data).data.path;
+                        that.afterUpload();
+                    }
+                })
+            },
+            // 图片上传后设置
+            afterUpload() {
+                let that = this;
+                that.request({
+                    url: '/api/selfhelp_upload',
+                    type: 'POST'
+                }, {
+                    type: 3,
+                    img1: that.path_arr[0]
+                }, function (res) {
+                    that.toast('上传成功');
+                    that.hideLoad(0);
+                    that.goBack(1000);
+                })
+            },
+            // 上传
+            bindUpload() {
+                let that = this;
+                if(!that.img1) {
+                    that.toast('请选择图片');
+                    return false;
+                }
+                that.showLoad('上传中~', true);
+                that.uploadFile(that.img1);
+            }
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

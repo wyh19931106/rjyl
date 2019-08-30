@@ -1,0 +1,75 @@
+page {
+  background: #046fca;
+}
+.activityApply .img_top {
+  width: 100%;
+  height: auto;
+  margin-top: 30rpx;
+}
+.activityApply .form {
+  margin: 10rpx 25rpx;
+  padding: 0 30rpx 35rpx;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+.activityApply .form .title {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 24rpx;
+}
+.activityApply .form .item {
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+  font-size: 30rpx;
+  margin-top: 25rpx;
+}
+.activityApply .form .item .txt {
+  width: 170rpx;
+}
+.activityApply .form .item .val {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+  background: rgba(255, 255, 255, 0.45);
+  padding: 0 30rpx;
+}
+.activityApply .form .item .val input {
+  width: 100%;
+  color: rgba(0, 0, 0, 0.8);
+}
+.activityApply .submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  margin: 30rpx 25rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  color: #0877d6;
+}
+.activityApply .success_window .window_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 374rpx;
+  height: 300rpx;
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.activityApply .success_window .window_box image {
+  width: 80rpx;
+  height: auto;
+}
+.activityApply .success_window .window_box .hint {
+  font-size: 36rpx;
+  color: #333333;
+  margin-top: 20rpx;
+}
+

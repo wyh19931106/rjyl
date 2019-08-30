@@ -1,0 +1,31 @@
+.detection .top_show {
+  width: 100%;
+  height: auto;
+}
+.detection .top_show image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.detection .nav {
+  background: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 25rpx 20rpx 5rpx;
+}
+.detection .nav .nav_item {
+  width: 50%;
+  margin-bottom: 20rpx;
+}
+.detection .nav .nav_item image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.detection .nav .nav_item:nth-child(2n+1) {
+  padding-right: 10rpx;
+}
+.detection .nav .nav_item:nth-child(2n) {
+  padding-left: 10rpx;
+}
+

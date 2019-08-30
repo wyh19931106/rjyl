@@ -1,0 +1,324 @@
+<style lang="less">
+    .resultList {
+        padding-top: 100rpx;
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100rpx;
+            background: #ffffff;
+            display: flex;
+            .nav_item {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 30rpx;
+                color: #333333;
+                position: relative;
+            }
+            .active {
+                color: #03447c;
+            }
+            .active::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 80%;
+                transform: translateX(-50%);
+                border-bottom: 4rpx solid #03447c;
+            }
+        }
+        .list {
+            margin-top: 20rpx;
+            padding: 0 25rpx;
+            .item {
+                padding: 0 25rpx;
+                background: #ffffff;
+                border-radius: 10rpx;
+                margin-bottom: 20rpx;
+                .top {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 134rpx;
+                    padding: 22rpx 0;
+                    border-bottom: 1rpx solid #dddddd;
+                    .title {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 24rpx;
+                        .no {
+                            color: #fb5a5a;
+                        }
+                        .time {
+                            color: #999999;
+                        }
+                    }
+                    .look {
+                        text-align: right;
+                        font-size: 24rpx;
+                        color: #03447c;
+                    }
+                }
+                .bottom {
+                    display: flex;
+                    align-items: center;
+                    height: 78rpx;
+                    font-size: 24rpx;
+                    color: #333333;
+                    image {
+                        width: 22rpx;
+                        height: auto;
+                        margin-right: 15rpx;
+                    }
+                }
+            }
+
+        }
+    }
+</style>
+<template>
+    <div class="resultList">
+        <div class="nav">
+            <div class="{{type == 1? 'nav_item active' : 'nav_item'}}" data-type="1" @tap="typeChange">在线问卷</div>
+            <div class="{{type == 2? 'nav_item active' : 'nav_item'}}" data-type="2" @tap="typeChange">自拍上传</div>
+            <div class="{{type == 3? 'nav_item active' : 'nav_item'}}" data-type="3" @tap="typeChange">病例上传</div>
+            <div class="{{type == 4? 'nav_item active' : 'nav_item'}}" data-type="4" @tap="typeChange">其他病例</div>
+        </div>
+        <div class="list_con" v-if="type == 1">
+            <div class="list" v-if="data1.list.length">
+                <div class="item" v-for="(item, key) in data1.list" @tap="openWin('/pages/resultDetails?no='+ item.qa_no+'&type=1')">
+                    <div class="top">
+                        <div class="title">
+                            <div class="no">{{item.qa_no}}</div>
+                            <div class="time">{{item.created_at}}</div>
+                        </div>
+                        <div class="look">查看详情>></div>
+                    </div>
+                    <div class="bottom">
+                        <img src="@/images/icon_upload1.png" alt="" mode="widthFix" />在线问卷
+                    </div>
+                </div>
+            </div>
+            <div class="empty" v-if="data1.list.length">{{data1.finished?'没有更多了~':'上拉加载更多~'}}</div>
+            <div class="empty_con" v-else>
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据</div>
+            </div>
+        </div>
+        <div class="list_con" v-if="type == 2">
+            <div class="list" v-if="data2.list.length">
+                <div class="item" v-for="(item, key) in data2.list" @tap="openWin('/pages/resultDetails?no='+ item.id+'&type=2')">
+                    <div class="top">
+                        <div class="title">
+                            <div class="no">{{item.sh_no}}</div>
+                            <div class="time">{{item.created_at}}</div>
+                        </div>
+                        <div class="look">查看详情>></div>
+                    </div>
+                    <div class="bottom">
+                        <img src="@/images/icon_upload3.png" alt="" mode="widthFix" />自拍上传
+                    </div>
+                </div>
+            </div>
+            <div class="empty" v-if="data2.list.length">{{data2.finished?'没有更多了~':'上拉加载更多~'}}</div>
+            <div class="empty_con" v-else>
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据</div>
+            </div>
+        </div>
+        <div class="list_con" v-if="type == 3">
+            <div class="list" v-if="data3.list.length">
+                <div class="item" v-for="(item, key) in data3.list" @tap="openWin('/pages/resultDetails?no='+ item.id+'&type=2')">
+                    <div class="top">
+                        <div class="title">
+                            <div class="no">{{item.sh_no}}</div>
+                            <div class="time">{{item.created_at}}</div>
+                        </div>
+                        <div class="look">查看详情>></div>
+                    </div>
+                    <div class="bottom">
+                        <img src="@/images/icon_upload2.png" alt="" mode="widthFix" />病例上传
+                    </div>
+                </div>
+            </div>
+             <div class="empty" v-if="data3.list.length">{{data3.finished?'没有更多了~':'上拉加载更多~'}}</div>
+            <div class="empty_con" v-else>
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据</div>
+            </div>
+        </div>
+        <div class="list_con" v-if="type == 4">
+            <div class="list" v-if="data4.list.length">
+                <div class="item" v-for="(item, key) in data4.list" @tap="openWin('/pages/resultDetails?no='+ item.id+'&type=2')">
+                    <div class="top">
+                        <div class="title">
+                            <div class="no">{{item.sh_no}}</div>
+                            <div class="time">{{item.created_at}}</div>
+                        </div>
+                        <div class="look">查看详情>></div>
+                    </div>
+                    <div class="bottom">
+                        <img src="@/images/icon_upload4.png" alt="" mode="widthFix" />其他病例
+                    </div>
+                </div>
+            </div>
+            <div class="empty" v-if="data4.list.length">{{data4.finished?'没有更多了~':'上拉加载更多~'}}</div>
+            <div class="empty_con" v-else>
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            type: 1,
+            data1: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data2: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data3: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data4: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 切换
+            typeChange(e) {
+                this.type = e.currentTarget.dataset.type;
+            },
+            // 获取在线问卷数据
+            getQuestionList() {
+                let that = this;
+                that.request({
+                    url: '/api/get_scores_list',
+                    type: 'GET'
+                }, {
+                    page: that.data1.page
+                }, function (ret) {
+                    if (that.data1.page < ret.meta.pagination.total_pages) {
+                        that.data1.finished = false;
+                        that.data1.page++;
+                    } else {
+                        that.data1.finished = true;
+                    }
+                    that.data1.load = true;
+                    that.data1.list = that.data1.list.concat(ret.data);
+                    that.hideLoad(0);
+                })
+            },
+            // 获取图片上传的数据
+            getUploadList(ind) {
+                let that = this;
+                that.request({
+                    url: '/api/selfhelp_list',
+                    type: 'GET'
+                }, {
+                    page: that['data'+(ind+1)].page,
+                    type: ind
+                }, function (ret) {
+                    if (that['data'+(ind+1)].page < ret.meta.pagination.total_pages) {
+                        that['data'+(ind+1)].finished = false;
+                        that['data'+(ind+1)].page++;
+                    } else {
+                        that['data'+(ind+1)].finished = true;
+                    }
+                    that['data'+(ind+1)].load = true;
+                    that['data'+(ind+1)].list = that['data'+(ind+1)].list.concat(ret.data);
+                    that.hideLoad(300);
+                })
+            }
+        },
+
+        created () {
+            this.showLoad();
+            this.getQuestionList();
+            this.getUploadList(1);
+            this.getUploadList(2);
+            this.getUploadList(3);
+        },
+        // 上拉加载
+        onReachBottom(event) {
+            let that = this;
+            switch(that.type) {
+                case 1:
+                    if (that.data1.finished) {
+                        return false;
+                    }
+                    if (that.data1.load) {
+                        that.data1.load = false;
+                        that.getQuestionList()
+                    }
+                    break;
+                case 2:
+                    if (that.data2.finished) {
+                        return false;
+                    }
+                    if (that.data2.load) {
+                        that.data2.load = false;
+                        getUploadList(1);
+                    }
+                    break;
+                case 3:
+                    if (that.data3.finished) {
+                        return false;
+                    }
+                    if (that.data3.load) {
+                        that.data3.load = false;
+                        getUploadList(2);
+                    }
+                    break;
+                case 4:
+                    if (that.data4.finished) {
+                        return false;
+                    }
+                    if (that.data4.load) {
+                        that.data4.load = false;
+                        getUploadList(3);
+                    }
+                    break;
+            }
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '检测结果',
+        usingComponents: {
+
+        }
+    }
+</config>

@@ -1,0 +1,41 @@
+
+<view class="newsCate">
+    <view class="list">
+        <view data-wpy-evt="31-0" bindtap="_proxy" class="item">
+            <view class="img">
+                <image src="../images/icon_news.png" alt="" mode="widthFix"></image>
+            </view>
+            <view class="center">
+                <view class="tit">系统消息</view>
+                <view class="hint">消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容消息内容</view>
+            </view>
+            <view class="time">
+                6-12 10:31
+            </view>
+        </view>
+        <view data-wpy-evt="31-1" bindtap="_proxy" class="item">
+            <view class="img">
+                <image src="../images/icon_order.png" alt="" mode="widthFix"></image>
+            </view>
+            <view class="center">
+                <view class="tit">订单通知</view>
+                <view class="hint">订单内容订单内容订单内容</view>
+            </view>
+            <view class="time">
+                6-12 10:31
+            </view>
+        </view>
+        <view data-wpy-evt="31-2" bindtap="_proxy" class="item">
+            <view class="img">
+                <image src="../images/icon_point.png" alt="" mode="widthFix"></image>
+            </view>
+            <view class="center">
+                <view class="tit">余额变动提醒 </view>
+                <view class="hint">个人余额，随时掌控</view>
+            </view>
+            <view class="time">
+                6-12 10:31
+            </view>
+        </view>
+    </view>
+</view>

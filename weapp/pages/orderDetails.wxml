@@ -1,0 +1,60 @@
+
+<view class="orderDetails">
+    <view class="top_show">
+        <view class="status">
+            <view class="txt">待发货</view>
+            <view class="hint">卖家正在为您整装包裹</view>
+        </view>
+        <view class="img">
+            <image src="../images/icon_flow1.png" alt="" mode="widthFix"></image>
+        </view>
+    </view>
+    <view class="user_infor">
+        <view class="left">
+            <view class="title">
+                <view class="name">收货人：小李</view>
+                <view class="tel">159*****9988</view>
+            </view>
+            <view class="addr">收货地址：北京市，北京市，东城区东北街道002号</view>
+        </view>
+    </view>
+    <view class="good_list">
+        <view class="good_item">
+            <view class="img">
+                <image src="../images/img_default.png" alt="" mode="widthFix"></image>
+            </view>
+            <view class="infor">
+                <view class="title">AHC三代 高浓度B5玻尿酸面膜超值5片 补水 富含保湿精华</view>
+                <view class="inf">
+                    <label class="qty">x1</label>
+                    <label class="price">¥499.00</label>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="good_count">
+        <view class="p">
+            <label class="txt">商品总价</label>
+            <label class="val">¥49.00</label>
+        </view>
+        <view class="p">
+            <label class="txt">运费（快递）</label>
+            <label class="val">¥0</label>
+        </view>
+        <view class="money">
+            共1件商品，待支付：<label class="total">¥49.00</label>
+        </view>
+    </view>
+    <view class="order_no">
+        <view class="item">
+            订单编号: 260330886221313
+        </view>
+        <view class="item">
+            创建时间： 2017-03-06
+        </view>
+    </view>
+    <view class="bottom_fixed">
+        <view class="btn">取消</view>
+        <view class="btn active">付款</view>
+    </view>
+</view>

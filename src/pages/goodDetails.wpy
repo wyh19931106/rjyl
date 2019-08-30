@@ -1,0 +1,586 @@
+<style lang="less">
+    .goodDetails {
+        padding-bottom: 150rpx;
+        .swiper {
+            image {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        }
+        .good_infor {
+            background: #ffffff;
+            padding: 20rpx 25rpx;
+            .good_price {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .pri {
+                    display: flex;
+                    align-items: flex-end;
+                    .sale_pri {
+                        font-size: 54rpx;
+                        color: #fc6f48;
+                        margin-right: 5rpx;
+                        .mark {
+                            font-size: 28rpx;
+                        }
+                    }
+                    .market_pri {
+                        font-size: 30rpx;
+                        color: #999999;
+                        text-decoration: line-through;
+                    }
+                }
+                .sale_num {
+                    font-size: 30rpx;
+                    color: #999999;
+                }
+            }
+            .good_title {
+                font-size: 34rpx;
+                margin-top: 30rpx;
+                color: #333333;
+            }
+        }
+        .good_details {
+            margin-top: 20rpx;
+            background: #ffffff;
+            image, img {
+                display: flex;
+                width: 100%;
+                height: auto;
+            }
+        }
+        .bottom_fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100rpx;
+            display: flex;
+            z-index: 9;
+            background: #ffffff;
+            border-top: 1rpx solid rgba(0,0,0,0.08);
+            .left {
+                display: flex;
+                width: 312rpx;
+                height: 100%;
+                .item {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    .icon {
+                        position: relative;
+                        width: 60rpx;
+                        height: 45rpx;
+                        image {
+                            width: 40rpx;
+                            height: auto;
+                        }
+                        .mark {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: 30rpx;
+                            height: 30rpx;
+                            color: #fff;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 22rpx;
+                            border-radius: 15rpx;
+                            background: rgba(234,32,0,0.8);
+                        }
+                    }
+                    .txt {
+                        font-size: 24rpx;
+                        color: #797979;
+                    }
+                }
+            }
+            .add_cart, .to_buy {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #404040;
+                color: #ffffff;
+                font-size: 32rpx;
+            }
+            .to_buy {
+                background: #1a2fb0;
+            }
+        }
+        .model_window {
+            .model_box {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                background: #ffffff;
+                border-radius: 24rpx 24rpx 0 0;
+                .infor {
+                    height: 200rpx;
+                    position: relative;
+                    padding: 60rpx 100rpx 0 310rpx;
+                    .img {
+                        position: absolute;
+                        top: -65rpx;
+                        left: 30rpx;
+                        width: 265rpx;
+                        height: 265rpx;
+                        border-radius: 18rpx;
+                        overflow: hidden;
+                        image {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .inf {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        height: 100%;
+                        .price {
+                            display: flex;
+                            align-items: flex-end;
+                            .sale_price {
+                                font-size: 42rpx;
+                                color: #fc6f48;
+                                .mark {
+                                    font-size: 28rpx;
+                                }
+                            }
+                            .market_price {
+                                font-size: 28rpx;
+                                color: #999;
+                                text-decoration: line-through;
+                            }
+                        }
+                        .model_select {
+                            font-size: 28rpx;
+                            color: #666666;
+                        }
+                    }
+                    .close {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100rpx;
+                        height: 90rpx;
+                        image {
+                            width: 33rpx;
+                            height: auto;
+                        }
+                    }
+                }
+                .model_con {
+                    margin-top: 70rpx;
+                    padding: 0 30rpx;
+                    .tit {
+                        font-size: 26rpx;
+                        color: #999999;
+                    }
+                    .model_list {
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin-top: 20rpx;
+                        max-height: 300rpx;
+                        overflow-y: auto;
+                        .item {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 0 30rpx;
+                            height: 50rpx;
+                            border: 1rpx solid #d6d6d6;
+                            border-radius: 25rpx;
+                            font-size: 26rpx;
+                            color: #333333;
+                            margin: 0 20rpx 20rpx 0;
+                        }
+                        .active {
+                            color: #1a2fb0;
+                            border: 1rpx solid #1a2fb0;
+                        }
+                        .disabled {
+                            color: #aaaaaa;
+                            background: #f1f1f1;
+                        }
+                    }
+                }
+                .num_con {
+                    margin-top: 60rpx;
+                    padding: 0 30rpx;
+                    .tit {
+                        font-size: 26rpx;
+                        color: #999999;
+                    }
+                    .num_box {
+                        display: flex;
+                        justify-content: flex-end;
+                        width: 100%;
+                        height: auto;
+                        .stepper {
+                            width: 240rpx;
+                            height: 50rpx;
+                            display: flex;
+                            .sub, .add {
+                                width: 80rpx;
+                                height: 100%;
+                                image {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                            }
+                            .qty {
+                                width: 80rpx;
+                                text-align: center;
+                                font-size: 26rpx;
+                                color: #333333;
+                            }
+                        }
+                    }
+                }
+                .confirm {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top:  60rpx;
+                    width: 100%;
+                    height: 100rpx;
+                    font-size: 32rpx;
+                    color: #ffffff;
+                    background: #1a2fb0;
+                }
+            }
+        }
+    }
+</style>
+
+<template>
+    <div class="goodDetails" v-if="details.id">
+        <swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" bindchange="swiperChange" style="height:{{imgBoxSize}}rpx;">
+            <swiper-item v-for="(item, key) in details.imgs">
+                <image :src="imgPath + item" class="slide-image" mode="widthFix" bindload="imageLoad" />
+            </swiper-item>
+        </swiper>
+        <div class="good_infor">
+            <div class="good_price">
+                <div class="pri">
+                    <div class="sale_pri">
+                        <span class="mark">¥</span>{{details.price}}
+                    </div>
+                    <div class="market_pri">¥{{details.market_price}}</div>
+                </div>
+                <div class="sale_num">已售{{details.sales_count}}件</div>
+            </div>
+            <div class="good_title">{{details.title}}/</div>
+        </div>
+        <div class="good_details">
+            <rich-text nodes="{{details.content}}"></rich-text>
+        </div>
+        <div class="bottom_fixed">
+            <div class="left">
+                <div class="item">
+                    <div class="icon" @tap="bindFav">
+                        <img src="@/images/icon_fav_y.png" v-if="details.favoriters" alt="" mode="widthFix" />
+                        <img src="@/images/icon_fav.png" v-else alt="" mode="widthFix" />
+                    </div>
+                    <div class="txt">收藏</div>
+                </div>
+                <div class="item" @tap="openTab('/pages/cart')">
+                    <div class="icon">
+                        <img src="@/images/icon_cart_black.png" alt="" mode="widthFix" />
+                        <!-- <span class="mark">1</span> -->
+                    </div>
+                    <div class="txt">购物车</div>
+                </div>
+                <button class="item kf" open-type="contact" hover-class="none" bindcontact="handleContact">
+                    <div class="icon">
+                        <img src="@/images/icon_service.png" alt="" mode="widthFix" />
+                    </div>
+                    <div class="txt">客服</div>
+                </button>
+            </div>
+            <div class="add_cart" @tap="bindShow(1)" v-if="from_type=='default'">
+                加入购物车
+            </div>
+            <div class="to_buy" @tap="bindShow(2)">
+                立即购买
+            </div>
+        </div>
+
+        <div class="window model_window" v-if="show" @tap="bindHide">
+            <div class="window_box model_box" @tap.stop="bindDefault">
+                <div class="infor">
+                    <div class="img">
+                        <img :src="imgPath + details.cover" alt="" mode="widthFix" />
+                    </div>
+                    <div class="inf">
+                        <div class="price">
+                            <div class="sale_price">
+                                <span class="mark">¥</span>{{select_form.price}}
+                            </div>
+                            <span class="market_price">¥{{select_form.market_price}}</span>
+                        </div>
+                        <div class="model_select" v-if="details.attrs.data.length">{{select_form.attr_str}}</div>
+                    </div>
+                    <div class="close" @tap="bindHide">
+                        <img src="@/images/icon_close.png" alt="" mode="widthFix" />
+                    </div>
+                </div>
+                <div class="model_con" v-if="details.attrs.data.length">
+                    <div class="tit">规格</div>
+                    <div class="model_list">
+                        <div class="{{item.id==select_form.id?'item active':'item'}}" v-for="(item,key) in details.attrs.data" @tap="bindSelect(key)" v-if="item.stock">{{item.attr_str}}</div>
+                        <div class="item disabled" v-if="item.stock<1">{{item.attr_str}}</div>
+                    </div>
+                </div>
+                <div class="num_con">
+                    <div class="tit">数量</div>
+                    <div class="num_box">
+                        <div class="stepper">
+                            <div class="sub" @tap="bindSub"><img src="@/images/icon_btn_sub.png" alt="" mode="widthFix" /></div>
+                            <input class="qty" type="number" v-model="qty" readonly />
+                            <div class="add" @tap="bindAdd"><img src="@/images/icon_btn_add.png" alt="" mode="widthFix" /></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="confirm" @tap="bindConfirm">确定</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            from_type: 'default',  //default：商品     service：服务
+            type: 1,    //1.加入购物车   2.立即购买
+            details: {},
+            indicatorDots: false,
+            autoplay: true,
+            interval: 2500,
+            duration: 500,
+            swiperCurrent: 0, // 所有图片的高度
+            imgheights: [], // 图片宽度
+            imgwidth: 750, // 默认
+            current: 0,
+            imgBoxSize: 0,
+            show: false,
+            qty: 1,
+            select_form: {
+                price: 0,
+                market_price: 0,
+                attr_str: '请选择：规格',
+                stock: 0
+            }//选择的规格
+        },
+        methods: {
+            // 获取详情
+            getDetails(id) {
+                let that = this;
+                that.request({
+                    url: '/api/package/mall/'+ that.from_type +'/products/'+ id+ '?include=attrs,freight,favoriters',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    that.details = ret.data;
+                    that.details.content = that.details.content.replace(/style\s*?=\s*?([‘"])[\s\S]*?\1/ig, 'style="width:100%;height:auto;display: block;margin:auto"');
+                    that.details.content = that.details.content.replace(/\<p/gi, '<P class="rich-p"');//正则给p标签增加class
+                    for(let i = 0; i < that.details.attrs.data.length; i++) {
+                        that.details.attrs.data[i].selected = false;
+                    }
+                    that.select_form.price = that.details.price;
+                    that.select_form.market_price = that.details.market_price;
+                    that.select_form.stock = that.details.stock;
+                })
+            },
+            // swiper
+            swiperChange(e) {
+                this.swiperCurrent = e.$wx.detail.current;
+                this.current = e.$wx.detail.current;
+            },
+            imageLoad(e) {
+                this.imgheights = [];
+                // 获取图片真实宽度
+                var imgwidth = e.$wx.detail.width;
+                var imgheight = e.$wx.detail.height;
+                // 宽高比
+                var ratio = imgwidth / imgheight;
+                // 计算的高度值
+                var viewHeight = 750 / ratio;
+                imgheight = viewHeight;
+                // 把每一张图片的高度记录到数组里
+                this.imgheights.push(imgheight);
+                // 取出图片数组中最高的一个值
+                this.imgBoxSize = Math.max.apply(null, this.imgheights);
+            },
+            // 显示规格
+            bindShow(ind) {
+                this.show = true;
+                this.type = ind;
+            },
+            bindDefault() {
+                return false;
+            },
+            // 关闭规格
+            bindHide() {
+                this.show = false;
+            },
+            // 选择规格
+            bindSelect(ind) {
+                let that = this;
+                const obj = JSON.stringify(that.details.attrs.data[ind]);
+                that.select_form = JSON.parse(obj);
+            },
+            // 加
+            bindAdd() {
+                if (this.qty < this.select_form.stock) {
+                    this.qty += 1;
+                } else {
+                    this.toast('库存不足');
+                }
+            },
+            // 减
+            bindSub() {
+                if (this.qty > 1) {
+                    this.qty -= 1;
+                } else {
+                    wx.showToast({
+                          title: '最小值为1',
+                          icon: 'none',
+                          duration: 2000
+                    })
+                }
+            },
+            // 添加购物车
+            addCart() {
+                let that = this;
+                let json = {};
+                json.qty = that.qty;
+                if (that.details.attrs.data.length > 0) {
+                    if (that.select_form.id) {
+                        json.stock_id = that.select_form.id;
+                    } else {
+                        that.toast('请选择规格');
+                        return false;
+                    }
+                } else {
+                    json.product_id = that.details.id;
+                }
+                if (that.qty > that.select_form.stock) {
+                    that.toast('库存不足');
+                    return false;
+                }
+                that.request({
+                    url: '/api/package/mall/'+that.from_type+'/cart',
+                    type: 'POST'
+                }, json, function (ret) {
+                    that.toast('添加成功');
+                    that.show = false;
+                })
+            },
+            // 下单
+            toOrder() {
+                let that = this;
+                let stock_id = '';
+                let product_id = '';
+                if (that.details.attrs.data.length > 0) {
+                    if (that.select_form.id) {
+                        stock_id = that.select_form.id;
+                    } else {
+                        that.toast('请选择规格');
+                        return false;
+                    }
+                } else {
+                    product_id = that.details.id;
+                }
+                if (that.qty > that.select_form.stock) {
+                    that.toast('库存不足');
+                    return false;
+                }
+                if ( stock_id ) {
+                    that.openWin('/pages/orderConfirm?from=product&stock_id=' + stock_id + '&qty=' + that.qty + '&type=' + that.from_type);
+                }
+                if ( product_id ) {
+                    that.openWin('/pages/orderConfirm?from=product&product_id=' + product_id + '&qty=' + that.qty + '&type=' + that.from_type);
+                }
+                that.show = false;
+            },
+            bindConfirm() {
+                let that = this;
+                // if(that.from_type == 'default') {
+                    if ( that.type == 1){
+                        that.addCart();
+                    } else if ( that.type == 2 ) {
+                        that.toOrder();
+                    }
+                // }
+
+            },
+            // 收藏
+            bindFav() {
+                let that = this;
+                if (that.details.favoriters) {
+                    that.request({
+                        url: '/api/user/favorites',
+                        type: 'DELETE'
+                    }, {
+                        object: 'SMG\\Mall\\Models\\MallProduct',
+                        id: that.details.id
+                    }, function (ret) {
+                        that.toast('取消收藏');
+                        that.details.favoriters = false;
+                    })
+                } else {
+                    that.request({
+                        url: '/api/user/favorites',
+                        type: 'POST'
+                    }, {
+                        object: 'SMG\\Mall\\Models\\MallProduct',
+                        id: that.details.id
+                    }, function (ret) {
+                        that.toast('收藏成功');
+                        that.details.favoriters = true;
+                    })
+                }
+            },
+            // 客服
+            handleContact (e) {
+                console.log(e.$wx.detail)
+                // console.log(e.$wx.detail.path)
+                // console.log(e.$wx.detail.query)
+            }
+        },
+        onLoad(options) {
+            this.from_type = options.type;
+            this.getDetails(options.id);
+        },
+        created () {
+
+        }
+    });
+</script>
+
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

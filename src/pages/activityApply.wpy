@@ -1,0 +1,260 @@
+<style lang="less">
+    page {
+        background: #046fca;
+    }
+    .activityApply {
+        .img_top {
+            width: 100%;
+            height: auto;
+            margin-top: 30rpx;
+        }
+        .form {
+            margin: 10rpx 25rpx;
+            padding: 0 30rpx 35rpx;
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
+            .title {
+                height: 60rpx;
+                line-height: 60rpx;
+                font-size: 24rpx;
+            }
+            .item {
+                display: flex;
+                align-items: center;
+                height: 60rpx;
+                font-size: 30rpx;
+                margin-top: 25rpx;
+                .txt {
+                    width: 170rpx;
+                }
+                .val {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    height: 60rpx;
+                    background: rgba(255,255,255,0.45);
+                    padding: 0 30rpx;
+                    input {
+                        width: 100%;
+                        color: rgba(0,0,0,0.8);
+                    }
+                }
+            }
+        }
+        .submit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            margin: 30rpx 25rpx;
+            height: 80rpx;
+            border-radius: 8rpx;
+            color: #0877d6;
+        }
+        .success_window {
+            .window_box {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 374rpx;
+                height: 300rpx;
+                background: #ffffff;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                image {
+                    width: 80rpx;
+                    height: auto;
+                }
+                .hint {
+                    font-size: 36rpx;
+                    color: #333333;
+                    margin-top: 20rpx;
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="activityApply">
+        <img src="@/images/img_activity.png" alt="" class="img_top" mode="widthFix" />
+        <div class="form">
+            <div class="title">在线填写</div>
+            <div class="item">
+                <text class="txt" decode="true">姓&emsp;&emsp;名</text>
+                <div class="val"><input type="text" v-model="form.name" /></div>
+            </div>
+            <div class="item">
+                <div class="txt">手机号码</div>
+                <div class="val"><input type="number" v-model="form.mobile" @input="inputPhoneCom('mobile')" /></div>
+            </div>
+            <div class="item">
+                <text class="txt" decode="true">部&emsp;&emsp;门</text>
+                <div class="val"><input type="text" v-model="form.department" /></div>
+            </div>
+            <!-- <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+                <view class="item">
+                    <div class="txt">预约日期</div>
+                    <div class="val">{{date}}</div>
+                </view>
+            </picker> -->
+            <picker mode="multiSelector" value="{{multiIndex}}" range="{{multiArray}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange">
+                <view class="item">
+                    <div class="txt">预约时间</div>
+                    <div class="val">
+                        <input type="text" v-model="form.time" disabled="{{isDisabled}}" />
+                    </div>
+                </view>
+            </picker>
+            <!-- <div class="item">
+                <div class="txt">预约人数</div>
+                <div class="val"><input type="text"></div>
+            </div> -->
+        </div>
+        <div class="submit" @tap="bindSubmit">提交预约</div>
+        <div class="window success_window" v-if="show" @tap="bindHide">
+            <div class="window_box" @tap.stop="bindDefault">
+                <img src="@/images/icon_tick_success.png" alt="" mode="widthFix" />
+                <div class="hint">报名成功</div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            id: '',
+            isDisabled: true,
+            show: false,
+            multiIndex: [0, 0],
+            multiArray: [],
+            date: '2016-09-01',
+            form: {
+                name: '',
+                mobile: '',
+                department: '',
+                time: ''
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取时间
+            getTime(id) {
+                let that = this;
+                that.request({
+                    url: '/api/get_activity_interval_time',
+                    type: 'GET'
+                },{
+                   id: id
+                },function (ret) {
+                    var start_time = ret.data.set_activity.start_time;
+                    var end_time = ret.data.set_activity.end_time;
+                    var interval_time = ret.data.set_activity.interval_time;
+                    var time = [['00'],['00']];
+                    for ( var i = start_time; i < end_time + 1; i++) {
+                        time[0].push(i);
+                    }
+                    for (var i = 1; i * interval_time < 60; i++) {
+                        time[1].push(i*interval_time);
+                    }
+                    that.multiArray = time;
+                    that.form.time = that.multiArray[0][that.multiIndex[0]] + ':' + that.multiArray[1][that.multiIndex[1]]
+                })
+            },
+            bindHide() {
+                this.show = false;
+            },
+            bindDefault() {
+                return false;
+            },
+            bindMultiPickerChange: function (e) {
+                if (e.$wx.detail.value[0] == 1) {
+                    if( e.$wx.detail.value[1] == 1 || e.$wx.detail.value[1] == 2) {
+                        wx.showToast({
+                            title: '该时间段报名已满，请另选时间！',
+                            icon: 'none',
+                            duration: 2000
+                        })
+                        return false;
+                    }
+                }
+                // console.log('picker发送选择改变，携带值为', e.$wx.detail.value);
+                this.multiIndex = e.$wx.detail.value;
+                this.form.time = this.multiArray[0][this.multiIndex[0]] + ':' + this.multiArray[1][this.multiIndex[1]]
+            },
+            bindMultiPickerColumnChange: function (e) {
+                // console.log(e);
+                // console.log('修改的列为', e.$wx.detail.column, '，值为', e.$wx.detail.value);
+            },
+            bindDateChange: function(e) {
+                console.log('picker发送选择改变，携带值为', e.$wx.detail.value)
+            },
+            // 提交
+            bindSubmit() {
+                let that = this;
+                if(!that.form.name.trim()) {
+                    that.toast('姓名不能为空！');
+                    return false;
+                }
+                if(!that.form.mobile) {
+                    that.toast('手机号不能为空！');
+                    return false;
+                }
+                if(!that.isPhone(that.form.mobile)) {
+                    that.toast('手机号格式错误');
+                    return false;
+                }
+                if (that.form.time == '00:00') {
+                    that.toast('请选择预约时间');
+                    return false;
+                }
+                that.request({
+                    url: '/api/submit_activity_register',
+                    type: 'POST'
+                },{
+                    pa_id: that.id,
+                    reg_time: that.form.time,
+                    name: that.form.name,
+                    phone: that.form.mobile,
+                    department: that.form.department
+                },function (ret) {
+                    console.log(ret);
+                    that.show = true;
+                    setTimeout(function() {
+                        that.show = false;
+                    },2500)
+                })
+            }
+        },
+
+        created () {
+
+        },
+        onLoad(options) {
+            this.id = options.id;
+            this.getTime(options.id);
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '活动报名',
+        usingComponents: {
+
+        }
+    }
+</config>

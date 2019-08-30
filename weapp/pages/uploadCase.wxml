@@ -1,0 +1,11 @@
+
+<view class="uploadCase">
+    <view class="title">瑞脊病例上传资料</view>
+    <view class="upload_con">
+        <view data-wpy-evt="46-0" bindtap="_proxy" class="upload_box">
+            <image src="{{ img1 }}" alt="" mode="widthFix" wx:if="{{ img1 }}" class="img"></image>
+            <image src="../images/img_upload5.png" alt="" mode="widthFix" wx:else class="bg"></image>
+        </view>
+    </view>
+    <view data-wpy-evt="46-1" bindtap="_proxy" class="upload">病例上传</view>
+</view>

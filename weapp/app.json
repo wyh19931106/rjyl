@@ -1,0 +1,94 @@
+{
+    "pages": [
+        "pages/user",
+        "pages/index",
+        "pages/reservation",
+        "pages/detection",
+        "pages/cart",
+        "pages/addrEdit",
+        "pages/addrList",
+        "pages/addAddr",
+        "pages/addCard",
+        "pages/activityApply",
+        "pages/activityDetails",
+        "pages/activityList",
+        "pages/cardList",
+        "pages/cash",
+        "pages/changePhone",
+        "pages/forget",
+        "pages/goodList",
+        "pages/goodDetails",
+        "pages/login",
+        "pages/logistics",
+        "pages/myRecommend",
+        "pages/myActivity",
+        "pages/myActivityDetails",
+        "pages/myReservation",
+        "pages/myCode",
+        "pages/myFavorite",
+        "pages/newsCate",
+        "pages/newsList",
+        "pages/orderConfirm",
+        "pages/onlineQuestion",
+        "pages/otherCase",
+        "pages/orderProduct",
+        "pages/orderDetails",
+        "pages/orderService",
+        "pages/paySuccess",
+        "pages/resultDetails",
+        "pages/resultList",
+        "pages/register",
+        "pages/recharge",
+        "pages/setPayPwd",
+        "pages/uploadSelf",
+        "pages/uploadCase",
+        "pages/userInfor",
+        "pages/wallet"
+    ],
+    "tabBar": {
+        "color": "#636363",
+        "selectedColor": "#18425a",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/index",
+                "iconPath": "./images/icon_index.png",
+                "selectedIconPath": "./images/icon_index_y.png",
+                "text": "首页"
+            },
+            {
+                "pagePath": "pages/reservation",
+                "iconPath": "./images/icon_reservation.png",
+                "selectedIconPath": "./images/icon_reservation_y.png",
+                "text": "预约"
+            },
+            {
+                "pagePath": "pages/detection",
+                "iconPath": "./images/icon_detection.png",
+                "selectedIconPath": "./images/icon_detection_y.png",
+                "text": "检测"
+            },
+            {
+                "pagePath": "pages/cart",
+                "iconPath": "./images/icon_cart.png",
+                "selectedIconPath": "./images/icon_cart_y.png",
+                "text": "购物车"
+            },
+            {
+                "pagePath": "pages/user",
+                "iconPath": "./images/icon_user.png",
+                "selectedIconPath": "./images/icon_user_y.png",
+                "text": "我的"
+            }
+        ]
+    },
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#03447c",
+        "navigationBarTitleText": "瑞脊医疗",
+        "navigationBarTextStyle": "white"
+    },
+    "component": true,
+    "usingComponents": {}
+}

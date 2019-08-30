@@ -1,0 +1,101 @@
+<style lang="less">
+    .paySuccess {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        .con {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            image {
+                width: 260rpx;
+                height: auto;
+            }
+            .title {
+                font-size: 38rpx;
+                color: #333333;
+                margin-top: 20rpx;
+            }
+            .hint {
+                font-size: 28rpx;
+                color: #999999;
+                margin-top: 15rpx;
+            }
+            .handle {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 100rpx;
+                .look, .to_home {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 226rpx;
+                    height: 66rpx;
+                    font-size: 30rpx;
+                    border-radius: 33rpx;
+                }
+                .look {
+                    border: 1rpx solid #bfbfbf;
+                }
+                .to_home {
+                    color: #ffffff;
+                    background: #1a2fb0;
+                    margin-left: 120rpx;
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="paySuccess">
+        <div class="con">
+            <img src="@/images/img_pay_success.png" alt="" mode="widthFix" />
+            <div class="title">支付成功</div>
+            <div class="hint">商家将尽快发货，请耐心等待</div>
+            <div class="handle">
+                <span class="look" @tap="openWin('/pages/orderDetails?id=1')">查看订单</span>
+                <span class="to_home" @tap="openTab('/pages/index')">返回首页</span>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

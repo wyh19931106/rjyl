@@ -1,0 +1,39 @@
+
+<view class="logistics">
+    <view class="top_show">
+        <view class="img">
+            <image src="../images/img_default.png" alt="" mode="widthFix"></image>
+        </view>
+        <view class="infor">
+            <view class="status">
+                <view class="txt">物流状态</view>
+                <view class="val">已签收</view>
+            </view>
+            <view class="company">承运来源： 顺丰快递</view>
+            <view class="no">订单运号： 33228808</view>
+        </view>
+    </view>
+    <view class="box">
+        <view class="br">
+            <label class="red_br"></label>
+            <label></label>
+        </view>
+        <view class="ul">
+            <view class="li">
+                <view class="status">[深圳市]已签收，感谢使用顺丰，期待再次为您服务，感谢使用顺丰，期待再次为您服务。</view>
+                <view class="time">2017-15-05 12:05:45</view>
+                <image src="../images/icon_dot_blue.png" alt="" mode="widthFix" class="small"></image>
+            </view>
+            <view class="li">
+                <view class="status">[深圳市]已签收，感谢使用顺丰，期待再次为您服务，感谢使用顺丰，期待再次为您服务，</view>
+                <view class="time">2017-15-05 12:05:45</view>
+                <image src="../images/icon_dot.png" alt="" mode="widthFix" class="small"></image>
+            </view>
+            <view class="li">
+                <view class="status">包裹正在等待揽收</view>
+                <view class="time">2017-15-05 12:05:45</view>
+                <image src="../images/icon_dot.png" alt="" mode="widthFix" class="small"></image>
+            </view>
+        </view>
+    </view>
+</view>

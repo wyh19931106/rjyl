@@ -1,0 +1,71 @@
+
+<view class="userInfor">
+    <view class="infor">
+        <view data-wpy-evt="47-0" bindtap="_proxy" class="item avatar_item">
+            <label class="txt">头像</label>
+            <view class="right">
+                <image src="{{ imgPath + user.avatar }}" alt="" wx:if="{{ user.avatar }}" class="avatar"></image>
+                <image src="../images/img_avatar.png" alt="" wx:else class="avatar"></image>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+        <view data-wpy-evt="47-1" bindtap="_proxy" class="item">
+            <label class="txt">昵称</label>
+            <view class="right">
+                <label class="val">{{user.name?user.name:''}}</label>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+        <view data-wpy-evt="47-2" bindtap="_proxy" class="item">
+            <label class="txt">性别</label>
+            <view class="right">
+                <label class="val">{{user.sex?(user.sex==1?'男':'女'):'保密'}}</label>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+        <view data-wpy-evt="47-3" bindtap="_proxy" class="item">
+            <label class="txt">收货地址</label>
+            <view class="right">
+                <label class="val">{{area}}</label>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+        <view data-wpy-evt="47-4" bindtap="_proxy" class="item">
+            <label class="txt">银行卡</label>
+            <view class="right">
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+        <view data-wpy-evt="47-5" bindtap="_proxy" class="item">
+            <label class="txt">忘记密码</label>
+            <view class="right">
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+        <view data-wpy-evt="47-6" bindtap="_proxy" class="item">
+            <label class="txt">设置支付密码</label>
+            <view class="right">
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+        <view data-wpy-evt="47-7" bindtap="_proxy" class="item">
+            <label class="txt">修改手机号</label>
+            <view class="right">
+                <label class="val">{{user.phone}}</label>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix" class="arrow"></image>
+            </view>
+        </view>
+    </view>
+    <view data-wpy-evt="47-8" bindtap="_proxy" class="exit">退出登录</view>
+
+    <view wx:if="{{ nickShow }}" data-wpy-evt="47-9" bindtap="_proxy" class="window nickName_window">
+        <view data-wpy-evt="47-10" catchtap="_proxy" class="window_box">
+            <view class="title">修改昵称</view>
+            <view class="val"><input type="text" placeholder="请输入昵称" value="{{ name }}" bindinput="_proxy" data-model-id="40" placeholder-style="color: #999999;font-size: 26rpx;"></input></view>
+            <view class="handle">
+                <view data-wpy-evt="47-11" bindtap="_proxy" class="cancel">取消</view>
+                <view data-wpy-evt="47-12" bindtap="_proxy" class="confirm">确定</view>
+            </view>
+        </view>
+    </view>
+</view>

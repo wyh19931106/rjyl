@@ -1,0 +1,195 @@
+<style lang="less">
+    page {
+        background: #f4f4f4;
+    }
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+    view, text, picker, button {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+    button {
+        background: none;
+        outline: none;
+        border: none;
+    }
+    button::after {
+        border: none;
+    }
+    .empty {
+        width: 100%;
+        text-align: center;
+        color: #aaaaaa;
+        padding: 20rpx;
+        font-size: 26rpx;
+    }
+    .empty_con {
+        margin-top: 35%;
+        text-align: center;
+        image {
+            display: block;
+            width: 200rpx;
+            height: auto;
+            margin: 0 auto 20rpx;
+        }
+    }
+    .window {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        z-index: 99;
+    }
+</style>
+
+<script>
+    import wepy from '@wepy/core';
+    import eventHub from './common/eventHub'
+    import vuex from '@wepy/x'
+
+    wepy.use(vuex);
+    wepy.app({
+      hooks: {
+        // App 级别 hook，对整个 App 生效
+        // 同时存在 Page hook 和 App hook 时，优先执行 Page hook，返回值再交由 App hook 处
+        'before-setData': function (dirty) {
+          // console.log('setData dirty: ', dirty);
+          // return dirty;
+        }
+      },
+      globalData: {
+        userInfo: null
+      },
+
+      onLaunch() {
+        // this.testAsync();
+        // eventHub.$on('app-launch', (...args) => {
+        //   console.log('app-launch event emitted, the params are:');
+        //   console.log(args);
+        // });
+      },
+
+      methods: {
+
+        // sleep (s) {
+        //   return new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //       resolve('promise resolved')
+        //     }, s * 1000)
+        //   })
+        // },
+
+        // async testAsync () {
+        //   let d = await this.sleep(3);
+        //   console.log(d);
+        // }
+      },
+      onUnload() {
+        wx.clearStorage();
+      }
+    });
+</script>
+<config>
+    {
+        pages: [
+            'pages/user',
+            'pages/index',
+            'pages/reservation',
+            'pages/detection',
+            'pages/cart',
+
+            'pages/addrEdit',
+            'pages/addrList',
+            'pages/addAddr',
+            'pages/addCard',
+            'pages/activityApply',
+            'pages/activityDetails',
+            'pages/activityList',
+            'pages/cardList',
+            'pages/cash',
+            'pages/changePhone',
+            'pages/forget',
+            'pages/goodList',
+            'pages/goodDetails',
+            'pages/login',
+            'pages/logistics',
+            'pages/myRecommend',
+            'pages/myActivity',
+            'pages/myActivityDetails',
+            'pages/myReservation',
+            'pages/myCode',
+            'pages/myFavorite',
+            'pages/newsCate',
+            'pages/newsList',
+            'pages/orderConfirm',
+            'pages/onlineQuestion',
+            'pages/otherCase',
+            'pages/orderProduct',
+            'pages/orderDetails',
+            'pages/orderService',
+            'pages/paySuccess',
+            'pages/resultDetails',
+            'pages/resultList',
+            'pages/register',
+            'pages/recharge',
+            'pages/setPayPwd',
+            'pages/uploadSelf',
+            'pages/uploadCase',
+            'pages/userInfor',
+            'pages/wallet'
+        ],
+        "tabBar": {
+            "color": "#636363",
+            "selectedColor": "#18425a",
+            "borderStyle": "black",
+            "backgroundColor": "#ffffff",
+            "list": [
+                {
+                    "pagePath": "pages/index",
+                    "iconPath": "./images/icon_index.png",
+                    "selectedIconPath": "./images/icon_index_y.png",
+                    "text": "首页"
+                },
+                {
+                    "pagePath": "pages/reservation",
+                    "iconPath": "./images/icon_reservation.png",
+                    "selectedIconPath": "./images/icon_reservation_y.png",
+                    "text": "预约"
+                },
+                {
+                    "pagePath": "pages/detection",
+                    "iconPath": "./images/icon_detection.png",
+                    "selectedIconPath": "./images/icon_detection_y.png",
+                    "text": "检测"
+                },
+                {
+                    "pagePath": "pages/cart",
+                    "iconPath": "./images/icon_cart.png",
+                    "selectedIconPath": "./images/icon_cart_y.png",
+                    "text": "购物车"
+                },
+                {
+                    "pagePath": "pages/user",
+                    "iconPath": "./images/icon_user.png",
+                    "selectedIconPath": "./images/icon_user_y.png",
+                    "text": "我的"
+                }
+            ]
+        },
+        window: {
+            backgroundTextStyle: 'light',
+            navigationBarBackgroundColor: '#03447c',
+            navigationBarTitleText: '瑞脊医疗',
+            navigationBarTextStyle: 'white'
+        }
+    }
+</config>

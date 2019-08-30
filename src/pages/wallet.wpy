@@ -1,0 +1,388 @@
+<style lang="less">
+    .wallet {
+        .top_show {
+            position: relative;
+            width: 100%;
+            height: auto;
+            .bg {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+            .show_con {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                color: #ffffff;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                .tit {
+                    font-size: 30rpx;
+                    text-align: center;
+                }
+                .money {
+                    font-size: 54rpx;
+                    text-align: center;
+                    margin-top: 10rpx;
+                }
+                .handle {
+                    display: flex;
+                    margin-top: 30rpx;
+                    .btn {
+                        flex: 1;
+                        height: 100rpx;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 30rpx;
+                        position: relative;
+                    }
+                    .recharge:before {
+                        content: "";
+                        position: absolute;
+                        top: 25rpx;
+                        right: 0;
+                        height: 50rpx;
+                        border-right: 2rpx solid #ffffff;
+                    }
+                }
+            }
+        }
+        .nav {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            display: flex;
+            margin-top: 20rpx;
+            height: 78rpx;
+            background: #ffffff;
+            border-bottom: 1rpx solid #e8e8e8;
+            .nav_item {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 30rpx;
+                position: relative;
+            }
+            .active {
+                color: #ff0000;
+            }
+            .active:before {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                border-bottom: 4rpx solid #ff0000;
+            }
+        }
+        .con {
+            .list {
+                background: #ffffff;
+                .item {
+                    display: flex;
+                    align-items: center;
+                    height: 150rpx;
+                    padding-left: 35rpx;
+                    image {
+                        width: 45rpx;
+                        height: auto;
+                    }
+                    .inf {
+                        flex: 1;
+                        margin-left: 30rpx;
+                        height: 100%;
+                        padding-right: 20rpx;
+                        border-bottom: 1rpx solid #e8e8e8;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .l {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            .tit {
+                                font-size: 32rpx;
+                            }
+                            .time {
+                                font-size: 26rpx;
+                                color: #999999;
+                                margin-top: 10rpx;
+                            }
+                        }
+                        .val {
+                            font-size: 36rpx;
+                            color: #333333;
+                        }
+                        .red {
+                            color: #ff0000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="wallet">
+        <div class="top_show">
+            <img src="@/images/img_wallt_bg.png" alt="" class="bg" mode="widthFix" />
+            <div class="show_con">
+                <div class="tit">余额</div>
+                <div class="money">{{wallet.money}}</div>
+                <div class="handle">
+                    <div class="btn recharge" @tap="openWin('/pages/recharge')">充值</div>
+                    <div class="btn" @tap="openWin('/pages/cash?money=' + wallet.money)">提现</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="{{type == 1? 'nav_item active':'nav_item'}}" @tap="typeChange(1)">全部</div>
+            <div class="{{type == 2? 'nav_item active':'nav_item'}}" @tap="typeChange(2)">收入</div>
+            <div class="{{type == 3? 'nav_item active':'nav_item'}}" @tap="typeChange(3)">支出</div>
+        </div>
+        <div class="con" v-if="type==1">
+            <div class="list" v-if="data1.list.length">
+                <div class="item" v-for="(item,key) in data1.list">
+                    <img src="@/images/icon_gold.png" alt="" mode="widthFix" />
+                    <div class="inf">
+                        <div class="l">
+                            <div class="tit">{{item.type_name}}</div>
+                            <div class="time">{{item.updated_at}}</div>
+                        </div>
+                        <div class="{{item.value>0?'val red':'val'}}">{{item.value>0?'+':''}}{{item.value}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty" v-if="data1.list.length">{{data1.finished?'没有更多了':'上拉加载更多~'}}</div>
+            <div class="empty_con" v-else>
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+        <div class="con" v-if="type==2">
+            <div class="list" v-if="data2.list.length">
+                <div class="item" v-for="(item,key) in data2.list">
+                    <img src="@/images/icon_gold.png" alt="" mode="widthFix" />
+                    <div class="inf">
+                        <div class="l">
+                            <div class="tit">{{item.type_name}}</div>
+                            <div class="time">{{item.updated_at}}</div>
+                        </div>
+                        <div class="{{item.value>0?'val red':'val'}}">{{item.value>0?'+':''}}{{item.value}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty" v-if="data2.list.length">{{data2.finished?'没有更多了':'上拉加载更多~'}}</div>
+            <div class="empty_con" v-else>
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+
+        <div class="con" v-if="type==3">
+            <div class="list" v-if="data3.list.length">
+                <div class="item" v-for="(item,key) in data3.list">
+                    <img src="@/images/icon_gold.png" alt="" mode="widthFix" />
+                    <div class="inf">
+                        <div class="l">
+                            <div class="tit">{{item.type_name}}</div>
+                            <div class="time">{{item.updated_at}}</div>
+                        </div>
+                        <div class="{{item.value>0?'val red':'val'}}">{{item.value>0?'+':''}}{{item.value}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty" v-if="data3.list.length">{{data3.finished?'没有更多了':'上拉加载更多~'}}</div>
+            <div class="empty_con" v-else>
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            wallet: {},
+            type: 1,
+            data1: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data2: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data3: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取余额
+            getWallet() {
+                let that = this;
+                that.request({
+                    url: '/api/package/wallet',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    that.wallet = ret.data;
+                    that.setStore('pay_pwd', ret.data.pay_password);
+                })
+            },
+            // 切换
+            typeChange(ind) {
+                this.type = ind;
+            },
+            // 获取历史记录
+            getList(ind) {
+                let that = this;
+                let json = {};
+                if (ind === 1) {
+                    json.page = that.data1.page;
+                }
+                if (ind === 2) {
+                    json.type = "+";
+                    json.page = that.data2.page;
+                }
+                if (ind === 3) {
+                    json.type = "-";
+                    json.page = that.data3.page;
+                }
+                that.request({
+                    url: '/api/package/wallet/log',
+                    type: "GET",
+                }, json, function (ret) {
+                    if (ind === 1 ) {
+                        if (that.data1.page < ret.meta.pagination.total_pages) {
+                            that.data1.page++;
+                            that.data1.finished = false;
+                        } else {
+                            that.data1.finished = true;
+                        }
+                        that.data1.load = true;
+                        that.data1.list = that.data1.list.concat(ret.data);
+                    }
+                    if (ind === 2 ) {
+                        if (that.data2.page < ret.meta.pagination.total_pages) {
+                            that.data2.page++;
+                            that.data2.finished = false;
+                        } else {
+                            that.data2.finished = true;
+                        }
+                        that.data2.load = true;
+                        that.data2.list = that.data2.list.concat(ret.data);
+                    }
+                    if (ind === 3 ) {
+                        if (that.data3.page < ret.meta.pagination.total_pages) {
+                            that.data3.page++;
+                            that.data3.finished = false;
+                        } else {
+                            that.data3.finished = true;
+                        }
+                        that.data3.load = true;
+                        that.data3.list = that.data3.list.concat(ret.data);
+                    }
+                })
+            }
+        },
+        created () {
+            this.getList(1);
+            this.getList(2);
+            this.getList(3);
+        },
+        onShow() {
+            this.getWallet();
+        },
+        // 上拉加载
+        onReachBottom(event) {
+            let that = this;
+            switch(that.type) {
+                case 1:
+                    if (that.data1.finished) {
+                        return false;
+                    }
+                    if (that.data1.load) {
+                        that.data1.load = false;
+                        that.getList(1);
+                    }
+                    break;
+                case 2:
+                    if (that.data2.finished) {
+                        return false;
+                    }
+                    if (that.data2.load) {
+                        that.data2.load = false;
+                        that.getList(2);
+                    }
+                    break;
+                case 3:
+                    if (that.data3.finished) {
+                        return false;
+                    }
+                    if (that.data3.load) {
+                        that.data3.load = false;
+                        that.getList(3);
+                    }
+                    break;
+            }
+        },
+        // 下拉刷新
+        onPullDownRefresh() {
+            let that = this;
+            that.refresh(function () {
+                that.data1 = {
+                    list: [],
+                    page: 1,
+                    load: false,
+                    finished: false
+                };
+                that.data2 = {
+                    list: [],
+                    page: 1,
+                    load: false,
+                    finished: false
+                };
+                that.data3 = {
+                    list: [],
+                    page: 1,
+                    load: false,
+                    finished: false
+                };
+                that.getList(1);
+                that.getList(2);
+                that.getList(3);
+            })
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        enablePullDownRefresh: true,
+        usingComponents: {
+
+        }
+    }
+</config>

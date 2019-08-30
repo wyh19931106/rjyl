@@ -1,0 +1,133 @@
+.addAddr {
+  /* 城市选择 */
+  /* ----------------------------------------- */
+}
+.addAddr .form {
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding: 0 25rpx;
+}
+.addAddr .form .item {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.addAddr .form .item .txt {
+  width: 175rpx;
+  color: #333333;
+}
+.addAddr .form .item .val {
+  flex: 1;
+  overflow: hidden;
+}
+.addAddr .form .item .arrow {
+  width: 15rpx;
+  height: auto;
+}
+.addAddr .form .item:nth-last-child(1) {
+  border: none;
+}
+.addAddr .default {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80rpx;
+  padding: 0 25rpx;
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  background: #ffffff;
+}
+.addAddr .default image {
+  width: 106rpx;
+  height: auto;
+}
+.addAddr .save {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  color: #ffffff;
+  background: #03447c;
+  margin: 400rpx 25rpx 0;
+  letter-spacing: 20rpx;
+}
+.addAddr .infoText {
+  margin-top: 20rpx;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+}
+.addAddr picker-view {
+  background-color: white;
+  padding: 0;
+  width: 100%;
+  height: 380rpx;
+  bottom: 0;
+  position: fixed;
+}
+.addAddr picker-view-column view {
+  vertical-align: middle;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addAddr .animation-element-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.addAddr .animation-element {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 470rpx;
+  bottom: 0;
+  background-color: #ffffff;
+}
+.addAddr .animation-button {
+  margin-top: 20rpx;
+  top: 20rpx;
+  width: 400rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  align-items: center;
+}
+.addAddr .left-bt,
+.addAddr .right-bt {
+  color: #999999;
+  display: inline-flex;
+  position: fixed;
+  margin-top: 20rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 34rpx;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.addAddr .left-bt {
+  left: 30rpx;
+}
+.addAddr .right-bt {
+  right: 30rpx;
+}
+.addAddr .line {
+  display: block;
+  position: fixed;
+  height: 1rpx;
+  width: 100%;
+  margin-top: 89rpx;
+  background-color: #eeeeee;
+}
+

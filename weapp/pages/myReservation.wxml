@@ -1,0 +1,33 @@
+
+<view class="myReservation">
+    <view class="list">
+        <view wx:for="{{ list }}" wx:for-index="key" wx:for-item="item" wx:key="key" class="item">
+            <view class="title">
+                <view class="no">预约编号：RJYL00001</view>
+                <view class="time">2019/8/1  14:28:35</view>
+            </view>
+            <view class="infor">
+                <view class="p obj">
+                    <view class="tit">
+                        <view class="txt">预约事项：</view>
+                        <view class="val">发烧，感冒</view>
+                    </view>
+                    <view class="btn active">已完成</view>
+                </view>
+                <view class="p time">
+                    <view class="txt">预约时间：</view>
+                    <view class="val">2019/8/6   上午10:00</view>
+                </view>
+                <view class="p addr">
+                    <view class="txt">预约地址：</view>
+                    <view class="val">南山区南山第二人民医院急诊服南山区南山第二人民医院急诊服务大厅1楼105室务大厅1楼105室</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="empty">上拉加载更多~</view>
+    <view class="empty_con">
+        <image src="../images/img_empty.png" alt="" mode="widthFix"></image>
+        <view class="empty">暂无数据~</view>
+    </view>
+</view>

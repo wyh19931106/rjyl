@@ -1,0 +1,99 @@
+.myFavorite {
+  padding-bottom: 150rpx;
+}
+.myFavorite .product_list .product_item {
+  background: #ffffff;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+}
+.myFavorite .product_list .product_item .slide {
+  width: 100%;
+  height: 220rpx;
+  display: flex;
+}
+.myFavorite .product_list .product_item .slide .left {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 30rpx 0 30rpx 30rpx;
+  overflow: hidden;
+}
+.myFavorite .product_list .product_item .slide .left .img {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 20rpx;
+}
+.myFavorite .product_list .product_item .slide .left .img image {
+  width: 100%;
+  height: 100%;
+}
+.myFavorite .product_list .product_item .slide .left .infor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
+  padding-right: 30rpx;
+  width: 545rpx;
+}
+.myFavorite .product_list .product_item .slide .left .infor .tit {
+  width: 100%;
+  color: #333333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-box-orient: vertical;
+  font-size: 26rpx;
+}
+.myFavorite .product_list .product_item .slide .left .infor .mark {
+  font-size: 24rpx;
+  color: #1a2fb0;
+  border: 1rpx solid #1a2fb0;
+  border-radius: 5rpx;
+  padding: 2rpx 5rpx;
+}
+.myFavorite .product_list .product_item .slide .left .infor .inf {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.myFavorite .product_list .product_item .slide .left .infor .inf .price .sale_price {
+  color: #fc6f48;
+}
+.myFavorite .product_list .product_item .slide .left .infor .inf .price .market_price {
+  color: #999999;
+  margin-left: 10rpx;
+  text-decoration: line-through;
+}
+.myFavorite .product_list .product_item .slide .right {
+  width: 100rpx;
+  height: 100%;
+  display: flex;
+  color: #ffffff;
+  background: #03447c;
+}
+.myFavorite .product_list .product_item .slide .right .right-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.myFavorite .cart_empty {
+  text-align: center;
+  margin-top: 260rpx;
+}
+.myFavorite .cart_empty image {
+  display: flex;
+  width: 200rpx;
+  height: auto;
+  margin: 0 auto;
+}
+.myFavorite .cart_empty .txt {
+  color: #999999;
+  margin-top: 60rpx;
+  font-size: 28rpx;
+}
+

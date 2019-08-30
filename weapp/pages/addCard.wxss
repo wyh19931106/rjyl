@@ -1,0 +1,68 @@
+.addCard .form {
+  margin-top: 20rpx;
+}
+.addCard .form .item {
+  display: flex;
+  align-items: center;
+  height: 98rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  font-size: 30rpx;
+  color: #333333;
+  padding: 0 25rpx;
+}
+.addCard .form .item label {
+  width: 150rpx;
+  height: auto;
+}
+.addCard .form .item input {
+  flex: 1;
+  overflow: hidden;
+}
+.addCard .form .item .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 204rpx;
+  height: 60rpx;
+  font-size: 26rpx;
+  color: #999999;
+  border-radius: 30rpx;
+  border: 1rpx solid #cccccc;
+}
+.addCard .form .item .img_code {
+  width: 200rpx;
+  height: auto;
+  background: #f1f1f1;
+}
+.addCard .form .item .img_code image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.addCard .default {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80rpx;
+  padding: 0 25rpx;
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  background: #ffffff;
+}
+.addCard .default image {
+  width: 106rpx;
+  height: auto;
+}
+.addCard .confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100rpx 25rpx 0;
+  height: 86rpx;
+  background: #03447c;
+  border-radius: 8rpx;
+  color: #ffffff;
+  font-size: 36rpx;
+}
+

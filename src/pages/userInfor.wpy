@@ -1,0 +1,323 @@
+<style lang="less">
+    .userInfor {
+        .infor {
+            margin-top: 20rpx;
+            background: #ffffff;
+            .item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20rpx 25rpx;
+                min-height: 88rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                .txt {
+                    font-size: 30rpx
+                }
+                .right {
+                    display: flex;
+                    align-items: center;
+                    .val {
+                        font-size: 24rpx;
+                        color: #8b8b8b;
+                    }
+                    .avatar {
+                        width: 120rpx;
+                        height: 120rpx;
+                        border-radius: 10rpx;
+                    }
+                    .arrow {
+                        width: 15rpx;
+                        height: auto;
+                        margin-left: 20rpx;
+                    }
+                }
+            }
+        }
+        .exit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 350rpx 25rpx 0;
+            height: 80rpx;
+            font-size: 32rpx;
+            color: #8b8b8b;
+            background: #ffffff;
+        }
+        .nickName_window {
+            .window_box {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 540rpx;
+                height: 350rpx;
+                transform: translate(-50%, -50%);
+                background: #ffffff;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding-top: 30rpx;
+                .title {
+                    font-size: 30rpx;
+                    text-align: center;
+                }
+                .val {
+                    width: 400rpx;
+                    height: auto;
+                    display: flex;
+                    align-items: center;
+                    border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                    margin: 0 auto;
+                    padding-bottom: 15rpx;
+                    input {
+                        width: 100%;
+                        font-size: 24rpx;
+                    }
+                }
+                .handle {
+                    display: flex;
+                    height: 110rpx;
+                    border-top: 1rpx solid rgba(0,0,0,0.08);
+                    .cancel, .confirm {
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 30rpx;
+                    }
+                    .cancel {
+                        color: #8b8b8b;
+                        border-right: 1rpx solid rgba(0,0,0,0.08);
+                    }
+                    .confirm {
+                        color: #03447c;
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="userInfor">
+        <div class="infor">
+            <div class="item avatar_item" @tap="avatarShow">
+                <span class="txt">头像</span>
+                <div class="right">
+                    <img class="avatar" :src="imgPath + user.avatar" alt="" v-if="user.avatar"/>
+                    <img class="avatar" src="@/images/img_avatar.png" alt="" v-else />
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item" @tap="bindNickShow">
+                <span class="txt">昵称</span>
+                <div class="right">
+                    <span class="val">{{user.name?user.name:''}}</span>
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item" @tap="sexShow">
+                <span class="txt">性别</span>
+                <div class="right">
+                    <span class="val">{{user.sex?(user.sex==1?'男':'女'):'保密'}}</span>
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item" @tap="openWin('/pages/addrList')">
+                <span class="txt">收货地址</span>
+                <div class="right">
+                    <span class="val">{{area}}</span>
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item" @tap="openWin('/pages/cardList')">
+                <span class="txt">银行卡</span>
+                <div class="right">
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item" @tap="openWin('/pages/forget')">
+                <span class="txt">忘记密码</span>
+                <div class="right">
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item" @tap="openWin('/pages/setPayPwd')">
+                <span class="txt">设置支付密码</span>
+                <div class="right">
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item" @tap="openWin('/pages/changePhone')">
+                <span class="txt">修改手机号</span>
+                <div class="right">
+                    <span class="val">{{user.phone}}</span>
+                    <img src="@/images/icon_arrow_r.png" alt="" class="arrow" mode="widthFix" />
+                </div>
+            </div>
+        </div>
+        <div class="exit" @tap="loginOut">退出登录</div>
+
+        <div class="window nickName_window" v-if="nickShow" @tap="bindNickHide">
+            <div class="window_box" @tap.stop="bindDefault">
+                <div class="title">修改昵称</div>
+                <div class="val"><input type="text" placeholder="请输入昵称" v-model="name" placeholder-style="color: #999999;font-size: 26rpx;"></div>
+                <div class="handle">
+                    <div class="cancel" @tap="bindNickHide">取消</div>
+                    <div class="confirm" @tap="setNick">确定</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            user: {},
+            nickShow: false,
+            name: '',
+            area: ''
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取用户信息
+            getUser() {
+                let that = this;
+                that.request({
+                    url: '/api/base/user',
+                    type: 'GET'
+                },{},function (ret) {
+                    that.user = ret.data;
+                })
+            },
+            //获取默认地址
+            getAddrDefault() {
+                let that = this;
+                that.request({
+                    url: '/api/package/user/address',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    that.area = ret.data.area;
+                })
+            },
+            // 上传头像
+            avatarShow() {
+                let that = this;
+                wx.showActionSheet({
+                    itemList: ['从相册选择'],
+                    success (res) {
+                        if(res.tapIndex == 0) {
+                            wx.chooseImage({
+                                count: 1,
+                                sizeType: ['original', 'compressed'],
+                                sourceType: ['album', 'camera'],
+                                success (ret) {
+                                    // tempFilePath可以作为img标签的src属性显示图片
+                                    const tempFilePaths = ret.tempFilePaths;
+                                    that.showLoad('上传中~');
+                                    wx.uploadFile({
+                                        url: that.host + '/api/base/files',
+                                        header: {
+                                            "Authorization": 'Bearer ' + that.getStore('token')
+                                        },
+                                        filePath: tempFilePaths[0],
+                                        name: 'file',
+                                        formData: {
+                                            'type': 'avatar'
+                                        },
+                                        success (json){
+                                            that.user.avatar = JSON.parse(json.data).data.path;
+                                            that.hideLoad(0);
+                                            that.request({
+                                                url: '/api/base/user',
+                                                type: 'PUT'
+                                            },{
+                                                file_id: JSON.parse(json.data).data.id
+                                            }, function (data) {
+
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    },
+                    fail (res) {
+                        console.log(res.errMsg)
+                    }
+                })
+            },
+            // 性别
+            sexShow() {
+                let that = this;
+                wx.showActionSheet({
+                    itemList: ['保密','男', '女', ],
+                    success (res) {
+                        that.user.sex = res.tapIndex;
+                        that.request({
+                            url: '/api/base/user',
+                            type: 'PUT'
+                        },{
+                            sex: res.tapIndex
+                        }, function (ret) {
+
+                        })
+                    },
+                    fail (res) {
+                        console.log(res.errMsg)
+                    }
+                })
+            },
+            // 设置昵称
+            bindNickShow() {
+                this.nickShow = true;
+            },
+            bindNickHide() {
+                this.nickShow = false;
+            },
+            bindDefault() {
+                return false;
+            },
+            setNick() {
+                let that = this;
+                if(!that.name.trim()) {
+                    that.toast('昵称不能设置为空！');
+                    return false;
+                }
+                that.request({
+                    url: '/api/base/user',
+                    type: 'PUT'
+                },{
+                    name: that.name
+                }, function (ret) {
+                    that.user.name = that.name;
+                    that.bindNickHide();
+                })
+            }
+        },
+
+        created () {
+
+        },
+        onShow() {
+            this.getUser();
+            this.getAddrDefault();
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

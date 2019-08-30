@@ -1,0 +1,94 @@
+.userInfor .infor {
+  margin-top: 20rpx;
+  background: #ffffff;
+}
+.userInfor .infor .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 25rpx;
+  min-height: 88rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.userInfor .infor .item .txt {
+  font-size: 30rpx;
+}
+.userInfor .infor .item .right {
+  display: flex;
+  align-items: center;
+}
+.userInfor .infor .item .right .val {
+  font-size: 24rpx;
+  color: #8b8b8b;
+}
+.userInfor .infor .item .right .avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 10rpx;
+}
+.userInfor .infor .item .right .arrow {
+  width: 15rpx;
+  height: auto;
+  margin-left: 20rpx;
+}
+.userInfor .exit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 350rpx 25rpx 0;
+  height: 80rpx;
+  font-size: 32rpx;
+  color: #8b8b8b;
+  background: #ffffff;
+}
+.userInfor .nickName_window .window_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540rpx;
+  height: 350rpx;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 30rpx;
+}
+.userInfor .nickName_window .window_box .title {
+  font-size: 30rpx;
+  text-align: center;
+}
+.userInfor .nickName_window .window_box .val {
+  width: 400rpx;
+  height: auto;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+  margin: 0 auto;
+  padding-bottom: 15rpx;
+}
+.userInfor .nickName_window .window_box .val input {
+  width: 100%;
+  font-size: 24rpx;
+}
+.userInfor .nickName_window .window_box .handle {
+  display: flex;
+  height: 110rpx;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.userInfor .nickName_window .window_box .handle .cancel,
+.userInfor .nickName_window .window_box .handle .confirm {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+.userInfor .nickName_window .window_box .handle .cancel {
+  color: #8b8b8b;
+  border-right: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.userInfor .nickName_window .window_box .handle .confirm {
+  color: #03447c;
+}
+

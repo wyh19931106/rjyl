@@ -1,0 +1,338 @@
+<style lang="less">
+    .goodList {
+        padding-top: 180rpx;
+        .top_con {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 180rpx;
+            background: #ffffff;
+            border-bottom: 1rpx solid rgba(0,0,0,0.08);
+            z-index: 9;
+            .search_con {
+                margin: 20rpx 50rpx 0;
+                height: 64rpx;
+                background: #f1f1f1;
+                border-radius: 32rpx;
+                padding: 0 20rpx;
+                display: flex;
+                align-items: center;
+                .icon {
+                    width: 30rpx;
+                    height: 30rpx;
+                    margin-right: 10rpx;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    image {
+                        width: 28rpx;
+                        height: auto;
+                    }
+                }
+                input {
+                    flex: 1;
+                    color: #333;
+                    font-size: 14px;
+                }
+            }
+            .nav {
+                width: 100%;
+                height: 90rpx;
+                padding: 0 30rpx;
+                display: flex;
+                align-items: center;
+                .item {
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    font-size: 32rpx;
+                    color: #333333;
+                    position: relative;
+                    image {
+                        width: 14rpx;
+                        height: auto;
+                        margin-left: 8rpx;
+                    }
+                    .mark {
+                        margin-left: 10rpx;
+                        margin-top: 8rpx;
+                        width: 12rpx;
+                        height: auto;
+                        transform: rotate(90deg);
+                    }
+                    .select {
+                        position: absolute;
+                        top: 92rpx;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 140rpx;
+                        height: auto;
+                        background: #ffffff;
+                        box-shadow: 1rpx 1rpx 10rpx 10rpx rgba(0,0,0,0.1);
+                        border-radius: 4rpx;
+                        padding: 10rpx 0;
+                        .options {
+                            width: 100%;
+                            height: 60rpx;
+                            line-height: 70rpx;
+                            font-size: 28rpx;
+                            color: #565656;
+                            text-align: center;
+                        }
+                        .checked {
+                            color: #d80202;
+                        }
+                    }
+                }
+                .active {
+                    color: #d80202;
+                }
+            }
+        }
+        .good_list {
+            padding: 20rpx;
+            margin-top: 20rpx;
+            background: #ffffff;
+        }
+    }
+</style>
+<template>
+    <div class="goodList" @tap="selectHide">
+        <div class="top_con">
+            <div class="search_con">
+                <div class="icon">
+                    <img src="@/images/icon_search.png" alt="" mode="widthFix" />
+                </div>
+                <input type="text" placeholder="请输入关键词" confirm-type="search" v-model="keyword" placeholder-style="color: #999999; font-size: 14px;" @confirm="bindSearch"/>
+            </div>
+            <div class="nav">
+                <div class="{{type==1?'active item':'item'}}" @tap.stop="bindSelect(1)">{{from_type=='default'?'商品':'服务'}}
+                    <img src="@/images/icon_arrow_r.png" class="mark" mode="widthFix" alt=""/>
+                    <div class="select" v-if="select_show">
+                        <div class="{{from_type=='default'?'options checked':'options'}}" @tap.stop="changeType('default')">商品</div>
+                        <div class="{{from_type=='service'?'options checked':'options'}}" @tap.stop="changeType('service')">服务</div>
+                    </div>
+                </div>
+                <div class="{{type==2?'active item':'item'}}" @tap="bindSelect(2)">销量</div>
+                <div class="{{type==3?'active item':'item'}}" @tap="bindSelect(3)">
+                    价格
+                    <img src="@/images/icon_order_btn.png" mode="widthFix" v-if="sort == 'none'" alt=""/>
+                    <img src="@/images/icon_order_desc.png" mode="widthFix" v-if="sort == 'desc'" alt=""/>
+                    <img src="@/images/icon_order_asc.png" mode="widthFix" v-if="sort == 'asc'" alt=""/>
+                </div>
+            </div>
+        </div>
+
+        <div class="good_list">
+            <porductBox list="{{list}}" finished="{{finished}}"></porductBox>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            url: '',
+            from_type: 'default',  //default：商品     service：服务
+            type: 1,
+            keyword: '',
+            select_show: false,
+            default_category_id: 0,
+            service_category_id: 0,
+            sort: 'none',   //价格排序 asc desc none
+            list: [],
+            page: 1,
+            load: false,
+            finished: false
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取列表
+            getList(json) {
+                let that = this;
+                that.request({
+                    url: that.url,
+                    type: 'GET'
+                }, json, function (ret) {
+                    if (that.page < ret.meta.pagination.total_pages) {
+                        that.finished = false;
+                        that.page++;
+                    } else {
+                        that.finished = true;
+                    }
+                    that.load = true;
+                    that.list = that.list.concat(ret.data);
+                })
+            },
+            // 选择
+            bindSelect(ind) {
+                let that = this;
+                if ( ind == 1 ) {
+                    that.select_show = !that.select_show;
+                }
+                // 销量排序
+                if( ind == 2 && that.type != 2) {
+                    that.dataInit();
+                    that.getList({
+                        page: this.page,
+                        sort: '-sales_count'
+                    });
+                }
+                that.type = ind;
+                if ( that.type == 3 ) {
+                    that.dataInit();
+                    if (that.sort == 'none') {
+                        that.sort = 'desc';
+                        that.getList({
+                            page: this.page,
+                            sort: '-price'
+                        });
+                    } else if ( that.sort == 'desc' ) {
+                        that.sort = 'asc';
+                        that.getList({
+                            page: this.page,
+                            sort: 'price'
+                        });
+                    } else {
+                        that.sort = 'desc';
+                        that.getList({
+                            page: this.page,
+                            sort: '-price'
+                        });
+                    }
+                } else {
+                    that.sort = 'none';
+                }
+            },
+            selectHide() {
+                this.select_show = false;
+            },
+            // 切换类型
+            changeType(str) {
+                this.select_show = false;
+                // if( str == this.from_type) {
+                //     return false;
+                // }
+                this.from_type = str;
+                this.dataInit();
+                if(this.keyword.trim()) {
+                    if (this.from_type == 'default') {
+                        if (!this.default_category_id && !this.service_category_id) {
+                            // 全部
+                            this.url = '/api/package/mall/'+ this.from_type +'/products?filter[scopeSearch]=' + this.keyword.trim();
+                        } else {
+                            this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + this.default_category_id + '&filter[scopeSearch]=' + this.keyword.trim();
+                        }
+                    }
+                    if (this.from_type == 'service') {
+                        if (!this.default_category_id && !this.service_category_id) {
+                            // 全部
+                            this.url = '/api/package/mall/'+ this.from_type +'/products?filter[scopeSearch]=' + this.keyword.trim();
+                        } else {
+                            this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + this.service_category_id + '&filter[scopeSearch]=' + this.keyword.trim();
+                        }
+                    }
+                } else {
+                    if (this.from_type == 'default') {
+                        if (!this.default_category_id && !this.service_category_id) {
+                            // 全部
+                            this.url = '/api/package/mall/'+ this.from_type +'/products';
+                        } else {
+                            this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + this.default_category_id;
+                        }
+                    }
+                    if (this.from_type == 'service') {
+                        if (!this.default_category_id && !this.service_category_id) {
+                            // 全部
+                            this.url = '/api/package/mall/'+ this.from_type +'/products';
+                        } else {
+                            this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + this.service_category_id;
+                        }
+                    }
+                }
+                this.getList({
+                    page: this.page
+                });
+            },
+            // 搜索
+            bindSearch() {
+                let that = this;
+                if (!that.keyword.trim()) {
+                    that.toast('请输入搜索关键词');
+                    return false;
+                }
+                that.dataInit();
+                if (this.from_type == 'default') {
+                    if (!this.default_category_id && !this.service_category_id) {
+                        // 全部
+                        this.url = '/api/package/mall/'+ this.from_type +'/products?filter[scopeSearch]=' + this.keyword.trim();
+                    } else {
+                        this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + this.default_category_id + '&filter[scopeSearch]=' + this.keyword.trim();
+                    }
+                }
+                if (this.from_type == 'service') {
+                    if (!this.default_category_id && !this.service_category_id) {
+                        // 全部
+                        this.url = '/api/package/mall/'+ this.from_type +'/products?filter[scopeSearch]=' + this.keyword.trim();
+                    } else {
+                        this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + this.service_category_id + '&filter[scopeSearch]=' + this.keyword.trim();
+                    }
+                }
+                this.getList({
+                    page: this.page
+                });
+            },
+            //数据初始化
+            dataInit() {
+                this.list = [];
+                this.page = 1;
+                this.load = false;
+                this.finished = false;
+            }
+        },
+        onLoad(options) {
+            this.default_category_id = options.default_category_id || 0;
+            this.service_category_id = options.service_category_id || 0;
+            if (!options.default_category_id && !options.service_category_id) {
+                // 全部
+                this.url = '/api/package/mall/'+ this.from_type +'/products';
+            }
+            if(options.default_category_id) {
+                // 有商品分类id
+                this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + options.default_category_id;
+            }
+            if(!options.default_category_id && options.service_category_id) {
+                this.from_type = 'service';
+                this.url = '/api/package/mall/'+ this.from_type +'/products?filter[category_id]=' + options.service_category_id;
+            }
+            this.getList({
+                page: this.page
+            });
+
+        },
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+            porductBox: '~@/components/product_list'
+        }
+    }
+</config>

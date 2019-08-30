@@ -1,0 +1,11 @@
+
+<view class="otherCase">
+    <view class="title">其他病例</view>
+    <view class="upload_con">
+        <view data-wpy-evt="35-0" bindtap="_proxy" class="upload_box">
+            <image src="{{ img1 }}" alt="" mode="widthFix" wx:if="{{ img1 }}" class="img"></image>
+            <image src="../images/img_upload5.png" alt="" mode="widthFix" wx:else class="bg"></image>
+        </view>
+    </view>
+    <view data-wpy-evt="35-1" bindtap="_proxy" class="upload">病例上传</view>
+</view>

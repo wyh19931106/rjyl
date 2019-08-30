@@ -1,0 +1,231 @@
+<style lang="less">
+    .myFavorite {
+        padding-bottom: 150rpx;
+        .product_list {
+            .product_item {
+                background: #ffffff;
+                margin-top: 20rpx;
+                font-size: 28rpx;
+                .slide {
+                    width: 100%;
+                    height: 220rpx;
+                    display: flex;
+                    .left {
+                        display: flex;
+                        width: 100%;
+                        height: 100%;
+                        padding: 30rpx 0 30rpx 30rpx;
+                        overflow: hidden;
+                        .img {
+                            width: 160rpx;
+                            height: 160rpx;
+                            margin-right: 20rpx;
+                            image {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                        .infor {
+                            flex: 1;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            align-items: flex-start;
+                            overflow: hidden;
+                            padding-right: 30rpx;
+                            width: 545rpx;
+                            .tit {
+                                width: 100%;
+                                color: #333333;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                -webkit-box-orient: vertical;
+                                font-size: 26rpx;
+                            }
+                            .mark {
+                                font-size: 24rpx;
+                                color: #1a2fb0;
+                                border: 1rpx solid #1a2fb0;
+                                border-radius: 5rpx;
+                                padding: 2rpx 5rpx;
+                            }
+                            .inf {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                width: 100%;
+                                .price {
+                                    .sale_price {
+                                        color: #fc6f48;
+                                    }
+                                    .market_price {
+                                        color: #999999;
+                                        margin-left: 10rpx;
+                                        text-decoration: line-through;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .right {
+                        width: 100rpx;
+                        height: 100%;
+                        display: flex;
+                        color: #ffffff;
+                        background: #03447c;
+                        .right-item {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+        .cart_empty {
+            text-align: center;
+            margin-top: 260rpx;
+            image {
+                display: flex;
+                width: 200rpx;
+                height: auto;
+                margin: 0 auto;
+            }
+            .txt {
+                color: #999999;
+                margin-top: 60rpx;
+                font-size: 28rpx;
+            }
+        }
+    }
+</style>
+
+<template>
+    <div class="myFavorite">
+        <div class="product_list" v-if="list.length">
+            <div class="product_item" v-for="(item,key) in list">
+                <slide-view class="slide" width="750" height="220" slideWidth="100" autoReset="{{reset}}" data-index="{{key}}" bindtouchstart="handleTouch">
+                    <view class="left" slot="left" @tap.stop="openWin('/pages/goodDetails?id='+ item.id + '&type=' + item.type)">
+                        <div class="img">
+                            <img :src="imgPath + item.cover" alt="" mode="widthFix" />
+                        </div>
+                        <div class="infor">
+                            <div class="tit">{{item.title}}</div>
+                            <div class="mark">包邮包税</div>
+                            <div class="inf">
+                                <div class="price">
+                                    <span class="sale_price">¥{{item.price}}</span>
+                                    <span class="market_price">¥{{item.market_price}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </view>
+                    <view class="right" slot="right" @tap.stop="bindDel(key)">
+                      <view class="right-item">删除</view>
+                    </view>
+                </slide-view>
+            </div>
+        </div>
+        <div class="empty" v-if="list.length">{{finished?'没有更多了~':'上拉加载更多~'}}</div>
+        <div class="empty_con" v-else>
+            <img src="@/images/img_empty.png" alt="" mode="widthFix"/>
+            <div class="empty">暂无数据~</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            reset: false,
+            _index: 0,
+            list: [],
+            page: 1,
+            load: false,
+            finished: false
+        },
+
+        methods: {
+            // 获取列表
+            getList() {
+                let that = this;
+                that.request({
+                    url: '/api/user/favorites?object=SMG\\Mall\\Models\\MallProduct',
+                    type: 'GET'
+                }, {}, function (ret) {
+                    if (that.page < ret.meta.pagination.total_pages) {
+                        that.finished = false;
+                        that.page++;
+                    } else {
+                        that.finished = true;
+                    }
+                    that.load = true;
+                    that.list = that.list.concat(ret.data);
+                })
+            },
+
+            handleEnd(e) {
+                this._index = e.currentTarget.dataset.index;
+            },
+            handleTouch(e) {
+                if(e.currentTarget.dataset.index !== this._index) {
+                    this.reset = true;
+                }
+            },
+            // 删除
+            bindDel(ind) {
+                let that = this;
+                let arr = [];
+                that.showModal('删除', '您确定删除该商品吗？', function () {
+                    that.request({
+                        url: '/api/user/favorites',
+                        type: 'DELETE'
+                    }, {
+                        object: 'SMG\\Mall\\Models\\MallProduct',
+                        id: that.list[ind].id
+                    }, function (ret) {
+
+                    })
+                    arr = [...that.list];
+                    arr.splice(ind, 1);
+                    that.list = JSON.parse(JSON.stringify(arr));
+                })
+            },
+
+        },
+        onShow() {
+
+        },
+        created () {
+            this.getList();
+        },
+        // 上拉加载
+        onReachBottom(event) {
+            let that = this;
+            if (that.finished) {
+                return false;
+            }
+            if (that.load) {
+                that.load = false;
+                that.getList()
+            }
+        }
+    });
+</script>
+
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+            "slide-view": "module:miniprogram-slide-view",
+        }
+    }
+</config>

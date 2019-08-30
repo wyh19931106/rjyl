@@ -1,0 +1,45 @@
+
+<view class="index">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" data-wpy-evt="6-0" bindchange="_proxy" style="height:{{imgBoxSize}}rpx;" class="index_swiper">
+        <swiper-item wx:for="{{ swiper_img }}" wx:for-index="key" wx:for-item="item" wx:key="key">
+            <image src="{{ imgPath + item.path }}" mode="widthFix" data-wpy-evt="6-1" bindload="_proxy" class="slide-image"></image>
+        </swiper-item>
+    </swiper>
+
+    <view class="nav">
+        <view wx:for="{{ category }}" wx:for-index="key" wx:for-item="item" wx:key="key" data-wpy-evt="6-2" bindtap="_proxy" data-wpytap-a="{{ item }}" class="nav_item">
+            <image src="{{ imgPath + item.icon }}" alt="" mode="widthFix"></image>
+            <view class="txt">{{item.title}}</view>
+        </view>
+        <view data-wpy-evt="6-3" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_index_cate8.png" alt="" mode="widthFix"></image>
+            <view class="txt">全部</view>
+        </view>
+    </view>
+
+    
+    <view class="reservation">
+        <view data-wpy-evt="6-4" bindtap="_proxy" class="title">
+            <view class="tit">活动预约</view>
+            <view class="more">
+                <view class="txt">查看更多</view>
+                <image src="../images/icon_arrow_r.png" alt="" mode="widthFix"></image>
+            </view>
+        </view>
+         <view class="swiper_box">
+            <swiper class="swiper">
+                <swiper-item wx:for="{{ activity_list }}" wx:for-index="key" wx:for-item="item" wx:key="key" data-wpy-evt="6-5" bindtap="_proxy" data-wpytap-a="{{ item }}" class="slide_item">
+                    <image src="{{ imgPath + item.cover }}" alt="" mode="widthFix"></image>
+                </swiper-item>
+            </swiper>
+        </view>
+    </view>
+
+    <view class="product_box">
+        <view class="title">
+            <view class="tit">热门推荐</view>
+        </view>
+        <porductBox bind_init="_initComponent" list="{{listDate.list}}" finished="{{listDate.finished}}"></porductBox>
+    </view>
+
+</view>

@@ -1,0 +1,5 @@
+
+<view class="reservation">
+    <rich-text nodes="{{html}}"></rich-text>
+    
+</view>

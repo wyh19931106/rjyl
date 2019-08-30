@@ -1,0 +1,209 @@
+.orderConfirm {
+  padding-bottom: 130rpx;
+}
+.orderConfirm .user_infor {
+  width: 100%;
+  padding: 20rpx 25rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+}
+.orderConfirm .user_infor .left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-right: 30rpx;
+}
+.orderConfirm .user_infor .left .title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 32rpx;
+  color: #333;
+}
+.orderConfirm .user_infor .left .addr {
+  font-size: 26rpx;
+  color: #666666;
+  margin-top: 15rpx;
+}
+.orderConfirm .user_infor .right {
+  width: 20rpx;
+  height: auto;
+}
+.orderConfirm .addr_empty {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120rpx;
+  padding: 0 40rpx;
+  background: #ffffff;
+}
+.orderConfirm .addr_empty .txt {
+  font-size: 32rpx;
+  color: #333333;
+}
+.orderConfirm .addr_empty image {
+  width: 18rpx;
+  height: auto;
+}
+.orderConfirm .br {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.orderConfirm .order_good {
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding: 0 25rpx 20rpx;
+}
+.orderConfirm .order_good .shop {
+  width: 100%;
+  height: 126rpx;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  color: #666666;
+}
+.orderConfirm .order_good .shop image {
+  width: 80rpx;
+  height: auto;
+  margin-right: 20rpx;
+}
+.orderConfirm .order_good .good_con {
+  border-radius: 10rpx;
+  background: #f1f1f1;
+}
+.orderConfirm .order_good .good_con .good_box .good_item {
+  display: flex;
+  min-height: 182rpx;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ebebeb;
+}
+.orderConfirm .order_good .good_con .good_box .good_item .img {
+  width: 142rpx;
+  height: 142rpx;
+}
+.orderConfirm .order_good .good_con .good_box .good_item .img image {
+  width: 100%;
+  height: auto;
+}
+.orderConfirm .order_good .good_con .good_box .good_item .good_inf {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  min-height: 142rpx;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  margin: 0 15rpx;
+}
+.orderConfirm .order_good .good_con .good_box .good_item .good_inf .title {
+  font-size: 28rpx;
+  color: #666666;
+}
+.orderConfirm .order_good .good_con .good_box .good_item .good_inf .hint {
+  font-size: 24rpx;
+  color: #666666;
+}
+.orderConfirm .order_good .good_con .good_box .good_item .right {
+  font-size: 30rpx;
+  color: #333333;
+  text-align: right;
+}
+.orderConfirm .order_good .good_con .good_box .good_item .right .qty {
+  margin-top: 30rpx;
+}
+.orderConfirm .order_good .good_con .delivery {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90rpx;
+  font-size: 26rpx;
+  color: #666666;
+  padding: 0 20rpx;
+  border-bottom: 1rpx solid #ebebeb;
+}
+.orderConfirm .order_good .good_con .words {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  font-size: 26rpx;
+  color: #666666;
+  padding: 0 20rpx;
+}
+.orderConfirm .order_good .good_con .words input {
+  flex: 1;
+  margin-left: 20rpx;
+  font-size: 26rpx;
+}
+.orderConfirm .order_count {
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding: 0 20rpx;
+}
+.orderConfirm .order_count .good_num {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 86rpx;
+  font-size: 26rpx;
+  color: #666666;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.orderConfirm .order_count .money_count {
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+  padding: 15rpx 0;
+}
+.orderConfirm .order_count .money_count .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60rpx;
+  font-size: 26rpx;
+  color: #999999;
+}
+.orderConfirm .order_count .total_money {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84rpx;
+  font-size: 32rpx;
+}
+.orderConfirm .order_count .total_money .val {
+  color: #fc6f48;
+}
+.orderConfirm .bottom_fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  background: #ffffff;
+  z-index: 9;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.orderConfirm .bottom_fixed .total_money {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 34rpx;
+  color: #333333;
+  padding-right: 30rpx;
+}
+.orderConfirm .bottom_fixed .total_money .money {
+  margin-left: 5rpx;
+  color: #fc6f48;
+}
+.orderConfirm .bottom_fixed .confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220rpx;
+  height: 100%;
+  font-size: 36rpx;
+  color: #ffffff;
+  background: #03447c;
+}
+

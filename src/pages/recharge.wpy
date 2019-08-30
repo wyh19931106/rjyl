@@ -1,0 +1,92 @@
+<style lang="less">
+    .recharge {
+        .top_show {
+            display: flex;
+            align-items: center;
+            padding: 0 25rpx;
+            height: 100rpx;
+            background: #ffffff;
+            font-size: 28rpx;
+            margin-top: 20rpx;
+            .logo {
+                width: 50rpx;
+                margin-right: 20rpx;
+            }
+        }
+        .num {
+            display: flex;
+            align-items: center;
+            height: 80rpx;
+            font-size: 30rpx;
+            padding: 0 25rpx;
+            background: #ffffff;
+            margin-top: 20rpx;
+            .txt {
+                width: 80rpx;
+                color: #333333;
+            }
+            .val {
+                flex: 1;
+                input {
+                    width: 100%;
+                }
+            }
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80rpx;
+            border-radius: 8rpx;
+            background: #03447c;
+            margin: 30% 25rpx 0;
+            font-size: 32rpx;
+            color: #ffffff;
+            letter-spacing: 40rpx;
+        }
+    }
+</style>
+<template>
+    <div class="recharge">
+        <div class="top_show">
+            <img src="@/images/icon_pay_wechat.png" alt="" class="logo" mode="widthFix" />
+            微信支付充值
+        </div>
+        <div class="num">
+            <div class="txt">金额</div>
+            <div class="val"><input type="number" placeholder="0.00" placeholder-style="color: #999999;font-size: 30rpx;"></div>
+        </div>
+        <div class="btn">充值</div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub';
+    import { mapState } from '@wepy/x';
+    wepy.page({
+        data: {
+
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

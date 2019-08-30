@@ -1,0 +1,118 @@
+<style lang="less">
+    .activityDetails {
+        padding-bottom: 120rpx;
+        .con {
+            background: #ffffff;
+            padding: 48rpx;
+            margin-top: 20rpx;
+            .title {
+                font-size: 30rpx;
+                color: #333333;
+            }
+            .time {
+                font-size: 24rpx;
+                color: #333333;
+                margin-top: 15rpx;
+            }
+            .apply_inf {
+                margin: 20rpx 0;
+                box-shadow: 1rpx 1rpx 4rpx 4rpx rgba(0,0,0,0.08);
+                padding: 20rpx;
+                border-radius: 4rpx;
+                .tit, .hint {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 60rpx;
+                    font-size: 28rpx;
+                    color: #666666;
+                }
+            }
+            .article {
+                font-size: 24rpx;
+                color: #666666;
+                line-height: 42rpx;
+                margin-top: 40rpx;
+            }
+        }
+        .bottom_fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100rpx;
+            color: #ffffff;
+            font-size: 36rpx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ff3030;
+        }
+    }
+</style>
+<template>
+    <div class="activityDetails">
+       <div class="con">
+           <div class="title">{{details.promotion_activity.title}}</div>
+           <div class="time">报名时间： {{details.promotion_activity.apply_start_date}}  —  {{details.promotion_activity.apply_end_date}}</div>
+           <div class="time">活动开始： {{details.promotion_activity.pa_date}}</div>
+           <div class="apply_inf">
+               <div class="tit">
+                   <div class="name">姓名: {{details.name}}</div>
+                   <div class="tel">电话： {{details.phone}}</div>
+               </div>
+               <div class="hint">
+                   <div class="l">预约时间: {{details.reg_time}}</div>
+                   <div class="r">部门: {{details.department}}</div>
+               </div>
+           </div>
+           <rich-text class="article" nodes="{{details.promotion_activity.content}}"></rich-text>
+       </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            details: Object
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            getDetails(id) {
+                let that = this;
+                that.request({
+                    url: '/api/my_activity_detailst',
+                    type: 'GET'
+                },{
+                    id: id,
+                },function (ret) {
+                    that.details = ret[1];
+                })
+            }
+        },
+
+        created () {
+
+        },
+        onLoad(options) {
+            this.getDetails(options.id);
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '活动详情',
+        usingComponents: {
+
+        }
+    }
+</config>

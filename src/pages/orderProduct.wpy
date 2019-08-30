@@ -1,0 +1,443 @@
+<style lang="less">
+    .orderProduct {
+        padding-top: 94rpx;
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 94rpx;
+            background: #ffffff;
+            border-bottom: 1rpx solid rgba(0,0,0,0.08);
+            display: flex;
+            .nav_item {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                font-size: 30rpx;
+                color: #333333;
+                position: relative;
+            }
+            .active {
+                color: #03447c;
+            }
+            .active::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 80%;
+                transform: translateX(-50%);
+                border-bottom: 4rpx solid #03447c;
+            }
+        }
+        .con {
+            width: 100%;
+            height: auto;
+            margin-top: 20rpx;
+            .list {
+                .item {
+                    background: #ffffff;
+                    margin-bottom: 20rpx;
+                    .title {
+                        display: flex;
+                        align-items: center;
+                        height: 100rpx;
+                        padding: 0 25rpx;
+                        image {
+                            width: 60rpx;
+                            height: auto;
+                        }
+                        .tit {
+                            flex: 1;
+                            overflow: hidden;
+                            font-size: 30rpx;
+                            color: #333333;
+                            margin-left: 10rpx;
+                        }
+                        .status {
+                            font-size: 30rpx;
+                            color: #03447c;
+                        }
+                    }
+                    .good_list {
+                        background: #f9f9f9;
+                        .good_item {
+                            height: 220rpx;
+                            display: flex;
+                            padding: 25rpx 25rpx 25rpx 80rpx;
+                            .img {
+                                width: 170rpx;
+                                height: 170rpx;
+                                image {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                            }
+                            .infor {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                overflow: hidden;
+                                margin-left: 30rpx;
+                                .tit {
+                                    width: 100%;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    font-size: 26rpx;
+                                    color: #333333;
+                                }
+                                .mark {
+                                    font-size: 24rpx;
+                                    color: #03447c;
+                                    border: 1rpx solid #03447c;
+                                    border-radius: 5rpx;
+                                    padding: 2rpx 5rpx;
+                                    margin-top: 8rpx;
+                                }
+                                .inf {
+                                    margin-top: 15rpx;
+                                    .price {
+                                        font-size: 28rpx;
+                                        color: #fc6f48;
+                                    }
+                                    .qty {
+                                        font-size: 26rpx;
+                                        color: #999999;
+                                        margin-left: 30rpx;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .good_count {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        height: 100rpx;
+                        padding: 0 25rpx;
+                        font-size: 28rpx;
+                        color: #333333;
+                        border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                        .money {
+                            color: #fc6f48;
+                        }
+                    }
+                    .handle {
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        height: 104rpx;
+                        padding: 0 25rpx;
+                        .btn {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 58rpx;
+                            padding: 0 30rpx;
+                            font-size: 26rpx;
+                            color: #333333;
+                            border-radius: 29rpx;
+                            border: 1rpx solid #9d9d9d;
+                            margin-left: 20rpx;
+                        }
+                        .active {
+                            color: #ffffff;
+                            background: #03447c;
+                            border: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="orderProduct">
+        <div class="nav">
+            <div class="{{type == 1?'nav_item active':'nav_item'}}" @tap="typeChange(1)">全部</div>
+            <div class="{{type == 2?'nav_item active':'nav_item'}}" @tap="typeChange(2)">待付款</div>
+            <div class="{{type == 3?'nav_item active':'nav_item'}}" @tap="typeChange(3)">待发货</div>
+            <div class="{{type == 4?'nav_item active':'nav_item'}}" @tap="typeChange(4)">待收货</div>
+            <div class="{{type == 5?'nav_item active':'nav_item'}}" @tap="typeChange(5)">已完成</div>
+        </div>
+
+        <div class="con" v-if="type == 1">
+            <div class="list">
+                <div class="item" v-for="(item, key) in list" @tap="openWin('/pages/orderDetails?id='+ key)">
+                    <div class="title">
+                        <img src="@/images/icon_shop.png" alt="" mode="widthFix" />
+                        <span class="tit">瑞脊医疗商城1</span>
+                        <span class="status">待发货</span>
+                    </div>
+                    <div class="good_list">
+                        <div class="good_item">
+                            <div class="img">
+                                <img src="@/images/img_default.png" alt="" mode="widthFix" />
+                            </div>
+                            <div class="infor">
+                                <div class="tit">妆a品化妆品化妆品化妆品化妆品化妆妆a品化妆品化妆品化妆品化妆品化妆</div>
+                                <div class="mark">包邮包税</div>
+                                <div class="inf">
+                                    <span class="price">¥79</span>
+                                    <span class="qty">x1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="good_count">共1件商品，已付款： <span class="money">¥79</span></div>
+                    <div class="handle">
+                        <div class="btn">提醒发货</div>
+                        <div class="btn">取消订单</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty">上拉加载更多~</div>
+            <div class="empty_con">
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+
+        <div class="con" v-if="type == 2">
+            <div class="list">
+                <div class="item" v-for="(item, key) in list" @tap="openWin('/pages/orderDetails?id='+ key)">
+                    <div class="title">
+                        <img src="@/images/icon_shop.png" alt="" mode="widthFix" />
+                        <span class="tit">瑞脊医疗商城2</span>
+                        <span class="status">待发货</span>
+                    </div>
+                    <div class="good_list">
+                        <div class="good_item">
+                            <div class="img">
+                                <img src="@/images/img_default.png" alt="" mode="widthFix" />
+                            </div>
+                            <div class="infor">
+                                <div class="tit">妆a品化妆品化妆品化妆品化妆品化妆妆a品化妆品化妆品化妆品化妆品化妆</div>
+                                <div class="mark">包邮包税</div>
+                                <div class="inf">
+                                    <span class="price">¥79</span>
+                                    <span class="qty">x1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="good_count">共1件商品，已付款： <span class="money">¥79</span></div>
+                    <div class="handle">
+                        <div class="btn">取消订单</div>
+                        <div class="btn active">立即付款</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty">上拉加载更多~</div>
+            <div class="empty_con">
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+
+        <div class="con" v-if="type == 3">
+            <div class="list">
+                <div class="item" v-for="(item, key) in list" @tap="openWin('/pages/orderDetails?id='+ key)">
+                    <div class="title">
+                        <img src="@/images/icon_shop.png" alt="" mode="widthFix" />
+                        <span class="tit">瑞脊医疗商城3</span>
+                        <span class="status">待发货</span>
+                    </div>
+                    <div class="good_list">
+                        <div class="good_item">
+                            <div class="img">
+                                <img src="@/images/img_default.png" alt="" mode="widthFix" />
+                            </div>
+                            <div class="infor">
+                                <div class="tit">妆a品化妆品化妆品化妆品化妆品化妆妆a品化妆品化妆品化妆品化妆品化妆</div>
+                                <div class="mark">包邮包税</div>
+                                <div class="inf">
+                                    <span class="price">¥79</span>
+                                    <span class="qty">x1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="good_count">共1件商品，已付款： <span class="money">¥79</span></div>
+                    <div class="handle">
+                        <div class="btn">提醒发货</div>
+                        <div class="btn">取消订单</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty">上拉加载更多~</div>
+            <div class="empty_con">
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+
+        <div class="con" v-if="type == 4">
+            <div class="list">
+                <div class="item" v-for="(item, key) in list" @tap="openWin('/pages/orderDetails?id='+ key)">
+                    <div class="title">
+                        <img src="@/images/icon_shop.png" alt="" mode="widthFix" />
+                        <span class="tit">瑞脊医疗商城4</span>
+                        <span class="status">待发货</span>
+                    </div>
+                    <div class="good_list">
+                        <div class="good_item">
+                            <div class="img">
+                                <img src="@/images/img_default.png" alt="" mode="widthFix" />
+                            </div>
+                            <div class="infor">
+                                <div class="tit">妆a品化妆品化妆品化妆品化妆品化妆妆a品化妆品化妆品化妆品化妆品化妆</div>
+                                <div class="mark">包邮包税</div>
+                                <div class="inf">
+                                    <span class="price">¥79</span>
+                                    <span class="qty">x1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="good_count">共1件商品，已付款： <span class="money">¥79</span></div>
+                    <div class="handle">
+                        <div class="btn">查看物流</div>
+                        <div class="btn active">确认收货</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty">上拉加载更多~</div>
+            <div class="empty_con">
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+
+        <div class="con" v-if="type == 5">
+            <div class="list">
+                <div class="item" v-for="(item, key) in list" @tap="openWin('/pages/orderDetails?id='+ key)">
+                    <div class="title">
+                        <img src="@/images/icon_shop.png" alt="" mode="widthFix" />
+                        <span class="tit">瑞脊医疗商城4</span>
+                        <span class="status">待发货</span>
+                    </div>
+                    <div class="good_list">
+                        <div class="good_item">
+                            <div class="img">
+                                <img src="@/images/img_default.png" alt="" mode="widthFix" />
+                            </div>
+                            <div class="infor">
+                                <div class="tit">妆a品化妆品化妆品化妆品化妆品化妆妆a品化妆品化妆品化妆品化妆品化妆</div>
+                                <div class="mark">包邮包税</div>
+                                <div class="inf">
+                                    <span class="price">¥79</span>
+                                    <span class="qty">x1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="good_count">共1件商品，已付款： <span class="money">¥79</span></div>
+                    <div class="handle">
+                        <div class="btn">查看物流</div>
+                        <div class="btn active">确认收货</div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty">上拉加载更多~</div>
+            <div class="empty_con">
+                <img src="@/images/img_empty.png" alt="" mode="widthFix" />
+                <div class="empty">暂无数据~</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            from_type: 'default',
+            type: 1,
+            data1: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data2: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data3: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data4: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            },
+            data5: {
+                list: [],
+                page: 1,
+                load: false,
+                finished: false
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // tab切换
+            typeChange(ind) {
+                this.type = ind;
+            },
+            // 获取详情
+            getList(type) {
+                let that = this;
+                let type_str = '';
+                switch (type) {
+                    case 1:
+                        type_str = '';          //全部
+                        break;
+                    case 2:
+                        type_str = 'created';   //待付款
+                        break;
+                    case 3:
+                        type_str = 'paid';      //待发货
+                        break;
+                    case 4:
+                        type_str = 'shipping'    //已发货
+                        break;
+                    case 5:
+                        type_str = 'shipped'     //已收货（完成）
+                        break;
+                }
+            }
+        },
+
+        created () {
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

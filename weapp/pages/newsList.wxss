@@ -1,0 +1,32 @@
+.newsList .list .item .time {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #999999;
+  height: 54rpx;
+  padding: 0 25rpx;
+  margin-bottom: 20rpx;
+}
+.newsList .list .item .infor {
+  background: #ffffff;
+  padding: 0 25rpx;
+}
+.newsList .list .item .infor .title {
+  display: flex;
+  align-items: center;
+  height: 88rpx;
+  font-size: 32rpx;
+  color: #333333;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+.newsList .list .item .infor .inf {
+  padding: 40rpx 0;
+  font-size: 24rpx;
+  color: #999999;
+}
+.newsList .list .item .infor .inf .txt {
+  margin-top: 25rpx;
+  text-indent: 40rpx;
+  line-height: 36rpx;
+}
+

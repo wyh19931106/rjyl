@@ -1,0 +1,22 @@
+
+<view class="detection">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" data-wpy-evt="8-0" bindchange="_proxy" style="height:{{imgBoxSize}}rpx;" class="top_show">
+        <swiper-item wx:for="{{ swiper_img }}" wx:for-index="key" wx:for-item="item" wx:key="key">
+            <image src="{{ imgPath + item.path }}" mode="widthFix" data-wpy-evt="8-1" bindload="_proxy" class="slide-image"></image>
+        </swiper-item>
+    </swiper>
+    <view class="nav">
+        <view data-wpy-evt="8-2" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_btn_detection1.png" alt="" mode="widthFix"></image>
+        </view>
+        <view data-wpy-evt="8-3" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_btn_detection2.png" alt="" mode="widthFix"></image>
+        </view>
+        <view data-wpy-evt="8-4" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_btn_detection3.png" alt="" mode="widthFix"></image>
+        </view>
+        <view data-wpy-evt="8-5" bindtap="_proxy" class="nav_item">
+            <image src="../images/icon_btn_detection4.png" alt="" mode="widthFix"></image>
+        </view>
+    </view>
+</view>

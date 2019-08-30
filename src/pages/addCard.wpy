@@ -1,0 +1,238 @@
+<style lang="less">
+    .addCard {
+        .form {
+            margin-top: 20rpx;
+            .item {
+                display: flex;
+                align-items: center;
+                height: 98rpx;
+                border-bottom: 1rpx solid rgba(0,0,0,0.08);
+                background: #ffffff;
+                font-size: 30rpx;
+                color: #333333;
+                padding: 0 25rpx;
+                label {
+                    width: 150rpx;
+                    height: auto;
+                }
+                input {
+                    flex: 1;
+                    overflow: hidden;
+                }
+                .btn {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 204rpx;
+                    height: 60rpx;
+                    font-size: 26rpx;
+                    color: #999999;
+                    border-radius: 30rpx;
+                    border: 1rpx solid #cccccc;
+                }
+                .img_code {
+                    width: 200rpx;
+                    height: auto;
+                    background: #f1f1f1;
+                    image {
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+        }
+        .default {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80rpx;
+            padding: 0 25rpx;
+            margin-top: 20rpx;
+            font-size: 30rpx;
+            background: #ffffff;
+            image {
+                width: 106rpx;
+                height: auto;
+            }
+        }
+        .confirm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 100rpx 25rpx 0;
+            height: 86rpx;
+            background: #03447c;
+            border-radius: 8rpx;
+            color: #ffffff;
+            font-size: 36rpx;
+        }
+    }
+</style>
+<template>
+    <div class="addCard">
+        <div class="form">
+            <div class="item">
+                <label for="">持卡人</label>
+                <input type="text" placeholder="请输入持卡人姓名" v-model="form.name" placeholder-style="color: #999999;font-size: 28rpx;" />
+            </div>
+            <div class="item">
+                <label for="">卡号</label>
+                <input type="number" placeholder="请输入卡号" v-model="form.bank_no" placeholder-style="color: #999999;font-size: 28rpx;" @input="inputPhoneCom('bank_no')"/>
+            </div>
+            <div class="item">
+                <label for="">支行</label>
+                <input type="text" placeholder="请输入支行信息" v-model="form.bank_name" placeholder-style="color: #999999;font-size: 28rpx;" />
+            </div>
+            <div class="item">
+                <label for="">手机号</label>
+                <input type="number" maxlength="11" v-model="form.mobile" placeholder="请输入持卡人手机号" placeholder-style="color: #999999;font-size: 28rpx;" @input="inputPhoneCom('mobile')"/>
+            </div>
+            <div class="item">
+                <label for="imgCode">图形码</label>
+                <input type="text" id="imgCode" v-model="form.imgCode" placeholder="请输入图形验证码" placeholder-style="color: #999999;font-size: 28rpx;" />
+                <div class="img_code" @tap="getImgCode">
+                    <img src="{{imgCodeUrl}}" alt="" mode="widthFix" />
+                </div>
+            </div>
+            <div class="item">
+                <label for="">验证码</label>
+                <input type="text" v-model="form.phoneCode" placeholder="请输入短信验证码" placeholder-style="color: #999999;font-size: 28rpx;" />
+                <span class="btn" @tap="getMsgCode">{{code_txt}}</span>
+            </div>
+        </div>
+        <div class="default">
+            <div class="txt">设置为默认收货地址</div>
+            <switch checked="{{form.isDefault}}" bindchange="setDefault"/>
+        </div>
+        <div class="confirm" @tap="bindConfirm">确定</div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            imgCodeUrl: '',  //图形验证码
+            captcha_key: '',  //获取手机验证码的key
+            finished: true,  //获取验证码计时结束
+            code_txt: '获取验证码',
+            form: {
+                name: '',
+                bank_no: '',
+                bank_name: '',
+                mobile: '',
+                imgCode: '',
+                phoneCode: '',
+                isDefault: 1
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 获取手机验证码
+            getMsgCode() {
+                let that = this;
+                let time = 60;
+                if (!that.finished) {
+                    return false;
+                }
+                if(!that.form.mobile.trim()) {
+                    that.toast('手机号不能为空');
+                    return false;
+                }
+                if (!that.isPhone(that.form.mobile.trim())) {
+                    that.toast('手机号格式错误');
+                    return false;
+                }
+                if(!that.form.imgCode.trim()) {
+                    that.toast('图形码不能为空');
+                    return false;
+                }
+                that.getPhoneCode(that.form.imgCode, that.form.mobile, 4, function () {
+                    var timer = setInterval(function () {
+                        if(time >1) {
+                            time--;
+                            that.code_txt = '重新获取('+time+'s)';
+                            that.finished = false;
+                        } else {
+                            clearInterval(timer);
+                            that.code_txt = '获取验证码';
+                            that.finished = true;
+                        }
+                    },1000)
+                });
+            },
+            // 设置默认
+            setDefault() {
+                if(this.form.isDefault == 1) {
+                    this.form.isDefault = 0;
+                } else {
+                    this.form.isDefault = 1;
+                }
+            },
+            // 添加
+            bindConfirm() {
+                let that = this;
+                if(!that.form.name) {
+                    that.toast('持卡人姓名不能为空');
+                    return fale;
+                }
+                if(!that.form.bank_no) {
+                    that.toast('银行卡号不能为空');
+                    return fale;
+                }
+                if(!that.form.bank_name) {
+                    that.toast('支行信息不能为空');
+                    return fale;
+                }
+                if(!that.form.mobile.trim()) {
+                    that.toast('手机号不能为空');
+                    return false;
+                }
+                if (!that.isPhone(that.form.mobile.trim())) {
+                    that.toast('手机号格式错误');
+                    return false;
+                }
+                if(!that.form.phoneCode) {
+                    that.toast('短信验证码不能为空');
+                    return fale;
+                }
+                that.request({
+                    url: '/api/package/user/card',
+                    type: 'POST'
+                }, {
+                    name: that.form.name,
+                    number: that.form.bank_no,
+                    branch: that.form.bank_name,
+                    phone: that.form.mobile,
+                    code: that.form.phoneCode,
+                    is_default: that.form.isDefault
+                }, function (ret) {
+                    console.log(ret);
+                    that.toast('银行卡添加成功!');
+                    that.goBack(1500);
+                })
+            }
+        },
+
+        created () {
+            this.getImgCode();
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>

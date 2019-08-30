@@ -1,0 +1,341 @@
+<style lang="less">
+    .resultDetails {
+        .top_show {
+            width: 100%;
+            position: relative;
+            image {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .con {
+            position: relative;
+            margin: -84rpx 25rpx 30rpx;
+            padding: 0 20rpx;
+            background: #ffffff;
+            border-radius: 10rpx;
+            .top {
+                padding-bottom: 10rpx;
+                border-bottom: 1rpx solid #dddddd;
+                .title {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 84rpx;
+                    .txt {
+                        font-size: 30rpx;
+                        color: #333333;
+                    }
+                    .time {
+                        font-size: 24rpx;
+                        color: #999999;
+                    }
+                }
+                .looks {
+                    text-align: right;
+                    font-size: 24rpx;
+                    color: #999999;
+                }
+                .result_case {
+                    font-size: 36rpx;
+                    color: #fb5a5a;
+                    font-weight: bold;
+                }
+                .hint {
+                    font-size: 30rpx;
+                    color: #999999;
+                    line-height: 46rpx;
+                    margin-top: 15rpx;
+                }
+            }
+            .result_details {
+                padding: 0 0 30rpx;
+                margin-top: 10rpx;
+                .title {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 84rpx;
+                    font-size: 30rpx;
+                    color: #333333;
+                }
+                .time {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 30rpx;
+                    color: #999999;
+                }
+                .table {
+                    margin-top: 30rpx;
+                    .th, .tr {
+                        display: flex;
+                        height: 60rpx;
+                        font-size: 24rpx;
+                        .td {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        .td1 {
+                            flex: 1;
+                            overflow: hidden;
+                        }
+                        .td2, .td3 {
+                            width: 180rpx;
+                        }
+                    }
+                    .tr {
+                        color: #03447c;
+                        margin-bottom: 2rpx;
+                        .td2 {
+                            background: #f1f1f1;
+                        }
+                        .td1, .td3 {
+                            background: #c9dff7;
+                        }
+                    }
+                }
+                .result_write {
+                    margin-top: 30rpx;
+                    padding: 0 20rpx 100rpx;
+                    border-radius: 10rpx;
+                    border: 1rpx solid #dddddd;
+                    .tit {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        height: 70rpx;
+                        font-size: 24rpx;
+                        .docter {
+                            color: #333333;
+                        }
+                        .no {
+                            color: #fb5a5a;
+                        }
+                    }
+                    .article {
+                        margin-top: 20rpx;
+                        image {
+                            width: 100%;
+                            height: auto;
+                        }
+                    }
+                }
+            }
+            .log {
+                margin-top: 15rpx;
+                .tit {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 84rpx;
+                    font-size: 30rpx;
+                    color: #333333;
+                }
+                .img_box {
+                    width: 100%;
+                    height: auto;
+                    .img {
+                        width: 100%;
+                        height: auto;
+                        margin-bottom: 15rpx;
+                        // image {
+                        //     display: block;
+                        //     width: 100%;
+                        //     height: auto;
+                        // }
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <div class="resultDetails">
+        <div class="top_show">
+            <img src="@/images/img_result_top.png" alt="" mode="widthFix" />
+        </div>
+
+        <div class="con question_con" v-if="type==1">
+            <div class="top">
+                <div class="title">
+                    <div class="tit">{{details.qn_title}}</div>
+                    <div class="time">{{details.scores_updated_at}}</div>
+                </div>
+                <div class="looks"></div>
+                <!-- <div class="result_case">阴虚质</div> -->
+                <div class="hint">{{details.qn_Results}}</div>
+            </div>
+            <div class="result_details">
+                <div class="title">
+                    你的问卷结果
+                </div>
+                <div class="time">
+                    {{details.scores_updated_at}}
+                </div>
+                <div class="table">
+                    <div class="th">
+                        <div class="td td1">项目内容</div>
+                        <div class="td td2">答案</div>
+                        <div class="td td3">结果</div>
+                    </div>
+                    <div class="tr" v-for="(item, key) in details.q_Results.rows">
+                        <div class="td td1">{{item[1]}}</div>
+                        <div class="td td2">{{item[4]}}</div>
+                        <div class="td td3">{{item[5]}}</div>
+                    </div>
+                </div>
+                <div class="result_write">
+                    <div class="tit">
+                        <div class="docter">医生诊断</div>
+                        <div class="no">{{details.qa_no}}</div>
+                    </div>
+                    <div class="article">
+                        <rich-text  nodes="{{details.diagnosis}}"></rich-text>
+                        <!-- <img src="@/images/img_banner_default.png" alt="" mode="widthFix" /> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="con upload_con" v-if="type==2">
+            <!-- <div class="top">
+                <div class="title">
+                    <div class="tit">我的问卷</div>
+                    <div class="time">2019/8/4 15:19:20</div>
+                </div>
+                <div class="looks">查看6次</div>
+                <div class="result_case">阴虚质</div>
+                <div class="hint">兼有气质虚，痰湿质，湿热质，血瘀质。</div>
+            </div> -->
+            <div class="result_details">
+                <div class="title">
+                    你的检测结果
+                </div>
+                <div class="time">
+                    {{details.updated_at}}
+                </div>
+                <div class="result_write">
+                    <div class="tit">
+                        <div class="docter">医生诊断</div>
+                        <div class="no">{{details.qa_no}}</div>
+                    </div>
+                    <div class="article">
+                        <rich-text  nodes="{{details.conclusion}}"></rich-text>
+                        <!-- <img src="@/images/img_banner_default.png" alt="" mode="widthFix" /> -->
+                    </div>
+                </div>
+                <div class="log">
+                    <div class="tit">上传记录</div>
+                    <div class="img_box">
+                        <div class="img" v-for="(path, key) in img_arr" @tap="previewImg(path)">
+                            <img :src="path" alt="" mode="widthFix" />
+                        </div>
+                        <!-- <div class="img" v-if="details.img1">
+                            <img :src="imgPath + details.img1" alt="" mode="widthFix" />
+                        </div>
+                        <div class="img" v-if="details.img2">
+                            <img :src="imgPath + details.img2" alt="" mode="widthFix" />
+                        </div>
+                        <div class="img" v-if="details.img3">
+                            <img :src="imgPath + details.img3" alt="" mode="widthFix" />
+                        </div>
+                        <div class="img" v-if="details.img4">
+                            <img :src="imgPath + details.img4" alt="" mode="widthFix" />
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            type: 1,  //1. 问卷   2.上传
+            details: {},
+            img_arr: []
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            // 在线问卷详情
+            getQuestionDetails(no) {
+                let that = this;
+                that.request({
+                    url: '/api/get_scores_results',
+                    type: 'GET'
+                }, {
+                    qa_no: no
+                }, function (ret) {
+                    that.details = ret.data;
+                })
+            },
+            // 图片上传详情
+            getUploadDetails(id) {
+                let that = this;
+                that.request({
+                    url: '/api/selfhelp_show',
+                    type: 'GET'
+                }, {
+                    id: id
+                }, function (ret) {
+                    that.details = ret.data[0];
+                    var arr = [];
+                    if (that.details.img1) {
+                        arr.push(that.imgPath + that.details.img1);
+                    }
+                    if (that.details.img2) {
+                        arr.push(that.imgPath + that.details.img2);
+                    }
+                    if (that.details.img3) {
+                        arr.push(that.imgPath + that.details.img3);
+                    }
+                    if (that.details.img4) {
+                        arr.push(that.imgPath + that.details.img4);
+                    }
+                    that.img_arr = arr;
+                })
+            },
+            // 点击预览图片
+            previewImg(path) {
+                let that = this;
+                wx.previewImage({
+                    current: path, // 当前显示图片的http链接
+                    urls: that.img_arr // 需要预览的图片http链接列表
+                })
+            }
+        },
+
+        created () {
+
+        },
+        onLoad(options) {
+            this.type = options.type;
+            if (this.type == 1) {
+                this.getQuestionDetails(options.no);
+            } else {
+                this.getUploadDetails(options.no);
+            }
+
+        }
+    });
+</script>
+<config>
+    {
+        navigationBarTitleText: '结果详情',
+        usingComponents: {
+
+        }
+    }
+</config>

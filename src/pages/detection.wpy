@@ -1,0 +1,131 @@
+<style lang="less">
+    .detection {
+        .top_show {
+            width: 100%;
+            height: auto;
+            image {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        }
+        .nav {
+            background: #ffffff;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 25rpx 20rpx 5rpx;
+            .nav_item {
+                width: 50%;
+                margin-bottom: 20rpx;
+                image {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .nav_item:nth-child(2n+1) {
+                padding-right: 10rpx;
+            }
+            .nav_item:nth-child(2n) {
+                padding-left: 10rpx;
+            }
+        }
+    }
+</style>
+
+<template>
+    <div class="detection">
+        <swiper class="top_show" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" bindchange="swiperChange" style="height:{{imgBoxSize}}rpx;">
+            <swiper-item v-for="(item, key) in swiper_img">
+                <image :src="imgPath + item.path" class="slide-image" mode="widthFix" bindload="imageLoad" />
+            </swiper-item>
+        </swiper>
+        <div class="nav">
+            <div class="nav_item" @tap="openWin('/pages/onlineQuestion')">
+                <img src="@/images/icon_btn_detection1.png" alt="" mode="widthFix"/>
+            </div>
+            <div class="nav_item" @tap="openWin('/pages/uploadCase')">
+                <img src="@/images/icon_btn_detection2.png" alt="" mode="widthFix"/>
+            </div>
+            <div class="nav_item" @tap="openWin('/pages/uploadSelf')">
+                <img src="@/images/icon_btn_detection3.png" alt="" mode="widthFix"/>
+            </div>
+            <div class="nav_item" @tap="openWin('/pages/otherCase')">
+                <img src="@/images/icon_btn_detection4.png" alt="" mode="widthFix"/>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+    import eventHub from '../common/eventHub'
+    import { mapState } from '@wepy/x'
+    import commonMixin from '../mixins/common'
+    wepy.page({
+        mixins: [commonMixin],
+        data: {
+            indicatorDots: false,
+            autoplay: false,
+            interval: 2500,
+            duration: 500,
+            swiper_img: [],
+            swiperCurrent: 0, // 所有图片的高度
+            imgheights: [], // 图片宽度
+            imgwidth: 750, // 默认
+            current: 0,
+            imgBoxSize: 0
+        },
+        computed: {
+
+        },
+
+        methods: {
+            // 获取banner
+            getBanner() {
+                let that = this;
+                that.request({
+                    url: '/api/package/sliders/list',
+                    type: 'GET'
+                },{
+                    position_code: 'self_help'
+                },function (ret) {
+                    that.swiper_img = ret.data.self_help;
+                })
+            },
+            // swiper
+            swiperChange(e) {
+                this.swiperCurrent = e.$wx.detail.current;
+                this.current = e.$wx.detail.current;
+            },
+            imageLoad(e) {
+                this.imgheights = [];
+                // 获取图片真实宽度
+                var imgwidth = e.$wx.detail.width;
+                var imgheight = e.$wx.detail.height;
+                // 宽高比
+                var ratio = imgwidth / imgheight;
+                // 计算的高度值
+                var viewHeight = 750 / ratio;
+                imgheight = viewHeight;
+                // 把每一张图片的高度记录到数组里
+                this.imgheights.push(imgheight);
+                // 取出图片数组中最高的一个值
+                this.imgBoxSize = Math.max.apply(null, this.imgheights);
+            },
+        },
+
+        created () {
+            this.getBanner();
+        }
+    });
+</script>
+
+<config>
+    {
+        navigationBarTitleText: '瑞脊医疗',
+        usingComponents: {
+
+        }
+    }
+</config>
